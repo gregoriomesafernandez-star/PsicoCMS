@@ -1,0 +1,100 @@
+:root {
+    --panel-primario: #3d5a80;
+    --panel-primario-oscuro: #2f4763;
+    --panel-primario-claro: #5b7ba5;
+    --panel-primario-suave: #e8eef5;
+
+    --panel-fondo: #f4f6fa;
+    --panel-superficie: #ffffff;
+    --panel-superficie-suave: #f8fafc;
+    --panel-sidebar: #ffffff;
+
+    --panel-texto: #1f2933;
+    --panel-texto-suave: #6b7785;
+    --panel-texto-tenue: #9aa5b1;
+    --panel-borde: #e3e8ef;
+    --panel-borde-fuerte: #cbd4e1;
+
+    --panel-exito: #3f7d59;
+    --panel-exito-suave: #e7f3ec;
+    --panel-error: #b6483f;
+    --panel-error-suave: #fbeceb;
+    --panel-atencion: #a8712a;
+    --panel-atencion-suave: #fdf2e3;
+    --panel-info: #3d5a80;
+    --panel-info-suave: #e8eef5;
+
+    --panel-radio: 1.2rem;
+    --panel-radio-pequeno: 0.8rem;
+    --panel-sombra: 0 0.1rem 0.3rem rgba(31, 41, 51, 0.06), 0 0.2rem 1.2rem rgba(31, 41, 51, 0.05);
+    --panel-sombra-alta: 0 0.8rem 3.2rem rgba(31, 41, 51, 0.16);
+
+    --panel-sidebar-ancho: 26rem;
+    --panel-cabecera-alto: 7rem;
+
+    --panel-transicion: 0.2s ease;
+}
+
+html {
+    font-size: 10px;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body.panel {
+    display: flex;
+    min-height: 100vh;
+    margin: 0;
+    font-family: "lexend", "Segoe UI", sans-serif;
+    font-size: 1.5rem;
+    line-height: 1.6;
+    color: var(--panel-texto);
+    background-color: var(--panel-fondo);
+}
+
+h1, h2, h3, h4, p, ul, ol, figure {
+    margin: 0;
+}
+
+ul, ol {
+    padding: 0;
+    list-style: none;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    font-family: inherit;
+    font-size: inherit;
+}
+
+img {
+    max-width: 100%;
+}
+
+:focus-visible {
+    outline: 0.3rem solid var(--panel-primario-claro);
+    outline-offset: 0.2rem;
+}
+
+.salto-contenido {
+    position: absolute;
+    left: -999rem;
+    z-index: 100;
+    padding: 1.2rem 2rem;
+    border-radius: 0 0 var(--panel-radio-pequeno) 0;
+    background-color: var(--panel-primario);
+    color: #ffffff;
+}
+
+.salto-contenido:focus {
+    left: 0;
+    top: 0;
+}

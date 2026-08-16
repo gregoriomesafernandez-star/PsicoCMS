@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AccesoController;
 use App\Http\Controllers\Instalacion\InstalacionController;
+use App\Http\Controllers\Panel\InicioController;
 use Illuminate\Support\Facades\Route;
 
 Route::controller(InstalacionController::class)->prefix('instalacion')->name('instalacion.')->group(function () {
@@ -23,6 +24,6 @@ Route::controller(AccesoController::class)->middleware('guest')->group(function 
 });
 
 Route::middleware('auth')->prefix('panel-psicologa')->name('panel.')->group(function () {
-    Route::view('/', 'panel.pendiente')->name('inicio');
+    Route::get('/', InicioController::class)->name('inicio');
     Route::post('/salir', [AccesoController::class, 'salir'])->name('salir');
 });

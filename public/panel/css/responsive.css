@@ -1,0 +1,128 @@
+@media (max-width: 1280px) {
+    .rejilla--4 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 1100px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+
+    .sidebar--abierta {
+        transform: translateX(0);
+        box-shadow: var(--panel-sombra-alta);
+    }
+
+    .sidebar__cerrar {
+        display: block;
+    }
+
+    .panel__principal {
+        margin-left: 0;
+    }
+
+    .cabecera__menu {
+        display: block;
+    }
+
+    .rejilla--principal,
+    .rejilla--3 {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .cabecera {
+        gap: 1rem;
+        padding: 0 1.6rem;
+    }
+
+    .cabecera__boton-texto,
+    .perfil__nombre,
+    .perfil__flecha {
+        display: none;
+    }
+
+    .buscador__campo {
+        padding: 1.1rem 1.4rem 1.1rem 4rem;
+    }
+
+    .panel__contenido {
+        padding: 2.4rem 1.6rem 4rem;
+    }
+
+    .pagina__cabecera {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1.6rem;
+    }
+
+    .pagina__titulo {
+        font-size: 2.3rem;
+    }
+
+    .pagina__acciones .boton {
+        flex: 1;
+    }
+
+    .rejilla--2,
+    .rejilla--4 {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .card__cabecera {
+        flex-direction: column;
+        gap: 1.2rem;
+        padding: 1.8rem;
+    }
+
+    .card__cuerpo {
+        padding: 1.8rem;
+    }
+
+    .modal__pie {
+        flex-direction: column-reverse;
+    }
+
+    .modal__pie .boton {
+        width: 100%;
+    }
+
+    .toasts {
+        left: 1.6rem;
+        right: 1.6rem;
+        bottom: 1.6rem;
+    }
+
+    .toast {
+        min-width: 0;
+        max-width: none;
+    }
+
+    .paginacion {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+    }
+
+    .paginacion__enlaces .pagination {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar {
+        width: min(88vw, var(--panel-sidebar-ancho));
+    }
+
+    .avisos__menu,
+    .perfil__menu {
+        width: min(88vw, 28rem);
+    }
+
+    .buscador__campo::placeholder {
+        font-size: 1.3rem;
+    }
+}
