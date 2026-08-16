@@ -13,17 +13,22 @@ class ConfiguracionDisponibilidad extends Model
         'duracion_presencial',
         'descanso_online',
         'descanso_presencial',
-        'descanso_activo',
+        'descanso_online_activo',
+        'descanso_presencial_activo',
         'hora_inicio',
         'hora_fin',
         'modo_vacaciones',
+        'mensaje_vacaciones',
+        'vuelvo_el',
         'requiere_reconfig_online',
         'requiere_reconfig_presencial',
     ];
 
     protected $casts = [
-        'descanso_activo' => 'boolean',
+        'descanso_online_activo' => 'boolean',
+        'descanso_presencial_activo' => 'boolean',
         'modo_vacaciones' => 'boolean',
+        'vuelvo_el' => 'date',
         'requiere_reconfig_online' => 'boolean',
         'requiere_reconfig_presencial' => 'boolean',
     ];

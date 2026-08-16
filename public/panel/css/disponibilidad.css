@@ -1,0 +1,386 @@
+.separado {
+    margin-bottom: 2.4rem;
+}
+
+.descanso {
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border: 0.1rem solid var(--panel-borde);
+    border-radius: var(--panel-radio-pequeno);
+    background-color: var(--panel-superficie-suave);
+}
+
+.descanso__cabecera {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1.6rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.6rem;
+}
+
+.descanso__titulo {
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.descanso__ayuda {
+    font-size: 1.3rem;
+    color: var(--panel-texto-suave);
+}
+
+.descanso__tarjetas {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.6rem;
+}
+
+.descanso__tarjeta {
+    padding: 1.8rem;
+    border: 0.1rem solid var(--panel-borde);
+    border-radius: var(--panel-radio-pequeno);
+    background-color: var(--panel-superficie);
+    transition: border-color var(--panel-transicion);
+}
+
+.descanso__tarjeta--activa {
+    border-color: var(--panel-exito);
+}
+
+.descanso__fila {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.2rem;
+    margin-bottom: 1.6rem;
+}
+
+.descanso__modalidad {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 1.45rem;
+    font-weight: 600;
+}
+
+.descanso__modalidad i {
+    color: var(--panel-texto-suave);
+}
+
+.descanso__tarjeta--activa .descanso__modalidad i {
+    color: var(--panel-exito);
+}
+
+.descanso__tarjeta .campo {
+    margin-bottom: 0;
+}
+
+.descanso__tarjeta .campo__control[readonly] {
+    background-color: var(--panel-superficie-suave);
+    color: var(--panel-texto-tenue);
+}
+
+.descanso__resultado {
+    margin-top: 1rem;
+    font-size: 1.3rem;
+    color: var(--panel-texto-suave);
+}
+
+.descanso__resultado strong {
+    color: var(--panel-primario);
+}
+
+.acciones-formulario {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.6rem;
+    flex-wrap: wrap;
+    padding-top: 2rem;
+    border-top: 0.1rem solid var(--panel-borde);
+}
+
+.acciones-formulario__botones {
+    display: flex;
+    gap: 1.2rem;
+    margin-left: auto;
+}
+
+.modo-vacaciones {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.modo-vacaciones__estado {
+    margin-bottom: 0.6rem;
+}
+
+.mensaje-vacaciones {
+    padding-top: 2rem;
+    margin-top: 2rem;
+    border-top: 0.1rem solid var(--panel-borde);
+}
+
+.mensaje-vacaciones__titulo {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.mensaje-vacaciones__ayuda {
+    margin: 0.4rem 0 1.6rem;
+    font-size: 1.3rem;
+    color: var(--panel-texto-suave);
+}
+
+.mensaje-vacaciones textarea.campo__control {
+    min-height: 9rem;
+}
+
+.mensaje-vacaciones .campo:last-of-type {
+    margin-bottom: 2rem;
+}
+
+.periodo-formulario {
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+    border-bottom: 0.1rem solid var(--panel-borde);
+}
+
+.periodos {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.periodos__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.6rem;
+    padding: 1.4rem 1.6rem;
+    border: 0.1rem solid var(--panel-borde);
+    border-radius: var(--panel-radio-pequeno);
+    background-color: var(--panel-superficie-suave);
+}
+
+.periodos__fechas {
+    font-size: 1.45rem;
+    font-weight: 600;
+}
+
+.periodos__detalle {
+    font-size: 1.3rem;
+    color: var(--panel-texto-suave);
+}
+
+.pestanas {
+    display: flex;
+    gap: 0.8rem;
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+    border-bottom: 0.1rem solid var(--panel-borde);
+}
+
+.pestanas__boton {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 1.1rem 2rem;
+    border: 0.1rem solid var(--panel-borde-fuerte);
+    border-radius: var(--panel-radio-pequeno);
+    background-color: var(--panel-superficie);
+    font-size: 1.45rem;
+    font-weight: 600;
+    color: var(--panel-texto-suave);
+    cursor: pointer;
+    transition: all var(--panel-transicion);
+}
+
+.pestanas__boton:hover {
+    border-color: var(--panel-primario);
+    color: var(--panel-primario);
+}
+
+.pestanas__boton--activo {
+    border-color: var(--panel-primario);
+    background-color: var(--panel-primario);
+    color: #ffffff;
+}
+
+.pestanas__boton--activo:hover {
+    color: #ffffff;
+}
+
+.panel-modalidad[hidden] {
+    display: none;
+}
+
+.rejilla-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.4rem 1.6rem;
+    margin-bottom: 2rem;
+    border-radius: var(--panel-radio-pequeno);
+    background-color: var(--panel-primario-suave);
+    font-size: 1.4rem;
+    color: var(--panel-primario-oscuro);
+}
+
+.rejilla-horaria__contenedor {
+    max-height: 56rem;
+    margin-bottom: 2rem;
+    overflow: auto;
+    border: 0.1rem solid var(--panel-borde);
+    border-radius: var(--panel-radio-pequeno);
+}
+
+.rejilla-horaria {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.rejilla-horaria thead th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    padding: 1.2rem 0.8rem;
+    border-bottom: 0.1rem solid var(--panel-borde);
+    background-color: var(--panel-superficie);
+    font-size: 1.3rem;
+    text-align: center;
+}
+
+.rejilla-horaria__dia {
+    display: block;
+    margin-bottom: 0.4rem;
+}
+
+.rejilla-horaria__todos {
+    padding: 0.4rem 0.8rem;
+    border: 0.1rem solid var(--panel-borde);
+    border-radius: 0.6rem;
+    background-color: var(--panel-superficie-suave);
+    font-size: 1.1rem;
+    color: var(--panel-texto-suave);
+    cursor: pointer;
+}
+
+.rejilla-horaria__todos:hover {
+    border-color: var(--panel-primario);
+    color: var(--panel-primario);
+}
+
+.rejilla-horaria__hora {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    padding: 0.6rem 1.2rem;
+    border-right: 0.1rem solid var(--panel-borde);
+    background-color: var(--panel-superficie);
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--panel-texto-suave);
+    white-space: nowrap;
+}
+
+.rejilla-horaria td {
+    padding: 0.3rem;
+    border-bottom: 0.1rem solid var(--panel-borde);
+}
+
+.hueco {
+    display: block;
+    cursor: pointer;
+    user-select: none;
+}
+
+.hueco__entrada {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.hueco__marca {
+    display: block;
+    padding: 0.9rem 0.6rem;
+    border: 0.1rem solid var(--panel-borde);
+    border-radius: 0.6rem;
+    background-color: var(--panel-superficie);
+    font-size: 1.2rem;
+    text-align: center;
+    color: var(--panel-texto-tenue);
+    transition: all var(--panel-transicion);
+}
+
+.hueco:hover .hueco__marca {
+    border-color: var(--panel-primario);
+    background-color: var(--panel-primario-suave);
+    color: var(--panel-primario);
+}
+
+.hueco--activo .hueco__marca {
+    border-color: var(--panel-exito);
+    background-color: var(--panel-exito);
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.hueco__entrada:focus-visible + .hueco__marca {
+    outline: 0.3rem solid var(--panel-primario-claro);
+    outline-offset: 0.2rem;
+}
+
+.contador {
+    font-size: 1.4rem;
+    color: var(--panel-texto-suave);
+}
+
+.contador strong {
+    color: var(--panel-primario);
+}
+
+@media (max-width: 768px) {
+    .descanso__tarjetas {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .acciones-formulario {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .acciones-formulario__botones {
+        flex-direction: column;
+        margin-left: 0;
+    }
+
+    .modo-vacaciones {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.2rem;
+    }
+
+    .periodos__item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .pestanas__boton {
+        flex: 1;
+        justify-content: center;
+        padding: 1.1rem 1.2rem;
+    }
+
+    .rejilla-horaria__hora {
+        padding: 0.6rem;
+        font-size: 1.2rem;
+    }
+
+    .hueco__marca {
+        padding: 0.8rem 0.3rem;
+        font-size: 1.05rem;
+    }
+}

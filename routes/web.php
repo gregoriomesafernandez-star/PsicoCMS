@@ -2,7 +2,10 @@
 
 use App\Http\Controllers\Auth\AccesoController;
 use App\Http\Controllers\Instalacion\InstalacionController;
+use App\Http\Controllers\Panel\CitaController;
+use App\Http\Controllers\Panel\DisponibilidadController;
 use App\Http\Controllers\Panel\InicioController;
+use App\Http\Controllers\Panel\VacacionesController;
 use Illuminate\Support\Facades\Route;
 
 Route::controller(InstalacionController::class)->prefix('instalacion')->name('instalacion.')->group(function () {
@@ -24,6 +27,29 @@ Route::controller(AccesoController::class)->middleware('guest')->group(function 
 });
 
 Route::middleware('auth')->prefix('panel-psicologa')->name('panel.')->group(function () {
+
     Route::get('/', InicioController::class)->name('inicio');
     Route::post('/salir', [AccesoController::class, 'salir'])->name('salir');
+
+    Route::controller(DisponibilidadController::class)->prefix('disponibilidad')->group(function () {
+        Route::get('/', 'index')->name('disponibilidad');
+        Route::put('/configuracion', 'guardarConfiguracion')->name('disponibilidad.configuracion');
+        Route::put('/franjas', 'guardarFranjas')->name('disponibilidad.franjas');
+        Route::put('/modo-vacaciones', 'modoVacaciones')->name('disponibilidad.modo-vacaciones');
+    });
+
+    Route::controller(VacacionesController::class)->prefix('vacaciones')->name('vacaciones.')->group(function () {
+        Route::post('/', 'store')->name('store');
+        Route::delete('/{periodo}', 'destroy')->name('destroy');
+    });
+
+    Route::controller(CitaController::class)->prefix('citas')->name('citas.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/huecos', 'huecos')->name('huecos');
+        Route::post('/', 'store')->name('store');
+        Route::put('/{cita}', 'update')->name('update');
+        Route::patch('/{cita}/estado', 'cambiarEstado')->name('estado');
+        Route::delete('/{cita}', 'destroy')->name('destroy');
+    });
+
 });

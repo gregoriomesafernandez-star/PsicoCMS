@@ -96,6 +96,15 @@
     cursor: not-allowed;
 }
 
+.boton--inactivo {
+    color: var(--panel-texto-tenue);
+    cursor: not-allowed;
+}
+
+.boton--inactivo:hover {
+    background-color: var(--panel-superficie);
+}
+
 .campo {
     margin-bottom: 2rem;
 }

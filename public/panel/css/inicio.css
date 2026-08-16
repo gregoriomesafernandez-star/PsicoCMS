@@ -1,54 +1,142 @@
-.inicio__pasos {
-    margin-top: 2.4rem;
+.separado {
+    margin-bottom: 2.4rem;
 }
 
-.inicio__subtitulo {
-    margin-bottom: 1.6rem;
-    font-size: 1.6rem;
-    font-weight: 700;
-}
-
-.pasos {
+.agenda {
     display: flex;
     flex-direction: column;
     gap: 1.2rem;
 }
 
-.pasos__item {
+.agenda__item {
     display: flex;
     align-items: center;
     gap: 1.6rem;
-    padding: 1.6rem;
-    border: 0.1rem solid var(--panel-borde);
+    padding: 1.4rem 1.6rem;
+    border-left: 0.4rem solid var(--panel-primario);
     border-radius: var(--panel-radio-pequeno);
     background-color: var(--panel-superficie-suave);
 }
 
-.pasos__numero {
-    display: grid;
-    place-items: center;
-    width: 3.4rem;
-    height: 3.4rem;
-    flex-shrink: 0;
-    border-radius: 50%;
-    background-color: var(--panel-primario-suave);
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: var(--panel-primario);
+.agenda__item--online {
+    border-left-color: var(--panel-primario);
 }
 
-.pasos__item div {
+.agenda__item--presencial {
+    border-left-color: var(--panel-exito);
+}
+
+.agenda__hora {
+    display: flex;
+    flex-direction: column;
+    min-width: 6.4rem;
+}
+
+.agenda__hora strong {
+    font-size: 1.7rem;
+}
+
+.agenda__hora small {
+    font-size: 1.2rem;
+    color: var(--panel-texto-suave);
+}
+
+.agenda__datos {
     flex: 1;
 }
 
-.pasos__titulo {
+.agenda__paciente {
     font-size: 1.5rem;
     font-weight: 600;
 }
 
-.pasos__texto {
-    font-size: 1.35rem;
+.agenda__modalidad {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 1.3rem;
     color: var(--panel-texto-suave);
+}
+
+.proxima__fecha {
+    font-size: 1.35rem;
+    text-transform: capitalize;
+    color: var(--panel-texto-suave);
+}
+
+.proxima__hora {
+    margin: 0.4rem 0;
+    font-size: 3.2rem;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--panel-primario);
+}
+
+.proxima__paciente {
+    margin-bottom: 1.2rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.semana {
+    display: flex;
+    flex-direction: column;
+}
+
+.semana__dia {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.2rem;
+    padding: 1.1rem 0;
+    border-bottom: 0.1rem solid var(--panel-borde);
+}
+
+.semana__dia:last-child {
+    border-bottom: none;
+}
+
+.semana__nombre {
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.semana__horas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    justify-content: flex-end;
+}
+
+.semana__rango {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 1rem;
+    border-radius: 2rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.semana__rango--online {
+    background-color: var(--panel-info-suave);
+    color: var(--panel-primario);
+}
+
+.semana__rango--presencial {
+    background-color: var(--panel-exito-suave);
+    color: var(--panel-exito);
+}
+
+.semana__dia--libre .semana__nombre {
+    color: var(--panel-texto-tenue);
+}
+
+.semana__libre {
+    font-size: 1.3rem;
+    font-style: italic;
+    color: var(--panel-texto-tenue);
 }
 
 .datos {
@@ -84,9 +172,126 @@
     text-align: right;
 }
 
+.pasos-sugeridos {
+    margin-top: 2.4rem;
+}
+
+.pasos-sugeridos__contador {
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--panel-texto-suave);
+    white-space: nowrap;
+}
+
+.progreso-pasos {
+    margin-bottom: 2rem;
+}
+
+.progreso-pasos__barra {
+    height: 0.8rem;
+    border-radius: 0.4rem;
+    background-color: var(--panel-borde);
+    overflow: hidden;
+}
+
+.progreso-pasos__relleno {
+    display: block;
+    height: 100%;
+    border-radius: 0.4rem;
+    background-color: var(--panel-exito);
+    transition: width 0.4s ease;
+}
+
+.lista-pasos {
+    display: flex;
+    flex-direction: column;
+}
+
+.lista-pasos__item {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    padding: 1.1rem 0;
+    border-bottom: 0.1rem solid var(--panel-borde);
+    font-size: 1.45rem;
+}
+
+.lista-pasos__item:last-child {
+    border-bottom: none;
+}
+
+.lista-pasos__icono {
+    flex-shrink: 0;
+    width: 2rem;
+    font-size: 1.7rem;
+    text-align: center;
+    color: var(--panel-borde-fuerte);
+}
+
+.lista-pasos__icono--hecho {
+    color: var(--panel-exito);
+}
+
+.lista-pasos__item--hecho .lista-pasos__texto,
+.lista-pasos__item--hecho .lista-pasos__enlace {
+    text-decoration: line-through;
+    color: var(--panel-texto-tenue);
+}
+
+.lista-pasos__enlace {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: var(--panel-primario);
+    font-weight: 600;
+}
+
+.lista-pasos__enlace:hover {
+    text-decoration: underline;
+}
+
+.lista-pasos__flecha {
+    font-size: 1.2rem;
+    transition: transform var(--panel-transicion);
+}
+
+.lista-pasos__enlace:hover .lista-pasos__flecha {
+    transform: translateX(0.3rem);
+}
+
+.lista-pasos__pendiente {
+    margin-left: auto;
+    padding: 0.3rem 1rem;
+    border-radius: 2rem;
+    background-color: var(--panel-superficie-suave);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--panel-texto-tenue);
+    white-space: nowrap;
+}
+
 @media (max-width: 768px) {
-    .pasos__item {
+    .agenda__item {
         flex-wrap: wrap;
+    }
+
+    .lista-pasos__item {
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .lista-pasos__pendiente {
+        margin-left: 3.2rem;
+    }
+
+    .semana__dia {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.6rem;
+    }
+
+    .semana__horas {
+        justify-content: flex-start;
     }
 
     .datos__fila {
