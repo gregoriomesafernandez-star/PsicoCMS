@@ -1,0 +1,14 @@
+{
+    "slug": "aurora",
+    "nombre": "Aurora",
+    "descripcion": "Lavanda y malva. Sereno, delicado y muy acogedor.",
+    "paleta": {
+        "primario": "#7b6a9e",
+        "secundario": "#584a75",
+        "fondo": "#f1eef6",
+        "texto": "#1f1b26",
+        "acento": "#b6a8d4"
+    },
+    "tipografia": "Lexend + Castoro",
+    "modos": ["landing", "multipagina"]
+}

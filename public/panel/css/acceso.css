@@ -1,0 +1,337 @@
+:root {
+    --acceso-primario: #3d5a80;
+    --acceso-primario-oscuro: #2f4763;
+    --acceso-primario-suave: #e8eef5;
+    --acceso-fondo: #f4f6fa;
+    --acceso-superficie: #ffffff;
+    --acceso-texto: #1f2933;
+    --acceso-texto-suave: #6b7785;
+    --acceso-borde: #dfe4ec;
+    --acceso-exito: #4a8f63;
+    --acceso-exito-suave: #e7f3ec;
+    --acceso-error: #b6483f;
+    --acceso-error-suave: #fbeceb;
+    --acceso-radio: 1.6rem;
+    --acceso-sombra: 0 0.4rem 3rem rgba(31, 41, 51, 0.1);
+}
+
+html {
+    font-size: 10px;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body.acceso {
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 4rem 2rem;
+    font-family: "lexend", "Segoe UI", sans-serif;
+    font-size: 1.5rem;
+    line-height: 1.6;
+    color: var(--acceso-texto);
+    background-color: var(--acceso-fondo);
+}
+
+.acceso__contenedor {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    max-width: 96rem;
+    border-radius: var(--acceso-radio);
+    overflow: hidden;
+    background-color: var(--acceso-superficie);
+    box-shadow: var(--acceso-sombra);
+}
+
+.acceso__presentacion {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3rem;
+    padding: 4.8rem 4rem;
+    background: linear-gradient(160deg, var(--acceso-primario) 0%, var(--acceso-primario-oscuro) 100%);
+    color: #ffffff;
+}
+
+.acceso__marca {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.acceso__bienvenida {
+    text-align: left;
+}
+
+.acceso__foto {
+    display: grid;
+    place-items: center;
+    width: 9rem;
+    height: 9rem;
+    margin-bottom: 2rem;
+    border: 0.3rem solid rgba(255, 255, 255, 0.35);
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: rgba(255, 255, 255, 0.15);
+    font-size: 3.2rem;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.acceso__titulo {
+    margin: 0 0 0.8rem;
+    font-size: 2.8rem;
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.acceso__eslogan {
+    margin: 0;
+    font-size: 1.5rem;
+    color: rgba(255, 255, 255, 0.82);
+}
+
+.acceso__ventajas {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 1.4rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.acceso__ventajas li {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+}
+
+.acceso__ventajas i {
+    width: 2rem;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.acceso__panel {
+    padding: 4.8rem 4rem;
+}
+
+.acceso__cabecera {
+    margin-bottom: 2.8rem;
+}
+
+.acceso__subtitulo {
+    margin: 0 0 0.6rem;
+    font-size: 2.2rem;
+    font-weight: 700;
+}
+
+.acceso__ayuda {
+    margin: 0;
+    font-size: 1.4rem;
+    color: var(--acceso-texto-suave);
+}
+
+.campo {
+    margin-bottom: 2rem;
+}
+
+.campo__etiqueta {
+    display: block;
+    margin-bottom: 0.6rem;
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.campo__grupo {
+    display: flex;
+    align-items: center;
+    border: 0.1rem solid var(--acceso-borde);
+    border-radius: 0.8rem;
+    background-color: var(--acceso-superficie);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.campo__grupo:focus-within {
+    border-color: var(--acceso-primario);
+    box-shadow: 0 0 0 0.3rem var(--acceso-primario-suave);
+}
+
+.campo__icono {
+    width: 4.4rem;
+    text-align: center;
+    color: var(--acceso-texto-suave);
+}
+
+.campo__control {
+    flex: 1;
+    width: 100%;
+    padding: 1.3rem 1.4rem 1.3rem 0;
+    border: none;
+    background: none;
+    font-family: inherit;
+    font-size: 1.5rem;
+    color: var(--acceso-texto);
+}
+
+.campo__control:focus {
+    outline: none;
+}
+
+.campo__ojo {
+    padding: 1.3rem 1.6rem;
+    border: none;
+    background: none;
+    font-size: 1.5rem;
+    color: var(--acceso-texto-suave);
+    cursor: pointer;
+}
+
+.campo__ojo:hover {
+    color: var(--acceso-primario);
+}
+
+.recordarme {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2.8rem;
+    font-size: 1.4rem;
+    color: var(--acceso-texto-suave);
+    cursor: pointer;
+}
+
+.recordarme input {
+    width: 1.8rem;
+    height: 1.8rem;
+    accent-color: var(--acceso-primario);
+    cursor: pointer;
+}
+
+.boton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    padding: 1.4rem 2.4rem;
+    border: none;
+    border-radius: 0.8rem;
+    background-color: var(--acceso-primario);
+    font-family: inherit;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--acceso-superficie);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.boton:hover {
+    background-color: var(--acceso-primario-oscuro);
+}
+
+.boton--bloque {
+    width: 100%;
+}
+
+.aviso {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2rem;
+    margin-bottom: 2.4rem;
+    padding: 1.6rem;
+    border-radius: 0.8rem;
+    font-size: 1.4rem;
+}
+
+.aviso p {
+    margin: 0;
+}
+
+.aviso--error {
+    background-color: var(--acceso-error-suave);
+    color: var(--acceso-error);
+}
+
+.aviso--exito {
+    background-color: var(--acceso-exito-suave);
+    color: var(--acceso-exito);
+}
+
+.aviso__titulo {
+    margin: 0 0 0.4rem;
+    font-weight: 700;
+}
+
+.aviso__lista {
+    margin: 0;
+    padding-left: 1.8rem;
+}
+
+.acceso__pie {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin: 2.8rem 0 0;
+    padding-top: 2.4rem;
+    border-top: 0.1rem solid var(--acceso-borde);
+    font-size: 1.3rem;
+    color: var(--acceso-texto-suave);
+}
+
+@media (max-width: 900px) {
+    .acceso__contenedor {
+        grid-template-columns: 1fr;
+        max-width: 52rem;
+    }
+
+    .acceso__presentacion {
+        gap: 2rem;
+        padding: 3.2rem 2.8rem;
+        text-align: center;
+    }
+
+    .acceso__marca {
+        justify-content: center;
+    }
+
+    .acceso__bienvenida {
+        text-align: center;
+    }
+
+    .acceso__foto {
+        margin: 0 auto 1.6rem;
+    }
+
+    .acceso__titulo {
+        font-size: 2.2rem;
+    }
+
+    .acceso__ventajas {
+        display: none;
+    }
+
+    .acceso__panel {
+        padding: 3.2rem 2.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    body.acceso {
+        padding: 2rem 1.4rem;
+    }
+
+    .acceso__presentacion,
+    .acceso__panel {
+        padding: 2.8rem 2rem;
+    }
+}

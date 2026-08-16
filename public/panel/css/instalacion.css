@@ -1,0 +1,536 @@
+:root {
+    --inst-primario: #3d5a80;
+    --inst-primario-oscuro: #2f4763;
+    --inst-primario-suave: #e8eef5;
+    --inst-fondo: #f4f6fa;
+    --inst-superficie: #ffffff;
+    --inst-texto: #1f2933;
+    --inst-texto-suave: #6b7785;
+    --inst-borde: #dfe4ec;
+    --inst-exito: #4a8f63;
+    --inst-exito-suave: #e7f3ec;
+    --inst-error: #b6483f;
+    --inst-error-suave: #fbeceb;
+    --inst-radio: 1.2rem;
+    --inst-sombra: 0 0.2rem 1.6rem rgba(31, 41, 51, 0.08);
+}
+
+html {
+    font-size: 10px;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body.instalador {
+    margin: 0;
+    padding: 4rem 2rem;
+    font-family: "lexend", "Segoe UI", sans-serif;
+    font-size: 1.5rem;
+    line-height: 1.6;
+    color: var(--inst-texto);
+    background-color: var(--inst-fondo);
+}
+
+.instalador__contenedor {
+    max-width: 76rem;
+    margin: 0 auto;
+}
+
+.instalador__cabecera {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.instalador__marca {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin: 0 0 1.6rem;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--inst-primario);
+}
+
+.instalador__titulo {
+    margin: 0 0 0.8rem;
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.instalador__descripcion {
+    margin: 0;
+    color: var(--inst-texto-suave);
+}
+
+.progreso__lista {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.8rem;
+    margin: 0 0 2.4rem;
+    padding: 0;
+    list-style: none;
+}
+
+.progreso__paso {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+    flex: 1;
+    text-align: center;
+}
+
+.progreso__numero {
+    display: grid;
+    place-items: center;
+    width: 3.6rem;
+    height: 3.6rem;
+    border: 0.2rem solid var(--inst-borde);
+    border-radius: 50%;
+    background-color: var(--inst-superficie);
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--inst-texto-suave);
+}
+
+.progreso__nombre {
+    font-size: 1.3rem;
+    color: var(--inst-texto-suave);
+}
+
+.progreso__paso--activo .progreso__numero {
+    border-color: var(--inst-primario);
+    background-color: var(--inst-primario);
+    color: var(--inst-superficie);
+}
+
+.progreso__paso--activo .progreso__nombre {
+    font-weight: 600;
+    color: var(--inst-primario);
+}
+
+.progreso__paso--hecho .progreso__numero {
+    border-color: var(--inst-exito);
+    background-color: var(--inst-exito);
+    color: var(--inst-superficie);
+}
+
+.tarjeta {
+    padding: 3.2rem;
+    border-radius: var(--inst-radio);
+    background-color: var(--inst-superficie);
+    box-shadow: var(--inst-sombra);
+}
+
+.campo {
+    margin-bottom: 2rem;
+}
+
+.campo__etiqueta {
+    display: block;
+    margin-bottom: 0.6rem;
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.campo__ayuda {
+    margin: 0.6rem 0 0;
+    font-size: 1.3rem;
+    color: var(--inst-texto-suave);
+}
+
+.campo__control,
+.campo select,
+.campo textarea {
+    width: 100%;
+    padding: 1.2rem 1.4rem;
+    border: 0.1rem solid var(--inst-borde);
+    border-radius: 0.8rem;
+    background-color: var(--inst-superficie);
+    font-family: inherit;
+    font-size: 1.5rem;
+    color: var(--inst-texto);
+}
+
+.campo__control:focus,
+.campo select:focus,
+.campo textarea:focus {
+    outline: 0.3rem solid var(--inst-primario-suave);
+    border-color: var(--inst-primario);
+}
+
+.campo textarea {
+    min-height: 12rem;
+    resize: vertical;
+}
+
+.rejilla {
+    display: grid;
+    gap: 0 2rem;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.rejilla--tres {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.bloque {
+    margin-bottom: 3.2rem;
+}
+
+.bloque__titulo {
+    margin: 0 0 0.4rem;
+    font-size: 1.9rem;
+    font-weight: 700;
+}
+
+.bloque__descripcion {
+    margin: 0 0 1.6rem;
+    font-size: 1.4rem;
+    color: var(--inst-texto-suave);
+}
+
+.repetible {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    margin-bottom: 1.2rem;
+}
+
+.repetible__fila {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1.2rem;
+    align-items: start;
+    padding: 1.6rem;
+    border: 0.1rem solid var(--inst-borde);
+    border-radius: 0.8rem;
+    background-color: var(--inst-fondo);
+}
+
+.repetible__campos {
+    display: grid;
+    gap: 1.2rem;
+}
+
+.repetible__campos--dos {
+    grid-template-columns: 1fr 1fr;
+}
+
+.repetible__campos--tres {
+    grid-template-columns: 2fr 1fr 1fr;
+}
+
+.boton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    padding: 1.3rem 2.4rem;
+    border: none;
+    border-radius: 0.8rem;
+    background-color: var(--inst-primario);
+    font-family: inherit;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--inst-superficie);
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.boton:hover {
+    background-color: var(--inst-primario-oscuro);
+}
+
+.boton--secundario {
+    background-color: transparent;
+    border: 0.1rem solid var(--inst-borde);
+    color: var(--inst-texto);
+}
+
+.boton--secundario:hover {
+    background-color: var(--inst-fondo);
+}
+
+.boton--pequeno {
+    padding: 0.9rem 1.6rem;
+    font-size: 1.3rem;
+}
+
+.boton--peligro {
+    background-color: transparent;
+    border: 0.1rem solid var(--inst-borde);
+    color: var(--inst-error);
+}
+
+.boton--peligro:hover {
+    background-color: var(--inst-error-suave);
+}
+
+.acciones {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.2rem;
+    margin-top: 3.2rem;
+    padding-top: 2.4rem;
+    border-top: 0.1rem solid var(--inst-borde);
+}
+
+.acciones--derecha {
+    justify-content: flex-end;
+}
+
+.aviso {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2rem;
+    margin-bottom: 2.4rem;
+    padding: 1.6rem;
+    border-radius: 0.8rem;
+    font-size: 1.4rem;
+}
+
+.aviso--error {
+    background-color: var(--inst-error-suave);
+    color: var(--inst-error);
+}
+
+.aviso--exito {
+    background-color: var(--inst-exito-suave);
+    color: var(--inst-exito);
+}
+
+.aviso--info {
+    background-color: var(--inst-primario-suave);
+    color: var(--inst-primario-oscuro);
+}
+
+.aviso__titulo {
+    margin: 0 0 0.4rem;
+    font-weight: 700;
+}
+
+.aviso__lista {
+    margin: 0;
+    padding-left: 1.8rem;
+}
+
+.aviso[hidden] {
+    display: none;
+}
+
+.aviso code {
+    padding: 0.2rem 0.6rem;
+    border-radius: 0.4rem;
+    background-color: rgba(31, 41, 51, 0.08);
+    font-family: "Consolas", "Courier New", monospace;
+    font-size: 1.3rem;
+}
+
+.temas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    gap: 1.6rem;
+}
+
+.tema__opcion {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.tema__tarjeta {
+    display: block;
+    height: 100%;
+    border: 0.2rem solid var(--inst-borde);
+    border-radius: 1rem;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.tema__tarjeta:hover {
+    transform: translateY(-0.3rem);
+}
+
+.tema__opcion:checked + .tema__tarjeta {
+    border-color: var(--inst-primario);
+    box-shadow: var(--inst-sombra);
+}
+
+.tema__muestra {
+    display: flex;
+    height: 9rem;
+}
+
+.tema__color {
+    flex: 1;
+}
+
+.tema__info {
+    padding: 1.4rem;
+}
+
+.tema__nombre {
+    margin: 0 0 0.4rem;
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.tema__descripcion {
+    margin: 0;
+    font-size: 1.3rem;
+    color: var(--inst-texto-suave);
+}
+
+.modos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
+    gap: 1.6rem;
+}
+
+.modo__opcion {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.modo__tarjeta {
+    display: flex;
+    gap: 1.2rem;
+    height: 100%;
+    padding: 1.8rem;
+    border: 0.2rem solid var(--inst-borde);
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+}
+
+.modo__opcion:checked + .modo__tarjeta {
+    border-color: var(--inst-primario);
+    background-color: var(--inst-primario-suave);
+}
+
+.modo__icono {
+    font-size: 2.2rem;
+    color: var(--inst-primario);
+}
+
+.modo__nombre {
+    margin: 0 0 0.4rem;
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.modo__descripcion {
+    margin: 0;
+    font-size: 1.3rem;
+    color: var(--inst-texto-suave);
+}
+
+.foto {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.foto__vista {
+    display: grid;
+    place-items: center;
+    width: 12rem;
+    height: 12rem;
+    border: 0.2rem dashed var(--inst-borde);
+    border-radius: 1rem;
+    overflow: hidden;
+    background-color: var(--inst-fondo);
+    color: var(--inst-texto-suave);
+    font-size: 2.4rem;
+}
+
+.foto__vista img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.foto__datos {
+    flex: 1;
+}
+
+.fuerza {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 0.8rem;
+}
+
+.fuerza__barra {
+    flex: 1;
+    height: 0.6rem;
+    border-radius: 0.3rem;
+    background-color: var(--inst-borde);
+    overflow: hidden;
+}
+
+.fuerza__relleno {
+    height: 100%;
+    width: 0;
+    background-color: var(--inst-error);
+    transition: width 0.2s ease, background-color 0.2s ease;
+}
+
+.fuerza__texto {
+    font-size: 1.3rem;
+    color: var(--inst-texto-suave);
+}
+
+.instalador__pie {
+    margin-top: 2rem;
+    text-align: center;
+    font-size: 1.3rem;
+    color: var(--inst-texto-suave);
+}
+
+@media (max-width: 768px) {
+    body.instalador {
+        padding: 2.4rem 1.6rem;
+    }
+
+    .tarjeta {
+        padding: 2.4rem 2rem;
+    }
+
+    .instalador__titulo {
+        font-size: 2.4rem;
+    }
+
+    .rejilla,
+    .rejilla--tres,
+    .repetible__campos--dos,
+    .repetible__campos--tres {
+        grid-template-columns: 1fr;
+    }
+
+    .progreso__nombre {
+        display: none;
+    }
+
+    .acciones {
+        flex-direction: column-reverse;
+    }
+
+    .acciones .boton {
+        width: 100%;
+    }
+
+    .foto {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

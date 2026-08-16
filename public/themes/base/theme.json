@@ -1,0 +1,14 @@
+{
+    "slug": "base",
+    "nombre": "Calma",
+    "descripcion": "Tonos tierra y tipografia serif. Calido, cercano y profesional.",
+    "paleta": {
+        "primario": "#976147",
+        "secundario": "#66493d",
+        "fondo": "#eee8e5",
+        "texto": "#1a1414",
+        "acento": "#c0a090"
+    },
+    "tipografia": "Lexend + Castoro",
+    "modos": ["landing", "multipagina"]
+}

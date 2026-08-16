@@ -1,0 +1,14 @@
+{
+    "slug": "serena",
+    "nombre": "Serena",
+    "descripcion": "Verde salvia y neutros suaves. Transmite equilibrio y naturaleza.",
+    "paleta": {
+        "primario": "#6b8f71",
+        "secundario": "#4a6b52",
+        "fondo": "#eef2ec",
+        "texto": "#1c231d",
+        "acento": "#a8c3a0"
+    },
+    "tipografia": "Lexend + Castoro",
+    "modos": ["landing", "multipagina"]
+}

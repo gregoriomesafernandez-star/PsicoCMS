@@ -1,0 +1,14 @@
+{
+    "slug": "nube",
+    "nombre": "Nube",
+    "descripcion": "Azul claro y blancos. Limpio, luminoso y muy profesional.",
+    "paleta": {
+        "primario": "#4a7ba7",
+        "secundario": "#2f5a80",
+        "fondo": "#edf3f8",
+        "texto": "#14202b",
+        "acento": "#9dc2dd"
+    },
+    "tipografia": "Lexend + Castoro",
+    "modos": ["landing", "multipagina"]
+}

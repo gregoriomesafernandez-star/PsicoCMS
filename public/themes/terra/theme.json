@@ -1,0 +1,14 @@
+{
+    "slug": "terra",
+    "nombre": "Terra",
+    "descripcion": "Terracota y arena. Energico, humano y con caracter.",
+    "paleta": {
+        "primario": "#b96f4f",
+        "secundario": "#8c4f36",
+        "fondo": "#f7efe9",
+        "texto": "#26170f",
+        "acento": "#e0b49c"
+    },
+    "tipografia": "Lexend + Castoro",
+    "modos": ["landing", "multipagina"]
+}

@@ -1,0 +1,677 @@
+@media (max-width: 1800px) {
+    .cases__recent-work {
+        flex-direction: column;
+        box-shadow: none;
+    }
+
+    .recent-work__content {
+        width: 100%;
+        box-shadow: 0px 0px 5px var(--color-white6);
+    }
+
+}
+
+@media (max-width: 1400px) {
+    .nav__list-nav {
+        display: none;
+    }
+
+    .nav__btn-menu-mobile {
+        display: block;
+    }
+
+    .banner__container-img {
+        margin-top: 8rem;
+    }
+}
+
+@media (max-width: 1200px) {
+    .therapies__container,
+    .characteristics__container,
+    .services__container,
+    .couple-issues__container,
+    .stats__container,
+    .prices__container,
+    .cases__container,
+    .promos__container,
+    .blog__container,
+    .appointment__container,
+    .footer__container,
+    .how-start__container {
+        width: 960px;
+        max-width: 960px;
+    }
+
+    .layout__couple-issues {
+        margin-top: 0;
+    }
+
+    .title__issues::before {
+        top: 253px;
+    }
+
+    .characteristics__container {
+        flex-direction: column;
+        align-items: center;
+        gap: 5rem;
+    }
+
+    .characteristics__details,
+    .characteristics__right {
+        width: 100%;
+        width: 600px;
+    }
+
+    .characteristics__container-video {
+        bottom: -45px;
+    }
+
+    .layout__services {
+        height: auto;
+    }
+
+    .services__header {
+        margin-bottom: 20rem;
+    }
+
+    .services__container-services {
+        flex-wrap: wrap;
+        gap: 20rem 0rem;
+    }
+
+    .services__service {
+        width: 49%;
+    }
+
+    .service__container-img {
+        width: 100%;
+        top: -158px;
+    }
+
+    .service__img {
+        width: 100%;
+    }
+
+    .service__ico {
+        top: auto;
+        right: 21px;
+        bottom: -27px;
+    }
+
+    .c-issue__title {
+        font-size: 2rem;
+    }
+
+    .c-issue__head {
+        width: 54%;
+    }
+
+    .cases__container {
+        width: 1800px;
+        max-width: 1800px;
+    }
+
+    .recent-work__container-img {
+        width: 80%;
+    }
+
+    .experience__container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .layout__experience {
+        padding-top: 8rem;
+        background-color: var(--color-white10);
+    }
+
+    .experience__container-img,
+    .experience__data {
+        width: 600px;
+    }
+
+    .experience__data {
+        background-color: var(--color-white10);
+        padding: 0;
+        padding: 5rem 0;
+    }
+
+    .experience__title {
+        font-size: 4rem;
+    }
+
+    .article__bottom-content {
+        align-items: center;
+    }
+
+    .article__btn-more,
+    .comments__text {
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+
+    .footer__container {
+        gap: 4rem 0;
+        flex-wrap: wrap;
+    }
+
+    .footer-middle__container {
+        width: 49%;
+    }
+
+    .characteristics__video-container {
+        width: 90%;
+    }
+
+    /*Estilos interior*/
+    .layout__container-main {
+        max-width: 960px;
+    }
+
+    .layout__aside {
+        width: 40%;
+    }
+
+    .layout__main {
+        width: 57%;
+    }
+
+    .main__benefits {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .benefits__container-img {
+        width: 100%;
+    }
+
+    .benefits__content {
+        width: 100%;
+        margin-top: 3rem;
+    }
+}
+
+@media (max-width: 960px) {
+    .therapies__container,
+    .characteristics__container,
+    .services__container,
+    .couple-issues__container,
+    .stats__container,
+    .prices__container,
+    .cases__container,
+    .promos__container,
+    .blog__container,
+    .appointment__container,
+    .footer__container,
+    .how-start__container {
+        width: 720px;
+        max-width: 720px;
+    }
+
+    .title__issues::before {
+        content: none;
+    }
+
+    .promos__container {
+        flex-direction: column;
+    }
+
+    .layout__banner {
+        padding: 20rem;
+    }
+
+    .shapes__shape1 {
+        display: none;
+    }
+
+    .banner__container-img {
+        display: none;
+    }
+
+    .therapies__container {
+        flex-direction: column;
+        align-items: center;
+        gap: 3rem;
+    }
+
+    .therapies__therapy {
+        width: 100%;
+        height: 48rem;
+    }
+
+    .couple-issues__list-issues {
+        gap: 13rem;
+    }
+
+    .list-issues__c-issue {
+        width: 100%;
+    }
+
+    .c-issue__content {
+        width: 100%;
+    }
+
+    .c-issue__head {
+        width: 82%;
+    }
+
+    .stats__container {
+        flex-wrap: wrap;
+        gap: 3rem 0;
+    }
+
+    .stats__stat {
+        width: 48%;
+    }
+
+    .stats__stat:nth-child(2) {
+        border: none;
+    }
+
+    .prices__list-prices {
+        flex-wrap: wrap;
+        gap: 2rem;
+    }
+
+    .list-prices__price {
+        width: 100%;
+        height: auto;
+    }
+
+    .price__content {
+        padding: 5rem;
+    }
+
+    .cases__container {
+        width: 1800px;
+        max-width: 1800px;
+    }
+
+    .cases__all-works {
+        flex-wrap: wrap;
+    }
+
+    .cases__recent-work {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+    }
+
+    .recent-work__container-img {
+        width: 30%;
+    }
+
+    .recent-work__content {
+        width: 69%;
+    }
+
+    .promos__logo:last-child {
+        display: none;
+    }
+
+    .blog__articles {
+        gap: 4rem;
+    }
+
+    .blog__title {
+        width: 100%;
+    }
+
+    .articles__article {
+        width: 100%;
+    }
+
+    .article__img {
+        width: 100%;
+    }
+
+    .appointment__container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .appointment__btn-appointment {
+        width: 20rem;
+    }
+
+    .footer__container {
+        gap: 1rem;
+    }
+
+    .footer-top__social {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .prices__title::before,
+    .details__title::before,
+    .services__title::before,
+    .cases__title::before,
+    .experience__title::before,
+    .blog__title::before {
+        display: none;
+    }
+
+    /*Estilos interior*/
+    .layout__container-main {
+        max-width: 720px;
+        flex-direction: column-reverse;
+    }
+
+    .layout__aside {
+        width: 100%;
+    }
+
+    .layout__main {
+        width: 100%;
+    }
+
+    .aside__contact-now {
+        background-size: 50% 70%;
+        animation-name: bgMoveX2;
+    }
+
+    .contact-now__title {
+        width: 50%;
+    }
+}
+
+@media (max-width: 767px) {
+    .therapies__container,
+    .characteristics__container,
+    .services__container,
+    .couple-issues__container,
+    .stats__container,
+    .prices__container,
+    .cases__container,
+    .promos__container,
+    .blog__container,
+    .appointment__container,
+    .footer__container,
+    .experience__container,
+    .how-start__container {
+        width: 540px;
+        max-width: 540px;
+    }
+
+    .how-start__steps {
+        flex-wrap: wrap;
+    }
+
+    .how-start__step {
+        width: 100%;
+        border: none;
+    }
+
+    .banner__content {
+        margin-top: 10rem;
+    }
+
+    .characteristics__details,
+    .characteristics__right {
+        width: 100%;
+    }
+
+    .nav__contact {
+        display: none;
+    }
+
+    .layout__banner {
+        padding: 12rem 4rem;
+    }
+
+    .banner__title {
+        font-size: 3rem;
+        font-weight: 600;
+    }
+
+    .list-services__item {
+        width: 100%;
+    }
+
+    .services__header {
+        flex-direction: column;
+    }
+
+    .services__title-box {
+        margin-bottom: 2rem;
+    }
+
+    .services__title-box,
+    .services__description {
+        width: 100%;
+    }
+
+    .services__service {
+        width: 100%;
+    }
+
+    .service__body {
+        margin-top: 6rem;
+    }
+
+    .characteristics__container-video {
+        display: none;
+    }
+
+    .layout__background{
+        display: none;
+    }
+
+    .characteristics__container-frame{
+        display: none;
+    }
+
+    .stats__stat {
+        width: 100%;
+        border: none;
+    }
+
+    .cases__recent-work {
+        flex-direction: column;
+    }
+
+    .recent-work__container-img {
+        width: 50%;
+    }
+
+    .recent-work__content {
+        width: 100%;
+    }
+
+    .promos__title {
+        font-size: 5rem;
+    }
+
+    .promos__logo:nth-child(3) {
+        display: none;
+    }
+
+    .cases__title {
+        font-size: 3rem;
+    }
+
+    .experience__title {
+        font-size: 3rem
+    }
+
+    .stats__logo {
+        display: none;
+    }
+
+    .blog__title {
+        font-size: 3rem;
+    }
+
+    .appointment__title {
+        text-align: center;
+        font-weight: 500;
+    }
+
+    .footer-top__container-ico {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 2rem;
+        border: none;
+    }
+
+    .footer-top__left {
+        flex-wrap: wrap;
+    }
+
+    .footer__container {
+        gap: 4rem;
+        padding: 5rem 1rem;
+    }
+
+    .footer-middle__container {
+        width: 100%;
+    }
+
+    .footer__footer-bottom {
+        padding-top: 7rem;
+    }
+
+    .footer-bottom__copyright {
+        font-size: 1.4rem;
+    }
+
+    .container-go-top__btn-go-top {
+        width: 5rem;
+        height: 5rem;
+    }
+
+    .layout__experience {
+        display: flex;
+        justify-content: center;
+    }
+
+
+    .experience__container-img,
+    .experience__data {
+        width: 80%;
+    }
+
+    .experience__list-stats {
+        width: 100%;
+    }
+
+    .c-issue__content {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 3rem;
+        bottom: -110px;
+        border-radius: 0 0 0.5rem 0.5rem;
+    }
+
+    .c-issue__head {
+        margin-bottom: 3rem;
+        padding: 0;
+    }
+
+    .c-issue__content {
+        background-color: var(--color-primary);
+        align-items: flex-start;
+    }
+
+    .how-start__title {
+        font-size: 4rem;
+    }
+
+    /*Estilos interior*/
+    .layout__container-main {
+        max-width: 540px;
+    }
+
+    .therapy-steps__steps {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 3rem;
+    }
+
+    .benefits__container-img {
+        display: flex;
+        justify-content: center;
+    }
+
+    .benefits__img {
+        width: 100%;
+    }
+
+    .questions__container-img {
+        display: none;
+    }
+
+    .questions__box-btn {
+        display: inline-block;
+        margin-top: 2rem;
+    }
+
+    .questions__btn-contact {
+        display: inline-block;
+        margin-top: 1rem;
+    }
+
+    .main__questions {
+        height: auto;
+    }
+}
+
+@media (max-width: 576px) {
+    .therapies__container,
+    .characteristics__container,
+    .services__container,
+    .couple-issues__container,
+    .stats__container,
+    .prices__container,
+    .cases__container,
+    .promos__container,
+    .blog__container,
+    .appointment__container,
+    .footer__container,
+    .experience__container,
+    .how-start__container {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .promos__logos {
+        justify-content: center;
+    }
+
+    .promos__logo:nth-child(2) {
+        display: none;
+    }
+
+    .banner__appointment {
+        flex-direction: column;
+        gap: 3rem;
+    }
+
+
+    .banner__title {
+        text-align: center;
+    }
+
+    .appointment__btn,
+    .appointment__psico-name {
+        width: 100%;
+        text-align: center;
+    }
+
+    /*Estilos interior*/
+    .layout__container-main {
+        max-width: none;
+        padding: 0 1.5rem;
+    }
+}
+
+@media (max-width: 386px) {
+    .services__service {
+        padding-top: 3rem;
+    }
+}
