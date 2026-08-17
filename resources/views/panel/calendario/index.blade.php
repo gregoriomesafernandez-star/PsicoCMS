@@ -63,6 +63,8 @@
 
 @endsection
 
+@include('panel.partials.assets-editor')
+
 @push('estilos')
     <link rel="stylesheet" href="{{ asset('panel/css/citas.css') }}">
     <link rel="stylesheet" href="{{ asset('panel/css/calendario.css') }}">

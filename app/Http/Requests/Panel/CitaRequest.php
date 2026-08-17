@@ -26,8 +26,8 @@ class CitaRequest extends FormRequest
             'fecha' => ['required', 'date'],
             'hora_inicio' => ['required', 'date_format:H:i'],
             'estado' => ['required', Rule::in(array_keys(Cita::ESTADOS))],
-            'motivo' => ['nullable', 'string', 'max:1000'],
-            'notas' => ['nullable', 'string', 'max:2000'],
+            'motivo' => ['nullable', 'string', 'max:5000'],
+            'notas' => ['nullable', 'string', 'max:10000'],
         ];
     }
 

@@ -7,6 +7,7 @@ use App\Http\Requests\Panel\CitaRequest;
 use App\Models\Cita;
 use App\Models\Paciente;
 use App\Services\DisponibilidadService;
+use App\Services\SanitizadorHtml;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -17,8 +18,10 @@ use Illuminate\View\View;
 
 class CitaController extends Controller
 {
-    public function __construct(private DisponibilidadService $disponibilidad)
-    {
+    public function __construct(
+        private DisponibilidadService $disponibilidad,
+        private SanitizadorHtml $sanitizador
+    ) {
     }
 
     public function index(Request $request): View
@@ -179,8 +182,8 @@ class CitaController extends Controller
             'hora_fin' => $this->disponibilidad->horaFin($datos['hora_inicio'], $datos['modalidad']),
             'duracion' => $duracion,
             'estado' => $datos['estado'],
-            'motivo' => $datos['motivo'] ?? null,
-            'notas' => $datos['notas'] ?? null,
+            'motivo' => $this->sanitizador->limpiar($datos['motivo'] ?? null) ?: null,
+            'notas' => $this->sanitizador->limpiar($datos['notas'] ?? null) ?: null,
         ];
     }
 

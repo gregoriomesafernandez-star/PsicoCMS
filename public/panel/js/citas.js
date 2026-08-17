@@ -159,9 +159,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const ponerValor = (nombre, valor) => {
         const campo = formulario.querySelector(`[name="${nombre}"]`);
 
-        if (campo) {
-            campo.value = valor ?? "";
+        if (!campo) {
+            return;
         }
+
+        if (campo.classList.contains("editor-rico") && typeof PsicoEditor !== "undefined") {
+            PsicoEditor.poner(campo, valor);
+            return;
+        }
+
+        campo.value = valor ?? "";
     };
 
     const cambiarTitulo = (texto) => {
@@ -189,6 +196,8 @@ document.addEventListener("DOMContentLoaded", () => {
         formulario.reset();
         formulario.action = datos.urlCrear;
         metodo.value = "POST";
+        ponerValor("motivo", "");
+        ponerValor("notas", "");
         campoFecha.value = preseleccion.fecha || hoy();
         campoHora.value = preseleccion.hora || "";
 

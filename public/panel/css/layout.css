@@ -161,11 +161,10 @@
     border: none;
     border-radius: var(--panel-radio-pequeno);
     background: none;
-    font-size: 1.3rem;
+    font-size: 1.45rem;
     font-weight: 600;
-    letter-spacing: 0.05rem;
-    text-transform: uppercase;
     color: var(--panel-texto-suave);
+    text-align: left;
     cursor: pointer;
     transition: background-color var(--panel-transicion);
 }

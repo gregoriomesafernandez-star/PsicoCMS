@@ -15,11 +15,17 @@ return [
 
         'grupos' => [
             [
+                'titulo' => 'Blog',
+                'icono' => 'fa-newspaper',
+                'elementos' => [
+                    ['ruta' => 'panel.blog.index', 'titulo' => 'Articulos', 'icono' => 'fa-file-lines'],
+                    ['ruta' => 'panel.categorias.index', 'titulo' => 'Categorias', 'icono' => 'fa-tags'],
+                ],
+            ],
+            [
                 'titulo' => 'Gestion web',
                 'icono' => 'fa-globe',
                 'elementos' => [
-                    ['ruta' => 'panel.blog.index', 'titulo' => 'Blog', 'icono' => 'fa-newspaper'],
-                    ['ruta' => 'panel.categorias.index', 'titulo' => 'Categorias', 'icono' => 'fa-tags'],
                     ['ruta' => 'panel.faqs.index', 'titulo' => 'Preguntas frecuentes', 'icono' => 'fa-circle-question'],
                     ['ruta' => 'panel.servicios.index', 'titulo' => 'Servicios', 'icono' => 'fa-hand-holding-heart'],
                     ['ruta' => 'panel.especialidades.index', 'titulo' => 'Especialidades', 'icono' => 'fa-brain'],

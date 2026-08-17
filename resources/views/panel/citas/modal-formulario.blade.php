@@ -54,10 +54,12 @@
 
             <x-panel.campo nombre="motivo" id="cita-motivo"
                            etiqueta="Motivo de la consulta (opcional)" tipo="textarea"
+                           class="campo__control editor-rico" data-editor="compacto"
                            placeholder="Que le trae a consulta" />
 
             <x-panel.campo nombre="notas" id="cita-notas"
                            etiqueta="Notas internas (opcional)" tipo="textarea"
+                           class="campo__control editor-rico" data-editor="compacto"
                            placeholder="Notas que solo veras tu" />
         </fieldset>
     </form>

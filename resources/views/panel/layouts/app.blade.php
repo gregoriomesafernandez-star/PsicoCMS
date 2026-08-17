@@ -26,6 +26,10 @@
 
             <header class="pagina__cabecera">
                 <div>
+                    @hasSection('migas')
+                        @yield('migas')
+                    @endif
+
                     <h1 class="pagina__titulo">@yield('encabezado', View::getSection('titulo'))</h1>
 
                     @hasSection('subtitulo')

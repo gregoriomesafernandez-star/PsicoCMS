@@ -59,6 +59,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const esCita = (evento) => evento.display !== "background";
 
+    const soloTexto = (html) => {
+        if (!html) {
+            return "";
+        }
+
+        const documento = new DOMParser().parseFromString(html, "text/html");
+
+        return documento.body.textContent.replace(/\s+/g, " ").trim();
+    };
+
     const citasDelDia = (dia) => calendario.getEvents()
         .filter((evento) => esCita(evento) && evento.extendedProps.fecha === dia)
         .sort((uno, otro) => uno.extendedProps.horaInicio.localeCompare(otro.extendedProps.horaInicio));
@@ -227,12 +237,15 @@ document.addEventListener("DOMContentLoaded", () => {
             cuerpoDetalle.appendChild(dato("Email", propiedades.pacienteEmail));
         }
 
-        if (propiedades.motivo) {
-            cuerpoDetalle.appendChild(dato("Motivo", propiedades.motivo));
+        const motivo = soloTexto(propiedades.motivo);
+        const notas = soloTexto(propiedades.notas);
+
+        if (motivo) {
+            cuerpoDetalle.appendChild(dato("Motivo", motivo));
         }
 
-        if (propiedades.notas) {
-            cuerpoDetalle.appendChild(dato("Notas", propiedades.notas));
+        if (notas) {
+            cuerpoDetalle.appendChild(dato("Notas", notas));
         }
 
         formEstado.action = `${datos.urlBase}/${evento.id}/estado`;

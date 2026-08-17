@@ -175,6 +175,8 @@
 
 @endsection
 
+@include('panel.partials.assets-editor')
+
 @push('estilos')
     <link rel="stylesheet" href="{{ asset('panel/css/citas.css') }}">
 @endpush

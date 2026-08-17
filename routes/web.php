@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\Auth\AccesoController;
 use App\Http\Controllers\Instalacion\InstalacionController;
+use App\Http\Controllers\Panel\BlogController;
 use App\Http\Controllers\Panel\CalendarioController;
+use App\Http\Controllers\Panel\CategoriaController;
 use App\Http\Controllers\Panel\CitaController;
 use App\Http\Controllers\Panel\DisponibilidadController;
 use App\Http\Controllers\Panel\InicioController;
@@ -57,6 +59,23 @@ Route::middleware('auth')->prefix('panel-psicologa')->name('panel.')->group(func
         Route::put('/{cita}', 'update')->name('update');
         Route::patch('/{cita}/estado', 'cambiarEstado')->name('estado');
         Route::delete('/{cita}', 'destroy')->name('destroy');
+    });
+
+    Route::controller(BlogController::class)->prefix('blog')->name('blog.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/nuevo', 'create')->name('create');
+        Route::post('/', 'store')->name('store');
+        Route::get('/{articulo}/editar', 'edit')->name('edit');
+        Route::get('/{articulo}/previsualizar', 'previsualizar')->name('previsualizar');
+        Route::put('/{articulo}', 'update')->name('update');
+        Route::delete('/{articulo}', 'destroy')->name('destroy');
+    });
+
+    Route::controller(CategoriaController::class)->prefix('categorias')->name('categorias.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/', 'store')->name('store');
+        Route::put('/{categoria}', 'update')->name('update');
+        Route::delete('/{categoria}', 'destroy')->name('destroy');
     });
 
 });
