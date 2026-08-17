@@ -3,6 +3,7 @@
     <form method="POST" action="{{ route('panel.citas.store') }}" id="form-cita">
         @csrf
         <input type="hidden" name="_method" value="POST" id="cita-metodo">
+        <input type="hidden" name="volver" value="{{ $volver ?? 'citas' }}">
 
         <fieldset class="grupo-campos">
             <legend class="grupo-campos__titulo">Paciente</legend>

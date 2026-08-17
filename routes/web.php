@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AccesoController;
 use App\Http\Controllers\Instalacion\InstalacionController;
+use App\Http\Controllers\Panel\CalendarioController;
 use App\Http\Controllers\Panel\CitaController;
 use App\Http\Controllers\Panel\DisponibilidadController;
 use App\Http\Controllers\Panel\InicioController;
@@ -41,6 +42,12 @@ Route::middleware('auth')->prefix('panel-psicologa')->name('panel.')->group(func
     Route::controller(VacacionesController::class)->prefix('vacaciones')->name('vacaciones.')->group(function () {
         Route::post('/', 'store')->name('store');
         Route::delete('/{periodo}', 'destroy')->name('destroy');
+    });
+
+    Route::controller(CalendarioController::class)->group(function () {
+        Route::get('/calendario', 'index')->name('calendario');
+        Route::get('/citas/eventos', 'eventos')->name('citas.eventos');
+        Route::patch('/citas/{cita}/mover', 'mover')->name('citas.mover');
     });
 
     Route::controller(CitaController::class)->prefix('citas')->name('citas.')->group(function () {

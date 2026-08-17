@@ -177,13 +177,25 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    const abrirNueva = () => {
+    const hoy = () => {
+        const ahora = new Date();
+        const desfase = ahora.getTimezoneOffset() * 60000;
+
+        return new Date(ahora.getTime() - desfase).toISOString().slice(0, 10);
+    };
+
+    const abrirNueva = (preseleccion = {}) => {
         citaEnEdicion = null;
         formulario.reset();
         formulario.action = datos.urlCrear;
         metodo.value = "POST";
-        campoHora.value = "";
-        campoFecha.value = new Date().toISOString().slice(0, 10);
+        campoFecha.value = preseleccion.fecha || hoy();
+        campoHora.value = preseleccion.hora || "";
+
+        if (preseleccion.modalidad) {
+            campoModalidad.value = preseleccion.modalidad;
+        }
+
         cambiarTitulo("Nueva cita");
         PsicoModal.abrir("modal-cita");
         cargarHuecos();
@@ -208,6 +220,8 @@ document.addEventListener("DOMContentLoaded", () => {
         PsicoModal.abrir("modal-cita");
         cargarHuecos();
     };
+
+    window.PsicoCitaForm = { abrirNueva, abrirEdicion };
 
     document.querySelectorAll("#boton-nueva-cita, [data-nueva-cita]").forEach((boton) => {
         boton.addEventListener("click", (evento) => {

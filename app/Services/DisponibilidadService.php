@@ -48,8 +48,8 @@ class DisponibilidadService
             return [];
         }
 
-        $inicio = Carbon::createFromFormat('H:i:s', $config->hora_inicio);
-        $limite = Carbon::createFromFormat('H:i:s', $config->hora_fin);
+        $inicio = $this->hora($config->hora_inicio);
+        $limite = $this->hora($config->hora_fin);
         $huecos = [];
 
         while ($inicio->copy()->addMinutes($duracion)->lessThanOrEqualTo($limite)) {
@@ -146,6 +146,24 @@ class DisponibilidadService
         $fin = $inicio->copy()->addMinutes($this->duracion($modalidad));
 
         return $this->solapaConAlguna($inicio, $fin, $this->citasDelDia($fecha, $excluirCitaId));
+    }
+
+    public function rangoLibre(Carbon $fecha, string $hora, int $duracion, ?int $excluirCitaId = null): bool
+    {
+        $inicio = $this->momento($fecha, $hora);
+        $fin = $inicio->copy()->addMinutes($duracion);
+
+        return ! $this->solapaConAlguna($inicio, $fin, $this->citasDelDia($fecha, $excluirCitaId));
+    }
+
+    public function dentroDelHorario(string $hora, int $duracion): bool
+    {
+        $config = $this->configuracion();
+        $inicio = $this->hora($hora);
+        $fin = $inicio->copy()->addMinutes($duracion);
+
+        return $inicio->greaterThanOrEqualTo($this->hora($config->hora_inicio))
+            && $fin->lessThanOrEqualTo($this->hora($config->hora_fin));
     }
 
     public function enVacaciones(Carbon $fecha): bool
@@ -280,6 +298,11 @@ class DisponibilidadService
         }
 
         return false;
+    }
+
+    private function hora(string $valor): Carbon
+    {
+        return Carbon::createFromFormat('H:i:s', substr($valor, 0, 5) . ':00');
     }
 
     private function momento(Carbon $fecha, string $hora): Carbon

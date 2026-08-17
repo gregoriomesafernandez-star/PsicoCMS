@@ -1,0 +1,453 @@
+.calendario {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 34rem;
+    align-items: start;
+    gap: 2.4rem;
+}
+
+.calendario__lateral {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    position: sticky;
+    top: 2.4rem;
+}
+
+/* ---------- FullCalendar con los tokens del panel ---------- */
+
+#calendario {
+    --fc-border-color: var(--panel-borde);
+    --fc-page-bg-color: var(--panel-superficie);
+    --fc-neutral-bg-color: var(--panel-superficie-suave);
+    --fc-today-bg-color: var(--panel-primario-suave);
+    --fc-non-business-color: rgba(155, 165, 177, 0.12);
+    --fc-now-indicator-color: var(--panel-error);
+    --fc-small-font-size: 1.25rem;
+    --fc-event-text-color: var(--panel-texto);
+
+    font-family: inherit;
+    font-size: 1.4rem;
+}
+
+#calendario .fc .fc-toolbar {
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+#calendario .fc .fc-toolbar-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+#calendario .fc .fc-button {
+    padding: 0.7rem 1.4rem;
+    border: 0.1rem solid var(--panel-borde-fuerte);
+    border-radius: var(--panel-radio-pequeno);
+    background-color: var(--panel-superficie);
+    font-family: inherit;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--panel-texto);
+    box-shadow: none;
+    text-transform: capitalize;
+    transition: all var(--panel-transicion);
+}
+
+#calendario .fc .fc-button:hover {
+    border-color: var(--panel-primario);
+    background-color: var(--panel-primario-suave);
+    color: var(--panel-primario);
+}
+
+#calendario .fc .fc-button-primary:not(:disabled).fc-button-active,
+#calendario .fc .fc-button-primary:not(:disabled):active {
+    border-color: var(--panel-primario);
+    background-color: var(--panel-primario);
+    color: #ffffff;
+}
+
+#calendario .fc .fc-button:disabled {
+    opacity: 0.5;
+}
+
+#calendario .fc .fc-button:focus-visible {
+    outline: 0.3rem solid var(--panel-primario-claro);
+    outline-offset: 0.2rem;
+    box-shadow: none;
+}
+
+#calendario .fc-theme-standard td,
+#calendario .fc-theme-standard th,
+#calendario .fc-theme-standard .fc-scrollgrid {
+    border-color: var(--panel-borde);
+}
+
+#calendario .fc .fc-col-header-cell-cushion {
+    padding: 1rem 0.6rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.05rem;
+    text-transform: uppercase;
+    color: var(--panel-texto-suave);
+}
+
+#calendario .fc .fc-daygrid-day-number,
+#calendario .fc .fc-timegrid-slot-label-cushion {
+    font-size: 1.3rem;
+    color: var(--panel-texto-suave);
+}
+
+#calendario .fc .fc-daygrid-day-frame {
+    min-height: 9rem;
+}
+
+#calendario .fc .fc-day-today .fc-daygrid-day-number {
+    display: inline-grid;
+    place-items: center;
+    min-width: 2.6rem;
+    height: 2.6rem;
+    border-radius: 50%;
+    background-color: var(--panel-primario);
+    font-weight: 700;
+    color: #ffffff;
+}
+
+#calendario .fc .fc-daygrid-day.dia--elegido .fc-daygrid-day-frame {
+    box-shadow: inset 0 0 0 0.2rem var(--panel-primario);
+    border-radius: var(--panel-radio-pequeno);
+}
+
+#calendario .fc .fc-daygrid-day-frame,
+#calendario .fc .fc-timegrid-slot {
+    cursor: pointer;
+}
+
+/* ---------- Eventos ---------- */
+
+#calendario .fc-event {
+    border: none;
+    border-left: 0.4rem solid var(--panel-primario);
+    border-radius: 0.6rem;
+    background-color: var(--panel-primario-suave);
+    color: var(--panel-primario);
+    cursor: pointer;
+}
+
+#calendario .fc-event:hover {
+    filter: brightness(0.97);
+}
+
+#calendario .fc-event .fc-event-main,
+#calendario .fc-event .fc-event-main-frame,
+#calendario .fc-event .fc-event-title-container,
+#calendario .fc-event .fc-event-time,
+#calendario .fc-event .fc-event-title {
+    color: inherit;
+}
+
+#calendario .cita-evento--presencial {
+    border-left-color: var(--panel-exito);
+    background-color: var(--panel-exito-suave);
+    color: var(--panel-exito);
+}
+
+#calendario .cita-evento--online {
+    border-left-color: var(--panel-primario);
+    background-color: var(--panel-primario-suave);
+    color: var(--panel-primario);
+}
+
+#calendario .cita-evento--cancelada {
+    border-left-color: var(--panel-texto-tenue);
+    background-color: var(--panel-superficie-suave);
+    color: var(--panel-texto-tenue);
+}
+
+#calendario .cita-evento--cancelada .cita-evento__titulo {
+    text-decoration: line-through;
+}
+
+#calendario .cita-evento--no_asistio {
+    border-left-color: var(--panel-atencion);
+    background-color: var(--panel-atencion-suave);
+    color: var(--panel-atencion);
+}
+
+.cita-evento__contenido {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.4rem 0.6rem;
+    overflow: hidden;
+    font-size: 1.25rem;
+    line-height: 1.4;
+}
+
+.cita-evento__hora {
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.cita-evento__titulo {
+    overflow: hidden;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#calendario .fc-timegrid-event .cita-evento__contenido {
+    align-items: flex-start;
+    height: 100%;
+    padding: 0.5rem 0.8rem;
+    font-size: 1.3rem;
+}
+
+#calendario .fc-bg-event {
+    opacity: 1;
+}
+
+#calendario .dia-vacaciones {
+    background-color: rgba(168, 113, 42, 0.16);
+}
+
+#calendario .dia-sin-horario {
+    background-color: rgba(155, 165, 177, 0.18);
+}
+
+#calendario .fc-bg-event .fc-event-title {
+    padding: 0.5rem 0.7rem;
+    font-size: 1.15rem;
+    font-style: normal;
+    font-weight: 700;
+    letter-spacing: 0.05rem;
+    text-transform: uppercase;
+    color: var(--panel-texto-tenue);
+}
+
+#calendario .dia-vacaciones .fc-event-title {
+    color: var(--panel-atencion);
+}
+
+/* ---------- Leyenda ---------- */
+
+.leyenda {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.6rem;
+    margin: 0;
+    padding-top: 2rem;
+    border-top: 0.1rem solid var(--panel-borde);
+}
+
+.leyenda__item {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 1.3rem;
+    color: var(--panel-texto-suave);
+}
+
+.leyenda__color {
+    display: block;
+    width: 1.4rem;
+    height: 1.4rem;
+    border-radius: 0.4rem;
+}
+
+.leyenda__color--presencial {
+    background-color: var(--panel-exito);
+}
+
+.leyenda__color--online {
+    background-color: var(--panel-primario);
+}
+
+.leyenda__color--cancelada {
+    background-color: var(--panel-texto-tenue);
+}
+
+.leyenda__color--vacaciones {
+    background-color: rgba(168, 113, 42, 0.16);
+    border: 0.1rem solid rgba(168, 113, 42, 0.55);
+}
+
+.leyenda__color--sin-horario {
+    background-color: rgba(155, 165, 177, 0.18);
+    border: 0.1rem solid rgba(155, 165, 177, 0.6);
+}
+
+/* ---------- Agenda del dia ---------- */
+
+.agenda__fecha {
+    margin-bottom: 1.6rem;
+    font-size: 1.35rem;
+    font-weight: 600;
+    text-transform: capitalize;
+    color: var(--panel-texto-suave);
+}
+
+.agenda {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.agenda__cita {
+    display: flex;
+    align-items: center;
+    gap: 1.4rem;
+    width: 100%;
+    padding: 1.2rem 1.4rem;
+    border: none;
+    border-left: 0.4rem solid var(--panel-primario);
+    border-radius: var(--panel-radio-pequeno);
+    background-color: var(--panel-primario-suave);
+    font-family: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: transform var(--panel-transicion);
+}
+
+.agenda__cita:hover {
+    transform: translateX(0.3rem);
+}
+
+.agenda__cita--presencial {
+    border-left-color: var(--panel-exito);
+    background-color: var(--panel-exito-suave);
+}
+
+.agenda__cita--cancelada {
+    border-left-color: var(--panel-texto-tenue);
+    background-color: var(--panel-superficie-suave);
+}
+
+.agenda__cita--cancelada .agenda__paciente {
+    text-decoration: line-through;
+    color: var(--panel-texto-suave);
+}
+
+.agenda__horas {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    min-width: 5.4rem;
+}
+
+.agenda__hora {
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--panel-texto);
+}
+
+.agenda__duracion {
+    font-size: 1.2rem;
+    color: var(--panel-texto-suave);
+}
+
+.agenda__datos {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.agenda__paciente {
+    overflow: hidden;
+    font-size: 1.45rem;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--panel-texto);
+}
+
+.agenda__modalidad {
+    font-size: 1.25rem;
+    color: var(--panel-texto-suave);
+}
+
+.vacio--compacto {
+    padding: 2.4rem 1.6rem;
+}
+
+/* ---------- Detalle de la cita ---------- */
+
+.detalle__paciente {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    padding-bottom: 1.6rem;
+    margin-bottom: 1.6rem;
+    border-bottom: 0.1rem solid var(--panel-borde);
+}
+
+.detalle__fila {
+    display: flex;
+    align-items: baseline;
+    gap: 1.2rem;
+    padding: 0.7rem 0;
+}
+
+.detalle__etiqueta {
+    flex-shrink: 0;
+    width: 9rem;
+    font-size: 1.3rem;
+    color: var(--panel-texto-suave);
+}
+
+.detalle__valor {
+    font-size: 1.4rem;
+    text-transform: none;
+}
+
+.detalle__fila:nth-child(2) .detalle__valor {
+    text-transform: capitalize;
+}
+
+.detalle__estado {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    align-items: flex-start;
+    padding-top: 1.6rem;
+    margin-top: 0.8rem;
+    border-top: 0.1rem solid var(--panel-borde);
+}
+
+#modal-detalle .modal__pie {
+    justify-content: space-between;
+}
+
+@media (max-width: 1100px) {
+    .calendario {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .calendario__lateral {
+        position: static;
+    }
+}
+
+@media (max-width: 768px) {
+    #calendario .fc .fc-toolbar {
+        justify-content: center;
+    }
+
+    #calendario .fc .fc-toolbar-title {
+        font-size: 1.8rem;
+    }
+
+    #calendario .fc .fc-daygrid-day-frame {
+        min-height: 6rem;
+    }
+
+    .cita-evento__titulo {
+        display: none;
+    }
+
+    .leyenda {
+        gap: 1.2rem;
+    }
+}

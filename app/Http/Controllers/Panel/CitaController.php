@@ -98,7 +98,7 @@ class CitaController extends Controller
         });
 
         return redirect()
-            ->route('panel.citas.index')
+            ->route($this->destino($request))
             ->with('exito', 'Cita creada correctamente.');
     }
 
@@ -113,8 +113,13 @@ class CitaController extends Controller
         });
 
         return redirect()
-            ->route('panel.citas.index')
+            ->route($this->destino($request))
             ->with('exito', 'Cita actualizada correctamente.');
+    }
+
+    private function destino(CitaRequest $request): string
+    {
+        return $request->input('volver') === 'calendario' ? 'panel.calendario' : 'panel.citas.index';
     }
 
     public function cambiarEstado(Request $request, Cita $cita): RedirectResponse
