@@ -213,6 +213,118 @@
     color: #ffffff;
 }
 
+/* ---------- Buscador de pacientes en el modal de cita ---------- */
+
+.sugerencias {
+    position: absolute;
+    z-index: 5;
+    width: 100%;
+    max-height: 26rem;
+    margin-top: 0.4rem;
+    overflow-y: auto;
+    border: 0.1rem solid var(--panel-borde-fuerte);
+    border-radius: var(--panel-radio-pequeno);
+    background-color: var(--panel-superficie);
+    box-shadow: var(--panel-sombra-alta);
+}
+
+.sugerencias[hidden] {
+    display: none;
+}
+
+.sugerencia {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    width: 100%;
+    padding: 1rem 1.2rem;
+    border: none;
+    background: none;
+    font-family: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color var(--panel-transicion);
+}
+
+.sugerencia:hover {
+    background-color: var(--panel-primario-suave);
+}
+
+.sugerencia__datos {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.sugerencia__nombre {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--panel-texto);
+}
+
+.sugerencia__detalle {
+    font-size: 1.25rem;
+    color: var(--panel-texto-suave);
+}
+
+.sugerencias__vacio {
+    padding: 1.2rem 1.4rem;
+    font-size: 1.3rem;
+    color: var(--panel-texto-suave);
+}
+
+.campo--con-sugerencias {
+    position: relative;
+}
+
+/* ---------- Detalle de la cita ---------- */
+
+.detalle__paciente {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    padding-bottom: 1.6rem;
+    margin-bottom: 1.6rem;
+    border-bottom: 0.1rem solid var(--panel-borde);
+}
+
+.detalle__fila {
+    display: flex;
+    align-items: baseline;
+    gap: 1.2rem;
+    padding: 0.7rem 0;
+}
+
+.detalle__etiqueta {
+    flex-shrink: 0;
+    width: 9rem;
+    font-size: 1.3rem;
+    color: var(--panel-texto-suave);
+}
+
+.detalle__valor {
+    font-size: 1.4rem;
+    text-transform: none;
+}
+
+.detalle__fila:nth-child(2) .detalle__valor {
+    text-transform: capitalize;
+}
+
+.detalle__estado {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    align-items: flex-start;
+    padding-top: 1.6rem;
+    margin-top: 0.8rem;
+    border-top: 0.1rem solid var(--panel-borde);
+}
+
+#modal-detalle .modal__pie {
+    justify-content: space-between;
+}
+
 @media (max-width: 768px) {
     .filtros__busqueda {
         flex-direction: column;

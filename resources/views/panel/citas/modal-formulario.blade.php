@@ -8,9 +8,14 @@
         <fieldset class="grupo-campos">
             <legend class="grupo-campos__titulo">Paciente</legend>
 
-            <x-panel.campo nombre="paciente_nombre" id="cita-paciente-nombre"
-                           etiqueta="Nombre del paciente"
-                           placeholder="Nombre y apellidos" obligatorio />
+            <div class="rejilla rejilla--2">
+                <x-panel.campo nombre="paciente_nombre" id="cita-paciente-nombre"
+                               etiqueta="Nombre del paciente"
+                               placeholder="Escribe para buscar" obligatorio />
+
+                <x-panel.campo nombre="paciente_apellidos" id="cita-paciente-apellidos"
+                               etiqueta="Apellidos (opcional)" placeholder="Apellidos" />
+            </div>
 
             <div class="rejilla rejilla--2">
                 <x-panel.campo nombre="paciente_telefono" id="cita-paciente-telefono"

@@ -59,7 +59,7 @@
     </div>
 
     @include('panel.citas.modal-formulario', ['volver' => 'calendario'])
-    @include('panel.calendario.modal-detalle')
+    @include('panel.citas.modal-detalle')
 
 @endsection
 
@@ -76,14 +76,19 @@
             'urlHuecos' => route('panel.citas.huecos'),
             'urlCrear' => route('panel.citas.store'),
             'urlBase' => url('/panel-psicologa/citas'),
+            'urlPacientes' => route('panel.pacientes.buscar'),
             'errores' => $errors->any(),
+        ];
+
+        $datosDetalle = [
+            'urlBase' => url('/panel-psicologa/citas'),
+            'urlPacientes' => url('/panel-psicologa/pacientes'),
+            'fichaDisponible' => menu_disponible('panel.pacientes.show'),
         ];
 
         $datosCalendario = [
             'urlEventos' => route('panel.citas.eventos'),
             'urlBase' => url('/panel-psicologa/citas'),
-            'urlPacientes' => url('/panel-psicologa/pacientes'),
-            'fichaDisponible' => menu_disponible('panel.pacientes.show'),
             'horarioLaboral' => $horarioLaboral,
             'horaMinima' => $horaMinima,
             'horaMaxima' => $horaMaxima,
@@ -92,10 +97,12 @@
     @endphp
 
     <script id="datos-citas" type="application/json">@json($datosCitas)</script>
+    <script id="datos-detalle" type="application/json">@json($datosDetalle)</script>
     <script id="datos-calendario" type="application/json">@json($datosCalendario)</script>
 
     <script src="{{ asset('vendor/fullcalendar/index.global.min.js') }}"></script>
     <script src="{{ asset('vendor/fullcalendar/es.global.min.js') }}"></script>
     <script src="{{ asset('panel/js/citas.js') }}"></script>
+    <script src="{{ asset('panel/js/cita-detalle.js') }}"></script>
     <script src="{{ asset('panel/js/calendario.js') }}"></script>
 @endpush

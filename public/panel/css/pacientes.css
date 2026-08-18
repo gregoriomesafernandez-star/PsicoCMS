@@ -1,0 +1,275 @@
+.paciente--enlace {
+    color: inherit;
+}
+
+.paciente--enlace:hover .celda__principal {
+    color: var(--panel-primario);
+    text-decoration: underline;
+}
+
+.paciente--enlace .celda__principal,
+.paciente--enlace .celda__secundario {
+    display: block;
+}
+
+.paciente__inicial--grande {
+    width: 5.2rem;
+    height: 5.2rem;
+    font-size: 1.8rem;
+}
+
+.celda__secundario--cursiva {
+    font-style: italic;
+}
+
+/* ---------- Ficha del paciente ---------- */
+
+.ficha-paciente {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 34rem;
+    align-items: start;
+    gap: 2.4rem;
+}
+
+.ficha-paciente__lateral {
+    position: sticky;
+    top: 2.4rem;
+}
+
+.ficha-paciente__cabecera {
+    display: flex;
+    align-items: center;
+    gap: 1.4rem;
+    padding-bottom: 1.6rem;
+    margin-bottom: 0.8rem;
+    border-bottom: 0.1rem solid var(--panel-borde);
+}
+
+.ficha-paciente__acciones {
+    display: flex;
+    padding-top: 1.6rem;
+    margin-top: 0.8rem;
+    border-top: 0.1rem solid var(--panel-borde);
+}
+
+.ficha-paciente__acciones .boton {
+    flex: 1;
+    justify-content: center;
+}
+
+.dato-lateral {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1.2rem;
+    padding: 0.9rem 0;
+    border-bottom: 0.1rem solid var(--panel-borde);
+}
+
+.dato-lateral:last-of-type {
+    border-bottom: none;
+}
+
+.dato-lateral__etiqueta {
+    flex-shrink: 0;
+    font-size: 1.3rem;
+    color: var(--panel-texto-suave);
+}
+
+.dato-lateral__valor {
+    font-size: 1.4rem;
+    font-weight: 600;
+    text-align: right;
+    overflow-wrap: anywhere;
+}
+
+a.dato-lateral__valor {
+    color: var(--panel-primario);
+}
+
+a.dato-lateral__valor:hover {
+    text-decoration: underline;
+}
+
+.dato-lateral__valor--vacio {
+    font-weight: 400;
+    font-style: italic;
+    color: var(--panel-texto-tenue);
+}
+
+/* ---------- Proxima cita ---------- */
+
+.proxima-cita {
+    display: flex;
+    align-items: center;
+    gap: 1.8rem;
+}
+
+.proxima-cita__fecha {
+    display: grid;
+    place-items: center;
+    width: 7rem;
+    height: 7rem;
+    flex-shrink: 0;
+    border-radius: var(--panel-radio);
+    background-color: var(--panel-primario-suave);
+    color: var(--panel-primario);
+}
+
+.proxima-cita__dia {
+    font-size: 2.6rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.proxima-cita__mes {
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.proxima-cita__etiquetas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-top: 0.8rem;
+}
+
+.contenido-rico--compacto {
+    font-size: 1.4rem;
+    line-height: 1.7;
+}
+
+/* ---------- Datos personales de la ficha ---------- */
+
+.datos-personales {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
+    gap: 2rem 2.4rem;
+}
+
+.dato {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2rem;
+    min-width: 0;
+}
+
+.dato__icono {
+    display: grid;
+    place-items: center;
+    width: 3.6rem;
+    height: 3.6rem;
+    flex-shrink: 0;
+    border-radius: 50%;
+    font-size: 1.4rem;
+}
+
+.dato__icono--azul {
+    background-color: var(--panel-primario-suave);
+    color: var(--panel-primario);
+}
+
+.dato__icono--verde {
+    background-color: var(--panel-exito-suave);
+    color: var(--panel-exito);
+}
+
+.dato__icono--naranja {
+    background-color: var(--panel-atencion-suave);
+    color: var(--panel-atencion);
+}
+
+.dato__icono--morado {
+    background-color: #efeaf7;
+    color: #6b5a92;
+}
+
+.dato__icono--gris {
+    background-color: var(--panel-superficie-suave);
+    color: var(--panel-texto-suave);
+}
+
+.dato__cuerpo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    min-width: 0;
+}
+
+.dato__etiqueta {
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: 0.05rem;
+    text-transform: uppercase;
+    color: var(--panel-texto-tenue);
+}
+
+.dato__valor {
+    font-size: 1.45rem;
+    color: var(--panel-texto);
+    overflow-wrap: anywhere;
+}
+
+.dato__valor--enlace {
+    font-weight: 600;
+    color: var(--panel-primario);
+}
+
+.dato__valor--enlace:hover {
+    text-decoration: underline;
+}
+
+.dato__valor--vacio {
+    color: var(--panel-texto-tenue);
+}
+
+.dato__apunte {
+    font-size: 1.25rem;
+    color: var(--panel-texto-suave);
+}
+
+.rejilla--historial {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    align-items: stretch;
+    gap: 2.4rem;
+}
+
+.rejilla--historial > .card {
+    display: flex;
+    flex-direction: column;
+}
+
+.rejilla--historial .card__cuerpo {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.rejilla--historial .vacio {
+    margin-block: auto;
+}
+
+@media (max-width: 1100px) {
+    .rejilla--historial {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+@media (max-width: 1100px) {
+    .ficha-paciente {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .ficha-paciente__lateral {
+        position: static;
+    }
+}
+
+.separado-arriba {
+    padding-top: 1.4rem;
+    margin-top: 1.4rem;
+    border-top: 0.1rem solid var(--panel-borde);
+    font-style: italic;
+}

@@ -19,7 +19,8 @@ class CitaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'paciente_nombre' => ['required', 'string', 'max:255'],
+            'paciente_nombre' => ['required', 'string', 'max:100'],
+            'paciente_apellidos' => ['nullable', 'string', 'max:150'],
             'paciente_telefono' => ['required', 'string', 'max:20', 'regex:/^[0-9\s+()-]+$/'],
             'paciente_email' => ['nullable', 'email', 'max:255'],
             'modalidad' => ['required', Rule::in(array_keys(Cita::MODALIDADES))],
@@ -35,6 +36,7 @@ class CitaRequest extends FormRequest
     {
         return [
             'paciente_nombre' => 'nombre del paciente',
+            'paciente_apellidos' => 'apellidos del paciente',
             'paciente_telefono' => 'telefono del paciente',
             'paciente_email' => 'email del paciente',
             'modalidad' => 'modalidad',

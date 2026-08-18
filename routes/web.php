@@ -6,6 +6,7 @@ use App\Http\Controllers\Panel\BlogController;
 use App\Http\Controllers\Panel\CalendarioController;
 use App\Http\Controllers\Panel\CategoriaController;
 use App\Http\Controllers\Panel\CitaController;
+use App\Http\Controllers\Panel\PacienteController;
 use App\Http\Controllers\Panel\DisponibilidadController;
 use App\Http\Controllers\Panel\InicioController;
 use App\Http\Controllers\Panel\VacacionesController;
@@ -59,6 +60,17 @@ Route::middleware('auth')->prefix('panel-psicologa')->name('panel.')->group(func
         Route::put('/{cita}', 'update')->name('update');
         Route::patch('/{cita}/estado', 'cambiarEstado')->name('estado');
         Route::delete('/{cita}', 'destroy')->name('destroy');
+    });
+
+    Route::controller(PacienteController::class)->prefix('pacientes')->name('pacientes.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/nuevo', 'create')->name('create');
+        Route::get('/buscar', 'buscar')->name('buscar');
+        Route::post('/', 'store')->name('store');
+        Route::get('/{paciente}', 'show')->whereNumber('paciente')->name('show');
+        Route::get('/{paciente}/editar', 'edit')->whereNumber('paciente')->name('edit');
+        Route::put('/{paciente}', 'update')->whereNumber('paciente')->name('update');
+        Route::delete('/{paciente}', 'destroy')->whereNumber('paciente')->name('destroy');
     });
 
     Route::controller(BlogController::class)->prefix('blog')->name('blog.')->group(function () {

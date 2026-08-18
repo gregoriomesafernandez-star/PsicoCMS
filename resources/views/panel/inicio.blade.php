@@ -37,6 +37,12 @@
             <span class="metrica__icono metrica__icono--verde"><i class="fa-solid fa-users"></i></span>
             <p class="metrica__etiqueta">Pacientes activos</p>
             <p class="metrica__valor">{{ $metricas['pacientes'] }}</p>
+
+            @if (menu_disponible('panel.pacientes.index'))
+                <a class="metrica__enlace" href="{{ route('panel.pacientes.index') }}">
+                    Ver pacientes <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            @endif
         </x-panel.card>
 
         <x-panel.card class="metrica">

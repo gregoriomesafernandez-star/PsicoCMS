@@ -9,18 +9,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const datos = JSON.parse(nodoDatos.textContent);
 
-    const cuerpoDetalle = document.getElementById("detalle-cuerpo");
-    const formEstado = document.getElementById("form-estado-detalle");
-    const selectEstado = document.getElementById("detalle-estado");
-    const formBorrar = document.getElementById("form-borrar-detalle");
-    const enlaceFicha = document.getElementById("detalle-ficha");
-    const botonEditar = document.getElementById("detalle-editar");
     const botonAgendaNueva = document.getElementById("agenda-nueva");
     const cabeceraAgenda = document.getElementById("agenda-fecha");
     const listaAgenda = document.getElementById("agenda");
 
     let diaSeleccionado = fechaLocal(new Date());
-    let citaAbierta = null;
 
     function dosDigitos(numero) {
         return String(numero).padStart(2, "0");
@@ -58,16 +51,6 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const esCita = (evento) => evento.display !== "background";
-
-    const soloTexto = (html) => {
-        if (!html) {
-            return "";
-        }
-
-        const documento = new DOMParser().parseFromString(html, "text/html");
-
-        return documento.body.textContent.replace(/\s+/g, " ").trim();
-    };
 
     const citasDelDia = (dia) => calendario.getEvents()
         .filter((evento) => esCita(evento) && evento.extendedProps.fecha === dia)
@@ -172,95 +155,33 @@ document.addEventListener("DOMContentLoaded", () => {
         pintarAgenda();
     };
 
-    const dato = (etiqueta, valor, icono) => {
-        const fila = document.createElement("div");
-        fila.className = "detalle__fila";
-
-        const nombre = document.createElement("span");
-        nombre.className = "detalle__etiqueta";
-        nombre.textContent = etiqueta;
-
-        const contenido = document.createElement("span");
-        contenido.className = "detalle__valor";
-
-        if (icono) {
-            contenido.appendChild(icono);
-            contenido.appendChild(document.createTextNode(" "));
-        }
-
-        contenido.appendChild(document.createTextNode(valor));
-
-        fila.appendChild(nombre);
-        fila.appendChild(contenido);
-
-        return fila;
-    };
-
-    const abrirDetalle = (evento) => {
+    const aDetalle = (evento) => {
         const propiedades = evento.extendedProps;
-        citaAbierta = evento;
 
-        vaciar(cuerpoDetalle);
-
-        const cabecera = document.createElement("div");
-        cabecera.className = "detalle__paciente";
-
-        const inicial = document.createElement("span");
-        inicial.className = "paciente__inicial";
-        inicial.textContent = propiedades.pacienteIniciales || "?";
-
-        const nombres = document.createElement("div");
-
-        const nombre = document.createElement("p");
-        nombre.className = "celda__principal";
-        nombre.textContent = evento.title;
-
-        const telefono = document.createElement("p");
-        telefono.className = "celda__secundario";
-        telefono.textContent = propiedades.pacienteTelefono || "Sin telefono";
-
-        nombres.appendChild(nombre);
-        nombres.appendChild(telefono);
-
-        cabecera.appendChild(inicial);
-        cabecera.appendChild(nombres);
-        cuerpoDetalle.appendChild(cabecera);
-
-        cuerpoDetalle.appendChild(dato("Fecha", fechaLarga(propiedades.fecha)));
-        cuerpoDetalle.appendChild(dato(
-            "Horario",
-            `${propiedades.horaInicio} - ${propiedades.horaFin} (${propiedades.duracion} min)`
-        ));
-        cuerpoDetalle.appendChild(dato("Modalidad", propiedades.modalidadLegible, iconoModalidad(propiedades.modalidad)));
-
-        if (propiedades.pacienteEmail) {
-            cuerpoDetalle.appendChild(dato("Email", propiedades.pacienteEmail));
-        }
-
-        const motivo = soloTexto(propiedades.motivo);
-        const notas = soloTexto(propiedades.notas);
-
-        if (motivo) {
-            cuerpoDetalle.appendChild(dato("Motivo", motivo));
-        }
-
-        if (notas) {
-            cuerpoDetalle.appendChild(dato("Notas", notas));
-        }
-
-        formEstado.action = `${datos.urlBase}/${evento.id}/estado`;
-        selectEstado.value = propiedades.estado;
-        selectEstado.className = `estado-rapido__select estado-rapido__select--${propiedades.tono}`;
-
-        formBorrar.action = `${datos.urlBase}/${evento.id}`;
-
-        const fichaActiva = datos.fichaDisponible && propiedades.pacienteId;
-        enlaceFicha.href = fichaActiva ? `${datos.urlPacientes}/${propiedades.pacienteId}` : "#";
-        enlaceFicha.classList.toggle("boton--inactivo", !fichaActiva);
-        enlaceFicha.title = fichaActiva ? "Ver ficha del paciente" : "Ficha del paciente (disponible proximamente)";
-
-        PsicoModal.abrir("modal-detalle");
+        return {
+            id: evento.id,
+            fecha: propiedades.fecha,
+            hora_inicio: propiedades.horaInicio,
+            hora_fin: propiedades.horaFin,
+            duracion: propiedades.duracion,
+            modalidad: propiedades.modalidad,
+            modalidad_legible: propiedades.modalidadLegible,
+            estado: propiedades.estado,
+            estado_legible: propiedades.estadoLegible,
+            tono: propiedades.tono,
+            paciente_id: propiedades.pacienteId,
+            paciente_nombre: propiedades.pacienteNombre,
+            paciente_apellidos: propiedades.pacienteApellidos,
+            paciente_completo: propiedades.pacienteCompleto || evento.title,
+            paciente_telefono: propiedades.pacienteTelefono,
+            paciente_email: propiedades.pacienteEmail,
+            paciente_iniciales: propiedades.pacienteIniciales,
+            motivo: propiedades.motivo,
+            notas: propiedades.notas
+        };
     };
+
+    const abrirDetalle = (evento) => PsicoCitaDetalle.abrir(aDetalle(evento));
 
     const actualizarEvento = (evento, nuevo) => {
         Object.keys(nuevo.extendedProps).forEach((clave) => {
@@ -434,42 +355,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     calendario.render();
 
-    botonEditar.addEventListener("click", (evento) => {
-        evento.preventDefault();
-
-        if (!citaAbierta) {
-            return;
-        }
-
-        const propiedades = citaAbierta.extendedProps;
-
-        PsicoModal.cerrar(document.getElementById("modal-detalle"));
-
-        PsicoCitaForm.abrirEdicion({
-            id: citaAbierta.id,
-            paciente_nombre: propiedades.pacienteNombre,
-            paciente_telefono: propiedades.pacienteTelefono,
-            paciente_email: propiedades.pacienteEmail,
-            modalidad: propiedades.modalidad,
-            fecha: propiedades.fecha,
-            hora_inicio: propiedades.horaInicio,
-            estado: propiedades.estado,
-            motivo: propiedades.motivo,
-            notas: propiedades.notas
-        });
-    });
-
-    selectEstado.addEventListener("change", () => formEstado.submit());
-
     botonAgendaNueva.addEventListener("click", (evento) => {
         evento.preventDefault();
         PsicoCitaForm.abrirNueva({ fecha: diaSeleccionado });
-    });
-
-    enlaceFicha.addEventListener("click", (evento) => {
-        if (enlaceFicha.classList.contains("boton--inactivo")) {
-            evento.preventDefault();
-        }
     });
 
 });

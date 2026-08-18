@@ -7,6 +7,7 @@ use App\Http\Requests\Panel\CitaRequest;
 use App\Models\Cita;
 use App\Models\Paciente;
 use App\Services\DisponibilidadService;
+use App\Services\PacienteService;
 use App\Services\SanitizadorHtml;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -20,7 +21,8 @@ class CitaController extends Controller
 {
     public function __construct(
         private DisponibilidadService $disponibilidad,
-        private SanitizadorHtml $sanitizador
+        private SanitizadorHtml $sanitizador,
+        private PacienteService $pacientes
     ) {
     }
 
@@ -94,15 +96,13 @@ class CitaController extends Controller
     {
         $datos = $request->validated();
 
-        DB::transaction(function () use ($datos) {
+        $cita = DB::transaction(function () use ($datos) {
             $paciente = $this->buscarOCrearPaciente($datos);
 
-            Cita::create($this->camposCita($datos, $paciente->id) + ['origen' => 'manual']);
+            return Cita::create($this->camposCita($datos, $paciente->id) + ['origen' => 'manual']);
         });
 
-        return redirect()
-            ->route($this->destino($request))
-            ->with('exito', 'Cita creada correctamente.');
+        return $this->volver($request, $cita, 'Cita creada correctamente.');
     }
 
     public function update(CitaRequest $request, Cita $cita): RedirectResponse
@@ -115,14 +115,18 @@ class CitaController extends Controller
             $cita->update($this->camposCita($datos, $paciente->id));
         });
 
-        return redirect()
-            ->route($this->destino($request))
-            ->with('exito', 'Cita actualizada correctamente.');
+        return $this->volver($request, $cita->fresh(), 'Cita actualizada correctamente.');
     }
 
-    private function destino(CitaRequest $request): string
+    private function volver(CitaRequest $request, Cita $cita, string $mensaje): RedirectResponse
     {
-        return $request->input('volver') === 'calendario' ? 'panel.calendario' : 'panel.citas.index';
+        $destino = match ($request->input('volver')) {
+            'calendario' => redirect()->route('panel.calendario'),
+            'paciente' => redirect()->route('panel.pacientes.show', $cita->paciente_id),
+            default => redirect()->route('panel.citas.index'),
+        };
+
+        return $destino->with('exito', $mensaje);
     }
 
     public function cambiarEstado(Request $request, Cita $cita): RedirectResponse
@@ -145,26 +149,9 @@ class CitaController extends Controller
 
     private function buscarOCrearPaciente(array $datos): Paciente
     {
-        $telefono = Paciente::normalizarTelefono($datos['paciente_telefono']);
-
-        $paciente = Paciente::withTrashed()->where('telefono', $telefono)->first();
-
-        if ($paciente) {
-            if ($paciente->trashed()) {
-                $paciente->restore();
-            }
-
-            $paciente->fill(array_filter([
-                'nombre' => $datos['paciente_nombre'],
-                'email' => $datos['paciente_email'] ?? null,
-            ]))->save();
-
-            return $paciente;
-        }
-
-        return Paciente::create([
-            'telefono' => $telefono,
+        return $this->pacientes->buscarOCrear($datos['paciente_telefono'], [
             'nombre' => $datos['paciente_nombre'],
+            'apellidos' => $datos['paciente_apellidos'] ?? null,
             'email' => $datos['paciente_email'] ?? null,
             'origen' => 'manual',
         ]);

@@ -8,7 +8,7 @@
 
         <label class="campo__etiqueta" for="detalle-estado">Estado de la cita</label>
 
-        <select class="estado-rapido__select" name="estado" id="detalle-estado">
+        <select class="estado-rapido__select" name="estado" id="detalle-estado" data-detalle>
             @foreach (\App\Models\Cita::ESTADOS as $clave => $texto)
                 <option value="{{ $clave }}">{{ $texto }}</option>
             @endforeach

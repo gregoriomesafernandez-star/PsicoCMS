@@ -125,34 +125,41 @@
                         </td>
 
                         <td>
-                            <div class="acciones-fila">
-                                @if ($cita->paciente)
-                                    @php $fichaDisponible = menu_disponible('panel.pacientes.show'); @endphp
+                            @php
+                                $datosCita = json_encode([
+                                    'id' => $cita->id,
+                                    'paciente_id' => $cita->paciente_id,
+                                    'paciente_nombre' => $cita->paciente?->nombre,
+                                    'paciente_apellidos' => $cita->paciente?->apellidos,
+                                    'paciente_completo' => $cita->paciente?->nombre_completo,
+                                    'paciente_telefono' => $cita->paciente?->telefono,
+                                    'paciente_email' => $cita->paciente?->email,
+                                    'paciente_iniciales' => $cita->paciente?->iniciales,
+                                    'modalidad' => $cita->modalidad,
+                                    'modalidad_legible' => $cita->modalidad_legible,
+                                    'fecha' => $cita->fecha->toDateString(),
+                                    'hora_inicio' => $cita->hora_corta,
+                                    'hora_fin' => $cita->hora_fin_corta,
+                                    'duracion' => $cita->duracion,
+                                    'estado' => $cita->estado,
+                                    'estado_legible' => $cita->estado_legible,
+                                    'tono' => $cita->tono_estado,
+                                    'motivo' => $cita->motivo,
+                                    'notas' => $cita->notas,
+                                ]);
+                            @endphp
 
-                                    <a class="boton boton--secundario boton--icono {{ $fichaDisponible ? '' : 'boton--inactivo' }}"
-                                       href="{{ $fichaDisponible ? route('panel.pacientes.show', $cita->paciente) : '#' }}"
-                                       @unless ($fichaDisponible) aria-disabled="true" @endunless
-                                       aria-label="Ver ficha de {{ $cita->paciente->nombre_completo }}"
-                                       title="{{ $fichaDisponible ? 'Ver ficha del paciente' : 'Ficha del paciente (disponible proximamente)' }}">
-                                        <i class="fa-solid fa-address-card"></i>
-                                    </a>
-                                @endif
+                            <div class="acciones-fila">
+                                <button class="boton boton--secundario boton--icono" type="button"
+                                        data-ver-cita data-cita="{{ $datosCita }}"
+                                        aria-label="Ver los datos de la cita" title="Ver los datos de la cita">
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
 
                                 <button class="boton boton--secundario boton--icono" type="button"
                                         data-editar-cita="{{ $cita->id }}"
-                                        data-cita="{{ json_encode([
-                                            'id' => $cita->id,
-                                            'paciente_nombre' => $cita->paciente?->nombre_completo,
-                                            'paciente_telefono' => $cita->paciente?->telefono,
-                                            'paciente_email' => $cita->paciente?->email,
-                                            'modalidad' => $cita->modalidad,
-                                            'fecha' => $cita->fecha->toDateString(),
-                                            'hora_inicio' => $cita->hora_corta,
-                                            'estado' => $cita->estado,
-                                            'motivo' => $cita->motivo,
-                                            'notas' => $cita->notas,
-                                        ]) }}"
-                                        aria-label="Editar cita">
+                                        data-cita="{{ $datosCita }}"
+                                        aria-label="Editar cita" title="Editar cita">
                                     <i class="fa-solid fa-pen"></i>
                                 </button>
 
@@ -172,6 +179,7 @@
     </x-panel.card>
 
     @include('panel.citas.modal-formulario')
+    @include('panel.citas.modal-detalle')
 
 @endsection
 
@@ -187,10 +195,19 @@
             'urlHuecos' => route('panel.citas.huecos'),
             'urlCrear' => route('panel.citas.store'),
             'urlBase' => url('/panel-psicologa/citas'),
+            'urlPacientes' => route('panel.pacientes.buscar'),
             'errores' => $errors->any(),
+        ];
+
+        $datosDetalle = [
+            'urlBase' => url('/panel-psicologa/citas'),
+            'urlPacientes' => url('/panel-psicologa/pacientes'),
+            'fichaDisponible' => menu_disponible('panel.pacientes.show'),
         ];
     @endphp
 
     <script id="datos-citas" type="application/json">@json($datosCitas)</script>
+    <script id="datos-detalle" type="application/json">@json($datosDetalle)</script>
     <script src="{{ asset('panel/js/citas.js') }}"></script>
+    <script src="{{ asset('panel/js/cita-detalle.js') }}"></script>
 @endpush

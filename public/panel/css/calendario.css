@@ -372,54 +372,6 @@
     padding: 2.4rem 1.6rem;
 }
 
-/* ---------- Detalle de la cita ---------- */
-
-.detalle__paciente {
-    display: flex;
-    align-items: center;
-    gap: 1.2rem;
-    padding-bottom: 1.6rem;
-    margin-bottom: 1.6rem;
-    border-bottom: 0.1rem solid var(--panel-borde);
-}
-
-.detalle__fila {
-    display: flex;
-    align-items: baseline;
-    gap: 1.2rem;
-    padding: 0.7rem 0;
-}
-
-.detalle__etiqueta {
-    flex-shrink: 0;
-    width: 9rem;
-    font-size: 1.3rem;
-    color: var(--panel-texto-suave);
-}
-
-.detalle__valor {
-    font-size: 1.4rem;
-    text-transform: none;
-}
-
-.detalle__fila:nth-child(2) .detalle__valor {
-    text-transform: capitalize;
-}
-
-.detalle__estado {
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-    align-items: flex-start;
-    padding-top: 1.6rem;
-    margin-top: 0.8rem;
-    border-top: 0.1rem solid var(--panel-borde);
-}
-
-#modal-detalle .modal__pie {
-    justify-content: space-between;
-}
-
 @media (max-width: 1100px) {
     .calendario {
         grid-template-columns: minmax(0, 1fr);

@@ -303,3 +303,26 @@
         text-align: left;
     }
 }
+
+.metrica__enlace {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 0.6rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--panel-primario);
+}
+
+.metrica__enlace:hover {
+    text-decoration: underline;
+}
+
+.metrica__enlace i {
+    font-size: 1.1rem;
+    transition: transform var(--panel-transicion);
+}
+
+.metrica__enlace:hover i {
+    transform: translateX(0.3rem);
+}

@@ -198,6 +198,16 @@ document.addEventListener("DOMContentLoaded", () => {
         metodo.value = "POST";
         ponerValor("motivo", "");
         ponerValor("notas", "");
+
+        const paciente = preseleccion.paciente || datos.paciente;
+
+        if (paciente) {
+            ponerValor("paciente_nombre", paciente.paciente_nombre);
+            ponerValor("paciente_apellidos", paciente.paciente_apellidos);
+            ponerValor("paciente_telefono", paciente.paciente_telefono);
+            ponerValor("paciente_email", paciente.paciente_email);
+        }
+
         campoFecha.value = preseleccion.fecha || hoy();
         campoHora.value = preseleccion.hora || "";
 
@@ -216,6 +226,7 @@ document.addEventListener("DOMContentLoaded", () => {
         metodo.value = "PUT";
 
         ponerValor("paciente_nombre", cita.paciente_nombre);
+        ponerValor("paciente_apellidos", cita.paciente_apellidos);
         ponerValor("paciente_telefono", cita.paciente_telefono);
         ponerValor("paciente_email", cita.paciente_email);
         ponerValor("modalidad", cita.modalidad);
@@ -229,6 +240,128 @@ document.addEventListener("DOMContentLoaded", () => {
         PsicoModal.abrir("modal-cita");
         cargarHuecos();
     };
+
+    const iniciarBuscadorPacientes = () => {
+        const campoNombre = document.getElementById("cita-paciente-nombre");
+
+        if (!campoNombre || !datos.urlPacientes) {
+            return;
+        }
+
+        const lista = document.createElement("div");
+        lista.className = "sugerencias";
+        lista.hidden = true;
+        lista.setAttribute("role", "listbox");
+        campoNombre.insertAdjacentElement("afterend", lista);
+
+        campoNombre.parentElement.classList.add("campo--con-sugerencias");
+        campoNombre.setAttribute("autocomplete", "off");
+
+        let temporizador = null;
+
+        const cerrar = () => {
+            lista.hidden = true;
+            vaciar(lista);
+        };
+
+        const elegir = (paciente) => {
+            ponerValor("paciente_nombre", paciente.nombre_pila);
+            ponerValor("paciente_apellidos", paciente.apellidos);
+            ponerValor("paciente_telefono", paciente.telefono);
+            ponerValor("paciente_email", paciente.email);
+            cerrar();
+        };
+
+        const fila = (paciente) => {
+            const boton = document.createElement("button");
+            boton.type = "button";
+            boton.className = "sugerencia";
+            boton.setAttribute("role", "option");
+
+            const inicial = document.createElement("span");
+            inicial.className = "paciente__inicial";
+            inicial.textContent = paciente.iniciales;
+
+            const cuerpo = document.createElement("span");
+            cuerpo.className = "sugerencia__datos";
+
+            const nombre = document.createElement("span");
+            nombre.className = "sugerencia__nombre";
+            nombre.textContent = paciente.nombre;
+
+            const detalle = document.createElement("span");
+            detalle.className = "sugerencia__detalle";
+            detalle.textContent = `${paciente.telefono} · ${paciente.citas} cita(s) · ${paciente.estado}`;
+
+            cuerpo.appendChild(nombre);
+            cuerpo.appendChild(detalle);
+            boton.appendChild(inicial);
+            boton.appendChild(cuerpo);
+
+            boton.addEventListener("click", (evento) => {
+                evento.preventDefault();
+                elegir(paciente);
+            });
+
+            return boton;
+        };
+
+        const avisoNuevo = () => {
+            const aviso = document.createElement("p");
+            aviso.className = "sugerencias__vacio";
+            aviso.textContent = "Sin coincidencias. Se creara como paciente nuevo al guardar la cita.";
+
+            return aviso;
+        };
+
+        const buscar = async () => {
+            const texto = campoNombre.value.trim();
+
+            if (texto.length < 2) {
+                cerrar();
+                return;
+            }
+
+            try {
+                const respuesta = await fetch(`${datos.urlPacientes}?q=${encodeURIComponent(texto)}`, {
+                    headers: { "Accept": "application/json" }
+                });
+
+                const resultado = await respuesta.json();
+
+                vaciar(lista);
+
+                if (!resultado.pacientes.length) {
+                    lista.appendChild(avisoNuevo());
+                } else {
+                    resultado.pacientes.forEach((paciente) => lista.appendChild(fila(paciente)));
+                }
+
+                lista.hidden = false;
+            } catch (error) {
+                cerrar();
+            }
+        };
+
+        campoNombre.addEventListener("input", () => {
+            clearTimeout(temporizador);
+            temporizador = setTimeout(buscar, 250);
+        });
+
+        campoNombre.addEventListener("keydown", (evento) => {
+            if (evento.key === "Escape") {
+                cerrar();
+            }
+        });
+
+        document.addEventListener("click", (evento) => {
+            if (!lista.contains(evento.target) && evento.target !== campoNombre) {
+                cerrar();
+            }
+        });
+    };
+
+    iniciarBuscadorPacientes();
 
     window.PsicoCitaForm = { abrirNueva, abrirEdicion };
 
@@ -264,7 +397,7 @@ document.addEventListener("DOMContentLoaded", () => {
         PsicoToast.mostrar("Elige una hora antes de guardar la cita.", "error");
     });
 
-    document.querySelectorAll(".estado-rapido__select").forEach((select) => {
+    document.querySelectorAll(".estado-rapido__select:not([data-detalle])").forEach((select) => {
         select.addEventListener("change", () => select.closest("form").submit());
     });
 
