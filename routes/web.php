@@ -7,10 +7,14 @@ use App\Http\Controllers\Panel\BlogController;
 use App\Http\Controllers\Panel\CalendarioController;
 use App\Http\Controllers\Panel\CategoriaController;
 use App\Http\Controllers\Panel\CitaController;
+use App\Http\Controllers\Panel\ContenidoWebController;
 use App\Http\Controllers\Panel\PacienteController;
 use App\Http\Controllers\Panel\DisponibilidadController;
 use App\Http\Controllers\Panel\DocumentoController;
+use App\Http\Controllers\Panel\EspecialidadController;
 use App\Http\Controllers\Panel\FaqController;
+use App\Http\Controllers\Panel\PlanController;
+use App\Http\Controllers\Panel\ServicioController;
 use App\Http\Controllers\Panel\HistoriaController;
 use App\Http\Controllers\Panel\InicioController;
 use App\Http\Controllers\Panel\VacacionesController;
@@ -132,6 +136,47 @@ Route::middleware('auth')->prefix('panel-psicologa')->name('panel.')->group(func
         Route::post('/', 'store')->name('store');
         Route::put('/{categoria}', 'update')->name('update');
         Route::delete('/{categoria}', 'destroy')->name('destroy');
+    });
+
+    Route::controller(ContenidoWebController::class)->prefix('contenido')->group(function () {
+        Route::get('/', 'index')->name('contenido');
+        Route::put('/perfil', 'guardarPerfil')->name('contenido.perfil');
+        Route::delete('/perfil/foto', 'borrarFoto')->name('contenido.foto');
+        Route::put('/sobre-mi', 'guardarSobreMi')->name('contenido.sobre-mi');
+        Route::put('/consulta', 'guardarConsulta')->name('contenido.consulta');
+        Route::put('/seo', 'guardarSeo')->name('contenido.seo');
+    });
+
+    Route::controller(PlanController::class)->prefix('contenido/planes')->name('planes.')->group(function () {
+        Route::post('/', 'store')->name('store');
+        Route::put('/{plan}', 'update')->name('update');
+        Route::patch('/{plan}/mover/{direccion}', 'mover')
+            ->whereIn('direccion', ['arriba', 'abajo'])
+            ->name('mover');
+        Route::delete('/{plan}', 'destroy')->name('destroy');
+    });
+
+    Route::controller(ServicioController::class)->prefix('servicios')->name('servicios.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/', 'store')->name('store');
+        Route::put('/{servicio}', 'update')->name('update');
+        Route::patch('/{servicio}/activo', 'activo')->name('activo');
+        Route::patch('/{servicio}/mover/{direccion}', 'mover')
+            ->whereIn('direccion', ['arriba', 'abajo'])
+            ->name('mover');
+        Route::delete('/{servicio}', 'destroy')->name('destroy');
+    });
+
+    Route::controller(EspecialidadController::class)->prefix('especialidades')->name('especialidades.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/', 'store')->name('store');
+        Route::post('/ejemplos', 'ejemplos')->name('ejemplos');
+        Route::put('/{especialidad}', 'update')->name('update');
+        Route::patch('/{especialidad}/activo', 'activo')->name('activo');
+        Route::patch('/{especialidad}/mover/{direccion}', 'mover')
+            ->whereIn('direccion', ['arriba', 'abajo'])
+            ->name('mover');
+        Route::delete('/{especialidad}', 'destroy')->name('destroy');
     });
 
 });

@@ -73,6 +73,7 @@
     <script src="{{ asset('panel/js/modal.js') }}"></script>
     <script src="{{ asset('panel/js/toast.js') }}"></script>
     <script src="{{ asset('panel/js/confirmar.js') }}"></script>
+    <script src="{{ asset('panel/js/contador.js') }}"></script>
     @stack('scripts')
 
 </body>

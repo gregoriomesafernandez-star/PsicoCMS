@@ -1,0 +1,377 @@
+/* ---------- Resumen de lo que falta por rellenar ---------- */
+
+.progreso-web {
+    display: flex;
+    align-items: center;
+    gap: 1.6rem;
+    margin-bottom: 2rem;
+}
+
+.progreso-web__barra {
+    flex: 1;
+    height: 1rem;
+    border-radius: 0.5rem;
+    background-color: var(--panel-superficie-suave);
+    overflow: hidden;
+}
+
+.progreso-web__relleno {
+    display: block;
+    height: 100%;
+    border-radius: 0.5rem;
+    background-color: var(--panel-primario);
+    transition: width var(--panel-transicion);
+}
+
+.progreso-web__valor {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--panel-primario);
+}
+
+.completitud {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
+    gap: 1rem 2rem;
+    list-style: none;
+}
+
+.completitud__punto {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    font-size: 1.4rem;
+    color: var(--panel-texto-suave);
+}
+
+.completitud__punto i {
+    font-size: 1.3rem;
+    color: var(--panel-borde-fuerte);
+}
+
+.completitud__punto--hecho {
+    color: var(--panel-texto);
+}
+
+.completitud__punto--hecho i {
+    color: var(--panel-exito);
+}
+
+/* ---------- Datos publicos y foto ---------- */
+
+.contenido-perfil {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    align-items: start;
+    gap: 2.4rem;
+}
+
+.foto-perfil {
+    display: grid;
+    place-items: center;
+    padding: 1.6rem;
+    margin-bottom: 1.6rem;
+    border: 0.1rem solid var(--panel-borde);
+    border-radius: var(--panel-radio);
+    background-color: var(--panel-superficie-suave);
+}
+
+.foto-perfil__imagen {
+    max-width: 100%;
+    max-height: 28rem;
+    border-radius: var(--panel-radio-pequeno);
+    object-fit: contain;
+}
+
+/* ---------- Listas ordenables (planes, servicios, especialidades) ---------- */
+
+.ordenable {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    list-style: none;
+}
+
+.ordenable__fila {
+    display: grid;
+    grid-template-columns: 4.4rem minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 1.6rem;
+    padding: 1.6rem 1.8rem;
+    border: 0.1rem solid var(--panel-borde);
+    border-radius: var(--panel-radio);
+    background-color: var(--panel-superficie);
+}
+
+.ordenable__fila--oculta {
+    border-style: dashed;
+    background-color: var(--panel-superficie-suave);
+}
+
+.ordenable__fila--oculta .ordenable__titulo,
+.ordenable__fila--oculta .contenido-rico {
+    color: var(--panel-texto-tenue);
+}
+
+.ordenable__orden {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+}
+
+.ordenable__flecha {
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 2.4rem;
+    border: none;
+    border-radius: var(--panel-radio-pequeno);
+    background: none;
+    font-size: 1.2rem;
+    color: var(--panel-texto-suave);
+    cursor: pointer;
+    transition: background-color var(--panel-transicion), color var(--panel-transicion);
+}
+
+.ordenable__flecha:hover:not(:disabled) {
+    background-color: var(--panel-primario-suave);
+    color: var(--panel-primario);
+}
+
+.ordenable__flecha:disabled {
+    color: var(--panel-borde-fuerte);
+    cursor: default;
+}
+
+.ordenable__posicion {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--panel-primario);
+}
+
+.ordenable__cuerpo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    min-width: 0;
+}
+
+.ordenable__titulo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.5;
+    color: var(--panel-texto);
+}
+
+.ordenable__icono {
+    display: grid;
+    place-items: center;
+    width: 3.4rem;
+    height: 3.4rem;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background-color: var(--panel-primario-suave);
+    font-size: 1.4rem;
+    color: var(--panel-primario);
+}
+
+.ordenable__imagen {
+    width: 9rem;
+    height: 6rem;
+    border-radius: var(--panel-radio-pequeno);
+    object-fit: cover;
+}
+
+.ordenable__acciones {
+    display: flex;
+    gap: 0.6rem;
+    flex-shrink: 0;
+}
+
+/* ---------- Planes ---------- */
+
+.plan__meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+}
+
+.plan__precio {
+    font-size: 1.7rem;
+    color: var(--panel-texto);
+}
+
+.plan__sesion {
+    font-size: 1.3rem;
+    color: var(--panel-texto-suave);
+}
+
+.plan__caracteristicas {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-top: 0.4rem;
+    list-style: none;
+    font-size: 1.35rem;
+    color: var(--panel-texto-suave);
+}
+
+.plan__caracteristicas i {
+    margin-right: 0.6rem;
+    font-size: 1.1rem;
+    color: var(--panel-exito);
+}
+
+/* ---------- Selector de iconos ---------- */
+
+.iconos__grupo {
+    margin: 1.4rem 0 0.8rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: 0.05rem;
+    text-transform: uppercase;
+    color: var(--panel-texto-suave);
+}
+
+.iconos__grupo:first-child {
+    margin-top: 0;
+}
+
+.iconos__lista {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+    gap: 0.8rem;
+}
+
+.icono-opcion {
+    cursor: pointer;
+}
+
+.icono-opcion__entrada {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.icono-opcion__cara {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 1rem 1.2rem;
+    border: 0.1rem solid var(--panel-borde-fuerte);
+    border-radius: var(--panel-radio-pequeno);
+    font-size: 1.5rem;
+    color: var(--panel-texto-suave);
+    transition: all var(--panel-transicion);
+}
+
+.icono-opcion__cara:hover {
+    border-color: var(--panel-primario);
+    color: var(--panel-primario);
+}
+
+.icono-opcion__nombre {
+    font-size: 1.3rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.icono-opcion__entrada:checked + .icono-opcion__cara {
+    border-color: var(--panel-primario);
+    background-color: var(--panel-primario-suave);
+    font-weight: 600;
+    color: var(--panel-primario);
+}
+
+.icono-opcion__entrada:focus-visible + .icono-opcion__cara {
+    outline: 0.3rem solid var(--panel-primario-claro);
+    outline-offset: 0.2rem;
+}
+
+/* ---------- Imagen del servicio dentro del modal ---------- */
+
+.imagen-servicio {
+    margin-bottom: 2rem;
+}
+
+.imagen-servicio__vista {
+    display: block;
+    width: 100%;
+    max-height: 22rem;
+    border-radius: var(--panel-radio-pequeno);
+    object-fit: cover;
+}
+
+/* ---------- Consulta y mapa ---------- */
+
+.lista-pasos {
+    padding-left: 2rem;
+    font-size: 1.4rem;
+    line-height: 1.8;
+}
+
+.mapa-vista {
+    margin-top: 2rem;
+    border: 0.1rem solid var(--panel-borde);
+    border-radius: var(--panel-radio);
+    overflow: hidden;
+}
+
+.mapa-vista__marco {
+    display: block;
+    width: 100%;
+    height: 32rem;
+    border: none;
+}
+
+/* ---------- SEO por pagina ---------- */
+
+.seo-pagina {
+    padding: 1.8rem;
+    margin-bottom: 1.6rem;
+    border: 0.1rem solid var(--panel-borde);
+    border-radius: var(--panel-radio);
+}
+
+.seo-pagina__titulo {
+    padding: 0 0.8rem;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--panel-primario);
+}
+
+.seo-pagina .campo:last-child {
+    margin-bottom: 0;
+}
+
+.vacio__formulario {
+    display: inline-flex;
+}
+
+@media (max-width: 1100px) {
+    .contenido-perfil {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .ordenable__fila {
+        grid-template-columns: 4.4rem minmax(0, 1fr);
+    }
+
+    .ordenable__imagen,
+    .ordenable__acciones {
+        grid-column: 2;
+    }
+
+    .ordenable__imagen {
+        width: 100%;
+        height: 14rem;
+    }
+}

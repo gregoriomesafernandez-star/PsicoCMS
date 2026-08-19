@@ -3,6 +3,7 @@
     'descripcion' => null,
     'icono' => null,
     'acciones' => null,
+    'pie' => null,
 ])
 
 <section {{ $attributes->merge(['class' => 'card']) }}>
@@ -31,5 +32,9 @@
     <div class="card__cuerpo">
         {{ $slot }}
     </div>
+
+    @if ($pie)
+        <footer class="card__pie">{{ $pie }}</footer>
+    @endif
 
 </section>

@@ -42,6 +42,137 @@
     padding: 2.4rem;
 }
 
+.card__pie {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 1.2rem;
+    padding: 1.8rem 2.4rem;
+    border-top: 0.1rem solid var(--panel-borde);
+    background-color: var(--panel-superficie-suave);
+}
+
+.campo__contador {
+    margin-top: 0.5rem;
+    font-size: 1.2rem;
+    text-align: right;
+    color: var(--panel-texto-tenue);
+}
+
+.campo__contador--limite {
+    font-weight: 600;
+    color: var(--panel-atencion);
+}
+
+.casilla {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    margin-top: 1.2rem;
+    font-size: 1.35rem;
+    color: var(--panel-texto-suave);
+    cursor: pointer;
+}
+
+.casilla input {
+    width: 1.7rem;
+    height: 1.7rem;
+    accent-color: var(--panel-primario);
+    cursor: pointer;
+}
+
+/* ---------- Utilidades compartidas ---------- */
+
+.separado {
+    margin-bottom: 2.4rem;
+}
+
+.oculto {
+    display: none !important;
+}
+
+.celda__secundario {
+    font-size: 1.3rem;
+    color: var(--panel-texto-suave);
+}
+
+.celda__secundario--cursiva {
+    font-style: italic;
+}
+
+.contenido-rico--compacto {
+    font-size: 1.4rem;
+    line-height: 1.7;
+}
+
+/* ---------- Vista previa del resultado en Google ---------- */
+
+.resultado-google {
+    max-width: 60rem;
+    padding: 1.6rem 1.8rem;
+    border: 0.1rem solid var(--panel-borde);
+    border-radius: var(--panel-radio-pequeno);
+    background-color: var(--panel-superficie-suave);
+}
+
+.resultado-google__url {
+    font-size: 1.25rem;
+    color: var(--panel-texto-suave);
+}
+
+.resultado-google__titulo {
+    margin: 0.4rem 0;
+    font-size: 1.8rem;
+    color: #1a0dab;
+}
+
+.resultado-google__descripcion {
+    font-size: 1.35rem;
+    line-height: 1.6;
+    color: var(--panel-texto-suave);
+}
+
+/* ---------- Pestanas de seccion ---------- */
+
+.pestanas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+    border-bottom: 0.1rem solid var(--panel-borde);
+}
+
+.pestanas__boton {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 1.1rem 2rem;
+    border: 0.1rem solid var(--panel-borde-fuerte);
+    border-radius: var(--panel-radio-pequeno);
+    background-color: var(--panel-superficie);
+    font-size: 1.45rem;
+    font-weight: 600;
+    color: var(--panel-texto-suave);
+    cursor: pointer;
+    transition: all var(--panel-transicion);
+}
+
+.pestanas__boton:hover {
+    border-color: var(--panel-primario);
+    color: var(--panel-primario);
+}
+
+.pestanas__boton--activo {
+    border-color: var(--panel-primario);
+    background-color: var(--panel-primario);
+    color: #ffffff;
+}
+
+.pestanas__boton--activo:hover {
+    color: #ffffff;
+}
+
 .boton {
     display: inline-flex;
     align-items: center;

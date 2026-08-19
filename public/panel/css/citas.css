@@ -1,7 +1,3 @@
-.separado {
-    margin-bottom: 2.4rem;
-}
-
 .metrica .card__cuerpo {
     display: flex;
     flex-direction: column;
@@ -68,11 +64,6 @@
 .celda__principal {
     font-size: 1.45rem;
     font-weight: 600;
-}
-
-.celda__secundario {
-    font-size: 1.3rem;
-    color: var(--panel-texto-suave);
 }
 
 .paciente {

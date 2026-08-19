@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class PerfilPublico extends Model
 {
@@ -27,5 +28,10 @@ class PerfilPublico extends Model
     public static function actual(): self
     {
         return static::firstOrCreate([]);
+    }
+
+    public function getUrlFotoAttribute(): ?string
+    {
+        return $this->foto ? Storage::disk('public')->url($this->foto) : null;
     }
 }
