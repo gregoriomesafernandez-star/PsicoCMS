@@ -6,7 +6,7 @@
     <meta name="robots" content="noindex, nofollow">
     <title>Acceso | PsicoCMS</title>
     <link rel="stylesheet" href="{{ asset('fonts/fontawesome-free-6.1.2-web/css/all.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('panel/css/acceso.css') }}">
+    <link rel="stylesheet" href="{{ recurso('panel/css/acceso.css') }}">
 </head>
 <body class="acceso">
 
@@ -124,7 +124,7 @@
 
     </main>
 
-    <script src="{{ asset('panel/js/acceso.js') }}"></script>
+    <script src="{{ recurso('panel/js/acceso.js') }}"></script>
 
 </body>
 </html>

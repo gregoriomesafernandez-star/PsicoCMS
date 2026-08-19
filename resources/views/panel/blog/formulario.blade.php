@@ -149,9 +149,9 @@
 @include('panel.partials.assets-editor')
 
 @push('estilos')
-    <link rel="stylesheet" href="{{ asset('panel/css/blog.css') }}">
+    <link rel="stylesheet" href="{{ recurso('panel/css/blog.css') }}">
 @endpush
 
 @push('scripts')
-    <script src="{{ asset('panel/js/blog.js') }}"></script>
+    <script src="{{ recurso('panel/js/blog.js') }}"></script>
 @endpush

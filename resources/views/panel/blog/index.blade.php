@@ -145,6 +145,6 @@
 @endsection
 
 @push('estilos')
-    <link rel="stylesheet" href="{{ asset('panel/css/citas.css') }}">
-    <link rel="stylesheet" href="{{ asset('panel/css/blog.css') }}">
+    <link rel="stylesheet" href="{{ recurso('panel/css/citas.css') }}">
+    <link rel="stylesheet" href="{{ recurso('panel/css/blog.css') }}">
 @endpush

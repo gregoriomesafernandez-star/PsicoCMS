@@ -415,7 +415,7 @@
 @include('panel.partials.assets-editor')
 
 @push('estilos')
-    <link rel="stylesheet" href="{{ asset('panel/css/contenido.css') }}">
+    <link rel="stylesheet" href="{{ recurso('panel/css/contenido.css') }}">
 @endpush
 
 @push('scripts')
@@ -428,5 +428,5 @@
     @endphp
 
     <script id="datos-planes" type="application/json">@json($datosPlanes)</script>
-    <script src="{{ asset('panel/js/contenido.js') }}"></script>
+    <script src="{{ recurso('panel/js/contenido.js') }}"></script>
 @endpush

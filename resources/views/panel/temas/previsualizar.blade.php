@@ -17,7 +17,7 @@
     @foreach ($hojas as $hoja)
         <link rel="stylesheet" href="{{ $hoja }}">
     @endforeach
-    <link rel="stylesheet" href="{{ asset('panel/css/previsualizacion.css') }}">
+    <link rel="stylesheet" href="{{ recurso('panel/css/previsualizacion.css') }}">
 </head>
 <body>
 
@@ -107,13 +107,13 @@
             </div>
 
             <div class="banner__container-img">
-                <img class="banner__img" src="{{ $perfil->url_foto ?: $imagenes . '/psicologa.png' }}"
+                <img class="banner__img" src="{{ $perfil->url_foto ?: imagen('hero_principal') }}"
                      alt="Foto de {{ $nombre }}">
             </div>
 
             <div class="banner__shapes">
-                <div class="shapes__shape1"><img class="shape1__img" src="{{ $imagenes }}/shape1.png" alt=""></div>
-                <div class="shapes__shape2"><img class="shape2__img" src="{{ $imagenes }}/shape2.png" alt=""></div>
+                <div class="shapes__shape1"><img class="shape1__img" src="{{ imagen('hero_forma_1') }}" alt=""></div>
+                <div class="shapes__shape2"><img class="shape2__img" src="{{ imagen('hero_forma_2') }}" alt=""></div>
             </div>
         </div>
 
@@ -170,7 +170,7 @@
     <div class="layout__experience" id="sobre-mi">
         <div class="experience__container">
             <div class="experience__container-img">
-                <img class="experience__img" src="{{ $perfil->url_foto ?: $imagenes . '/exp1.jpg' }}"
+                <img class="experience__img" src="{{ $perfil->url_foto ?: imagen('sobre_mi') }}"
                      alt="Foto de {{ $nombre }}">
             </div>
 
@@ -203,7 +203,7 @@
                             <div class="service__container-img">
                                 <div class="service__overflow-img">
                                     <img class="service__img"
-                                         src="{{ $servicio->url_imagen ?: $imagenes . '/servicio' . ($loop->iteration % 4 + 1) . '.jpg' }}"
+                                         src="{{ $servicio->url_imagen ?: imagen('servicio_' . ($loop->iteration % 4 + 1)) }}"
                                          alt="{{ $servicio->titulo }}">
                                 </div>
                                 <i class="fa-solid {{ $servicio->icono_visible }} service__ico"></i>

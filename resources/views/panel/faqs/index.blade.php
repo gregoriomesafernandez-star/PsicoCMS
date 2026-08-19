@@ -232,9 +232,9 @@
 @include('panel.partials.assets-editor')
 
 @push('estilos')
-    <link rel="stylesheet" href="{{ asset('panel/css/citas.css') }}">
-    <link rel="stylesheet" href="{{ asset('panel/css/pacientes.css') }}">
-    <link rel="stylesheet" href="{{ asset('panel/css/faqs.css') }}">
+    <link rel="stylesheet" href="{{ recurso('panel/css/citas.css') }}">
+    <link rel="stylesheet" href="{{ recurso('panel/css/pacientes.css') }}">
+    <link rel="stylesheet" href="{{ recurso('panel/css/faqs.css') }}">
 @endpush
 
 @push('scripts')
@@ -247,5 +247,5 @@
     @endphp
 
     <script id="datos-faqs" type="application/json">@json($datosFaqs)</script>
-    <script src="{{ asset('panel/js/faqs.js') }}"></script>
+    <script src="{{ recurso('panel/js/faqs.js') }}"></script>
 @endpush

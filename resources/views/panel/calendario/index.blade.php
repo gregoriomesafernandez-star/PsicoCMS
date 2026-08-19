@@ -66,8 +66,8 @@
 @include('panel.partials.assets-editor')
 
 @push('estilos')
-    <link rel="stylesheet" href="{{ asset('panel/css/citas.css') }}">
-    <link rel="stylesheet" href="{{ asset('panel/css/calendario.css') }}">
+    <link rel="stylesheet" href="{{ recurso('panel/css/citas.css') }}">
+    <link rel="stylesheet" href="{{ recurso('panel/css/calendario.css') }}">
 @endpush
 
 @push('scripts')
@@ -102,7 +102,7 @@
 
     <script src="{{ asset('vendor/fullcalendar/index.global.min.js') }}"></script>
     <script src="{{ asset('vendor/fullcalendar/es.global.min.js') }}"></script>
-    <script src="{{ asset('panel/js/citas.js') }}"></script>
-    <script src="{{ asset('panel/js/cita-detalle.js') }}"></script>
-    <script src="{{ asset('panel/js/calendario.js') }}"></script>
+    <script src="{{ recurso('panel/js/citas.js') }}"></script>
+    <script src="{{ recurso('panel/js/cita-detalle.js') }}"></script>
+    <script src="{{ recurso('panel/js/calendario.js') }}"></script>
 @endpush

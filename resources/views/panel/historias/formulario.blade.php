@@ -165,8 +165,8 @@
 @include('panel.partials.assets-editor')
 
 @push('estilos')
-    <link rel="stylesheet" href="{{ asset('panel/css/citas.css') }}">
-    <link rel="stylesheet" href="{{ asset('panel/css/historias.css') }}">
+    <link rel="stylesheet" href="{{ recurso('panel/css/citas.css') }}">
+    <link rel="stylesheet" href="{{ recurso('panel/css/historias.css') }}">
 @endpush
 
 @push('scripts')
@@ -175,5 +175,5 @@
     @endphp
 
     <script id="datos-historia" type="application/json">@json($datosHistoria)</script>
-    <script src="{{ asset('panel/js/historias.js') }}"></script>
+    <script src="{{ recurso('panel/js/historias.js') }}"></script>
 @endpush

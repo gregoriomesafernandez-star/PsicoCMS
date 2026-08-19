@@ -6,10 +6,10 @@
     <meta name="robots" content="noindex, nofollow">
     <title>@yield('titulo', 'Panel') | PsicoCMS</title>
     <link rel="stylesheet" href="{{ asset('fonts/fontawesome-free-6.1.2-web/css/all.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('panel/css/variables.css') }}">
-    <link rel="stylesheet" href="{{ asset('panel/css/layout.css') }}">
-    <link rel="stylesheet" href="{{ asset('panel/css/componentes.css') }}">
-    <link rel="stylesheet" href="{{ asset('panel/css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ recurso('panel/css/variables.css') }}">
+    <link rel="stylesheet" href="{{ recurso('panel/css/layout.css') }}">
+    <link rel="stylesheet" href="{{ recurso('panel/css/componentes.css') }}">
+    <link rel="stylesheet" href="{{ recurso('panel/css/responsive.css') }}">
     @stack('estilos')
 </head>
 <body class="panel">
@@ -69,11 +69,11 @@
         <script type="application/json" id="mensaje-flash">@json(['tono' => 'error', 'texto' => session('error')])</script>
     @endif
 
-    <script src="{{ asset('panel/js/sidebar.js') }}"></script>
-    <script src="{{ asset('panel/js/modal.js') }}"></script>
-    <script src="{{ asset('panel/js/toast.js') }}"></script>
-    <script src="{{ asset('panel/js/confirmar.js') }}"></script>
-    <script src="{{ asset('panel/js/contador.js') }}"></script>
+    <script src="{{ recurso('panel/js/sidebar.js') }}"></script>
+    <script src="{{ recurso('panel/js/modal.js') }}"></script>
+    <script src="{{ recurso('panel/js/toast.js') }}"></script>
+    <script src="{{ recurso('panel/js/confirmar.js') }}"></script>
+    <script src="{{ recurso('panel/js/contador.js') }}"></script>
     @stack('scripts')
 
 </body>

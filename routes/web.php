@@ -13,6 +13,7 @@ use App\Http\Controllers\Panel\DisponibilidadController;
 use App\Http\Controllers\Panel\DocumentoController;
 use App\Http\Controllers\Panel\EspecialidadController;
 use App\Http\Controllers\Panel\FaqController;
+use App\Http\Controllers\Panel\ImagenController;
 use App\Http\Controllers\Panel\PlanController;
 use App\Http\Controllers\Panel\ServicioController;
 use App\Http\Controllers\Panel\TemaController;
@@ -166,6 +167,12 @@ Route::middleware('auth')->prefix('panel-psicologa')->name('panel.')->group(func
             ->whereIn('direccion', ['arriba', 'abajo'])
             ->name('mover');
         Route::delete('/{servicio}', 'destroy')->name('destroy');
+    });
+
+    Route::controller(ImagenController::class)->prefix('imagenes')->group(function () {
+        Route::get('/', 'index')->name('imagenes');
+        Route::post('/{imagen}', 'update')->whereNumber('imagen')->name('imagenes.update');
+        Route::delete('/{imagen}', 'restaurar')->whereNumber('imagen')->name('imagenes.restaurar');
     });
 
     Route::controller(TemaController::class)->prefix('temas')->name('temas.')->group(function () {

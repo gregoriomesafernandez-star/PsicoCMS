@@ -101,8 +101,8 @@
 @endsection
 
 @push('estilos')
-    <link rel="stylesheet" href="{{ asset('panel/css/citas.css') }}">
-    <link rel="stylesheet" href="{{ asset('panel/css/blog.css') }}">
+    <link rel="stylesheet" href="{{ recurso('panel/css/citas.css') }}">
+    <link rel="stylesheet" href="{{ recurso('panel/css/blog.css') }}">
 @endpush
 
 @push('scripts')
@@ -115,5 +115,5 @@
     @endphp
 
     <script id="datos-categorias" type="application/json">@json($datosCategorias)</script>
-    <script src="{{ asset('panel/js/categorias.js') }}"></script>
+    <script src="{{ recurso('panel/js/categorias.js') }}"></script>
 @endpush

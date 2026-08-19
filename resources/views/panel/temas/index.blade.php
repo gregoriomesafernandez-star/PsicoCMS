@@ -148,5 +148,5 @@
 @endsection
 
 @push('estilos')
-    <link rel="stylesheet" href="{{ asset('panel/css/temas.css') }}">
+    <link rel="stylesheet" href="{{ recurso('panel/css/temas.css') }}">
 @endpush

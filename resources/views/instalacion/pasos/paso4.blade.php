@@ -66,5 +66,5 @@
     <script id="datos-catalogo" type="application/json">
         @json($datos['catalogo'] ?? null)
     </script>
-    <script src="{{ asset('panel/js/instalacion-catalogo.js') }}"></script>
+    <script src="{{ recurso('panel/js/instalacion-catalogo.js') }}"></script>
 @endpush

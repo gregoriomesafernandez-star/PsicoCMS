@@ -96,5 +96,5 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('panel/js/instalacion-foto.js') }}"></script>
+    <script src="{{ recurso('panel/js/instalacion-foto.js') }}"></script>
 @endpush

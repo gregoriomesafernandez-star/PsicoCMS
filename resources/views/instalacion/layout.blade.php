@@ -6,7 +6,7 @@
     <meta name="robots" content="noindex, nofollow">
     <title>Instalacion de PsicoCMS</title>
     <link rel="stylesheet" href="{{ asset('fonts/fontawesome-free-6.1.2-web/css/all.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('panel/css/instalacion.css') }}">
+    <link rel="stylesheet" href="{{ recurso('panel/css/instalacion.css') }}">
 </head>
 <body class="instalador">
 

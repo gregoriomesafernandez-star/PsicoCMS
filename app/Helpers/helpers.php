@@ -1,6 +1,7 @@
 <?php
 
 use App\Services\AjustesService;
+use App\Services\ImagenService;
 use App\Services\InstaladorService;
 use Illuminate\Support\Facades\Route;
 
@@ -8,6 +9,33 @@ if (! function_exists('ajuste')) {
     function ajuste(string $clave, mixed $porDefecto = null): mixed
     {
         return app(AjustesService::class)->obtener($clave, $porDefecto);
+    }
+}
+
+if (! function_exists('recurso')) {
+    /**
+     * URL de un fichero de public/ con la fecha de modificacion como version.
+     * Sin ella, el navegador sigue sirviendo el CSS o el JS antiguo tras un cambio.
+     */
+    function recurso(string $ruta): string
+    {
+        $completa = public_path($ruta);
+
+        return asset($ruta) . (is_file($completa) ? '?v=' . filemtime($completa) : '');
+    }
+}
+
+if (! function_exists('imagen')) {
+    function imagen(string $clave): ?string
+    {
+        return app(ImagenService::class)->url($clave);
+    }
+}
+
+if (! function_exists('imagen_alt')) {
+    function imagen_alt(string $clave): string
+    {
+        return app(ImagenService::class)->alt($clave);
     }
 }
 

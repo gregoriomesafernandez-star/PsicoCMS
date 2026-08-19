@@ -1,0 +1,214 @@
+/* ---------- Huecos de imagen ---------- */
+
+.huecos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(30rem, 1fr));
+    gap: 2rem;
+}
+
+.hueco {
+    display: flex;
+    flex-direction: column;
+    border: 0.1rem solid var(--panel-borde);
+    border-radius: var(--panel-radio);
+    background-color: var(--panel-superficie);
+    overflow: hidden;
+}
+
+.hueco--propia {
+    border-color: var(--panel-exito);
+}
+
+/* La imagen se posiciona en absoluto dentro del recuadro: en un contenedor
+   grid, un max-height en porcentaje no acota al hijo y la foto desbordaba
+   sobre el formulario. */
+.hueco__vista {
+    position: relative;
+    height: 18rem;
+    overflow: hidden;
+    background-color: var(--panel-superficie-suave);
+    background-image:
+        linear-gradient(45deg, var(--panel-borde) 25%, transparent 25%),
+        linear-gradient(-45deg, var(--panel-borde) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, var(--panel-borde) 75%),
+        linear-gradient(-45deg, transparent 75%, var(--panel-borde) 75%);
+    background-size: 1.6rem 1.6rem;
+    background-position: 0 0, 0 0.8rem, 0.8rem -0.8rem, -0.8rem 0;
+}
+
+/* width y height explicitos: en un elemento reemplazado como <img>, un
+   position:absolute con inset no estira la imagen, se queda con su tamano
+   intrinseco y deja hueco. El margen visual lo da el padding. */
+.hueco__imagen {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    padding: 1.2rem;
+    border-radius: var(--panel-radio-pequeno);
+    object-fit: contain;
+    transition: transform 0.4s ease;
+}
+
+/* El zoom queda recortado por el overflow del recuadro. */
+.hueco:hover .hueco__imagen {
+    transform: scale(1.06);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hueco__imagen {
+        transition: none;
+    }
+
+    .hueco:hover .hueco__imagen {
+        transform: none;
+    }
+}
+
+/* Las fotos llenan el recuadro entero: sin fondo a la vista ni margenes. */
+.hueco__vista--foto {
+    background-image: none;
+}
+
+.hueco__vista--foto .hueco__imagen {
+    padding: 0;
+    border-radius: 0;
+    object-fit: cover;
+}
+
+.hueco__etiqueta {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 1rem;
+    border-radius: 2rem;
+    background-color: var(--panel-superficie);
+    box-shadow: var(--panel-sombra);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--panel-texto-suave);
+}
+
+.hueco--propia .hueco__etiqueta {
+    background-color: var(--panel-exito);
+    color: #ffffff;
+}
+
+.hueco__lupa {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    display: grid;
+    place-items: center;
+    width: 3.4rem;
+    height: 3.4rem;
+    border: none;
+    border-radius: 50%;
+    background-color: var(--panel-superficie);
+    box-shadow: var(--panel-sombra);
+    font-size: 1.3rem;
+    color: var(--panel-texto-suave);
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity var(--panel-transicion), color var(--panel-transicion);
+}
+
+.hueco:hover .hueco__lupa,
+.hueco__lupa:focus-visible {
+    opacity: 1;
+}
+
+.hueco__lupa:hover {
+    color: var(--panel-primario);
+}
+
+/* En tactil no hay hover, asi que la lupa se ve siempre. */
+@media (hover: none) {
+    .hueco__lupa {
+        opacity: 1;
+    }
+}
+
+/* ---------- Visor a tamano completo ---------- */
+
+.visor {
+    display: grid;
+    place-items: center;
+    padding: 1.2rem;
+    border-radius: var(--panel-radio);
+    background-color: var(--panel-superficie-suave);
+    background-image:
+        linear-gradient(45deg, var(--panel-borde) 25%, transparent 25%),
+        linear-gradient(-45deg, var(--panel-borde) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, var(--panel-borde) 75%),
+        linear-gradient(-45deg, transparent 75%, var(--panel-borde) 75%);
+    background-size: 1.6rem 1.6rem;
+    background-position: 0 0, 0 0.8rem, 0.8rem -0.8rem, -0.8rem 0;
+}
+
+.visor__imagen {
+    max-width: 100%;
+    max-height: 65vh;
+    border-radius: var(--panel-radio-pequeno);
+    object-fit: contain;
+}
+
+.hueco__cuerpo {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 1.8rem;
+}
+
+.hueco__nombre {
+    font-size: 1.55rem;
+    font-weight: 600;
+}
+
+.hueco__descripcion {
+    margin-bottom: 1.6rem;
+    font-size: 1.3rem;
+    line-height: 1.6;
+    color: var(--panel-texto-suave);
+}
+
+.hueco__cuerpo .campo:last-of-type {
+    margin-bottom: 1.6rem;
+}
+
+.hueco__acciones {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.8rem 1.2rem;
+    margin-top: auto;
+}
+
+.hueco__estado {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex: 1;
+    min-width: 18rem;
+    font-size: 1.25rem;
+    line-height: 1.5;
+    color: var(--panel-texto-tenue);
+}
+
+@media (max-width: 480px) {
+    .hueco__acciones {
+        flex-direction: column;
+    }
+
+    .hueco__acciones .boton,
+    .hueco__acciones form {
+        width: 100%;
+    }
+
+    .hueco__acciones form .boton {
+        width: 100%;
+    }
+}

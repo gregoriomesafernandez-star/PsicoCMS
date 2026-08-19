@@ -78,5 +78,5 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('panel/js/instalacion-password.js') }}"></script>
+    <script src="{{ recurso('panel/js/instalacion-password.js') }}"></script>
 @endpush

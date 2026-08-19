@@ -83,5 +83,5 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('panel/js/instalacion-bd.js') }}"></script>
+    <script src="{{ recurso('panel/js/instalacion-bd.js') }}"></script>
 @endpush

@@ -56,7 +56,7 @@ class TemaController extends Controller
      * Previsualizacion en pestana nueva. No cambia el tema activo: solo pinta
      * los datos reales con las hojas del tema que se pide.
      */
-    public function previsualizar(string $slug, string $modo = null): View
+    public function previsualizar(string $slug, ?string $modo = null): View
     {
         abort_unless($this->temas->existe($slug), 404);
 
@@ -67,7 +67,6 @@ class TemaController extends Controller
         return view('panel.temas.previsualizar', [
             'tema' => $this->temas->tema($slug),
             'hojas' => $this->temas->hojas($slug),
-            'imagenes' => $this->temas->carpetaImagenes($slug),
             'modo' => $modo,
             'esActivo' => $slug === $this->temas->slugActivo(),
             'perfil' => PerfilPublico::actual(),

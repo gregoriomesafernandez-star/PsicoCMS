@@ -314,9 +314,9 @@
 @endsection
 
 @push('estilos')
-    <link rel="stylesheet" href="{{ asset('panel/css/disponibilidad.css') }}">
+    <link rel="stylesheet" href="{{ recurso('panel/css/disponibilidad.css') }}">
 @endpush
 
 @push('scripts')
-    <script src="{{ asset('panel/js/disponibilidad.js') }}"></script>
+    <script src="{{ recurso('panel/js/disponibilidad.js') }}"></script>
 @endpush
