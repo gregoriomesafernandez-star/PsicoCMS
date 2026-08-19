@@ -1,0 +1,246 @@
+/* ---------- Formato de la web (una pagina / varias) ---------- */
+
+.modos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+    gap: 1.6rem;
+}
+
+.modo {
+    cursor: pointer;
+}
+
+.modo__entrada {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.modo__cara {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.4rem;
+    height: 100%;
+    padding: 1.8rem;
+    border: 0.1rem solid var(--panel-borde-fuerte);
+    border-radius: var(--panel-radio);
+    background-color: var(--panel-superficie);
+    transition: all var(--panel-transicion);
+}
+
+.modo__cara:hover {
+    border-color: var(--panel-primario);
+}
+
+.modo__entrada:checked + .modo__cara {
+    border-color: var(--panel-primario);
+    background-color: var(--panel-primario-suave);
+}
+
+.modo__entrada:focus-visible + .modo__cara {
+    outline: 0.3rem solid var(--panel-primario-claro);
+    outline-offset: 0.2rem;
+}
+
+.modo__icono {
+    display: grid;
+    place-items: center;
+    width: 4.2rem;
+    height: 4.2rem;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background-color: var(--panel-primario-suave);
+    font-size: 1.6rem;
+    color: var(--panel-primario);
+}
+
+.modo__texto {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    min-width: 0;
+}
+
+.modo__titulo {
+    font-size: 1.55rem;
+    font-weight: 600;
+}
+
+.modo__explicacion {
+    font-size: 1.35rem;
+    line-height: 1.6;
+    color: var(--panel-texto-suave);
+}
+
+.modo__marca {
+    margin-left: auto;
+    font-size: 1.6rem;
+    color: var(--panel-exito);
+}
+
+.modos__accion {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* ---------- Galeria de temas ---------- */
+
+.temas {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(30rem, 1fr));
+    gap: 2rem;
+}
+
+.tema {
+    display: flex;
+    flex-direction: column;
+    border: 0.1rem solid var(--panel-borde);
+    border-radius: var(--panel-radio);
+    background-color: var(--panel-superficie);
+    overflow: hidden;
+    transition: box-shadow var(--panel-transicion), border-color var(--panel-transicion);
+}
+
+.tema:hover {
+    box-shadow: var(--panel-sombra);
+}
+
+.tema--activo {
+    border-color: var(--panel-primario);
+    box-shadow: 0 0 0 0.2rem var(--panel-primario-suave);
+}
+
+/* Maqueta en miniatura pintada con la paleta del propio tema */
+.tema__muestra {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    height: 16rem;
+    padding: 2rem 1.8rem;
+}
+
+.tema__barra {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 0.8rem;
+}
+
+.tema__titulo-falso {
+    font-size: 1.7rem;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.tema__boton-falso {
+    align-self: flex-start;
+    padding: 0.7rem 1.6rem;
+    border-radius: 2rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.tema__lineas {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.tema__lineas span {
+    display: block;
+    height: 0.6rem;
+    border-radius: 0.3rem;
+}
+
+.tema__lineas span:first-child {
+    width: 80%;
+}
+
+.tema__lineas span:last-child {
+    width: 55%;
+}
+
+.tema__insignia {
+    position: absolute;
+    top: 1.6rem;
+    right: 1.4rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 1rem;
+    border-radius: 2rem;
+    background-color: var(--panel-exito);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.tema__cuerpo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    flex: 1;
+    padding: 1.8rem;
+}
+
+.tema__nombre {
+    font-size: 1.7rem;
+    font-weight: 700;
+}
+
+.tema__descripcion {
+    font-size: 1.35rem;
+    line-height: 1.6;
+    color: var(--panel-texto-suave);
+}
+
+.tema__paleta {
+    display: flex;
+    gap: 0.6rem;
+    margin-top: 0.4rem;
+    list-style: none;
+}
+
+.tema__color {
+    width: 2.4rem;
+    height: 2.4rem;
+    border: 0.1rem solid var(--panel-borde);
+    border-radius: 50%;
+}
+
+.tema__tipografia {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 1.25rem;
+    color: var(--panel-texto-tenue);
+}
+
+.tema__acciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    padding: 1.6rem 1.8rem;
+    border-top: 0.1rem solid var(--panel-borde);
+    background-color: var(--panel-superficie-suave);
+}
+
+.tema__acciones .boton,
+.tema__acciones form {
+    flex: 1;
+}
+
+.tema__acciones form .boton {
+    width: 100%;
+}
+
+@media (max-width: 480px) {
+    .tema__acciones {
+        flex-direction: column;
+    }
+}

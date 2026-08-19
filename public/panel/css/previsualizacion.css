@@ -1,0 +1,120 @@
+/* ---------------------------------------------------------------------------
+   Barra de aviso de la vista previa de un tema.
+
+   Es una pantalla del panel, asi que su barra usa los tokens del panel. Todo
+   lo que hay debajo lo pinta el tema con sus propias hojas.
+   --------------------------------------------------------------------------- */
+
+.aviso-previa {
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    padding: 1.2rem 2rem;
+    background-color: #1f2a37;
+    font-family: "Lexend", system-ui, sans-serif;
+    color: #ffffff;
+}
+
+.aviso-previa__texto {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 1.35rem;
+    line-height: 1.5;
+}
+
+.aviso-previa__acciones {
+    display: flex;
+    gap: 0.6rem;
+}
+
+.aviso-previa__boton {
+    padding: 0.6rem 1.4rem;
+    border: 0.1rem solid rgba(255, 255, 255, 0.35);
+    border-radius: 2rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #ffffff;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.aviso-previa__boton:hover {
+    background-color: rgba(255, 255, 255, 0.14);
+}
+
+.aviso-previa__boton--activo {
+    border-color: transparent;
+    background-color: #ffffff;
+    color: #1f2a37;
+}
+
+/* ---------- Bloques que el tema base no trae maquetados ---------- */
+
+.previa-faqs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.previa-faq {
+    padding: 2.4rem;
+    border-radius: 1.2rem;
+    background-color: var(--color-white2);
+}
+
+.previa-faq__pregunta {
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--color-black);
+}
+
+.previa-faq__respuesta {
+    font-size: 1.5rem;
+    line-height: 1.7;
+    color: var(--color-gray2);
+}
+
+.previa-paginas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
+    gap: 1.4rem;
+    margin-top: 3rem;
+    list-style: none;
+}
+
+.previa-pagina {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.2rem;
+    padding: 1.8rem 2rem;
+    border-radius: 1.2rem;
+    background-color: var(--color-white2);
+}
+
+.previa-pagina__nombre {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--color-black);
+}
+
+.previa-pagina__ruta {
+    font-family: "Consolas", "Courier New", monospace;
+    font-size: 1.3rem;
+    color: var(--color-primary);
+}
+
+@media (max-width: 768px) {
+    .aviso-previa {
+        justify-content: center;
+        text-align: center;
+    }
+}

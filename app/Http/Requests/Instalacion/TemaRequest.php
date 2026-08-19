@@ -18,7 +18,7 @@ class TemaRequest extends FormRequest
         return [
             'foto' => ['nullable', 'image', 'mimes:png,jpg,jpeg,webp', 'max:4096'],
             'tema' => ['required', Rule::in(app(TemaService::class)->slugsDisponibles())],
-            'modo' => ['required', Rule::in(TemaService::MODOS)],
+            'modo' => ['required', Rule::in(array_keys(TemaService::MODOS))],
         ];
     }
 

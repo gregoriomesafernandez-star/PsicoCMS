@@ -10,5 +10,10 @@
         "acento": "#a8c3a0"
     },
     "tipografia": "Lexend + Castoro",
-    "modos": ["landing", "multipagina"]
+    "modos": [
+        "landing",
+        "multipagina"
+    ],
+    "hereda": "base",
+    "hoja": "css/theme.css"
 }

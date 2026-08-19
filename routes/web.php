@@ -15,6 +15,7 @@ use App\Http\Controllers\Panel\EspecialidadController;
 use App\Http\Controllers\Panel\FaqController;
 use App\Http\Controllers\Panel\PlanController;
 use App\Http\Controllers\Panel\ServicioController;
+use App\Http\Controllers\Panel\TemaController;
 use App\Http\Controllers\Panel\HistoriaController;
 use App\Http\Controllers\Panel\InicioController;
 use App\Http\Controllers\Panel\VacacionesController;
@@ -165,6 +166,15 @@ Route::middleware('auth')->prefix('panel-psicologa')->name('panel.')->group(func
             ->whereIn('direccion', ['arriba', 'abajo'])
             ->name('mover');
         Route::delete('/{servicio}', 'destroy')->name('destroy');
+    });
+
+    Route::controller(TemaController::class)->prefix('temas')->name('temas.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::put('/modo', 'modo')->name('modo');
+        Route::put('/{slug}', 'activar')->name('activar');
+        Route::get('/{slug}/previsualizar/{modo?}', 'previsualizar')
+            ->whereIn('modo', ['landing', 'multipagina'])
+            ->name('previsualizar');
     });
 
     Route::controller(EspecialidadController::class)->prefix('especialidades')->name('especialidades.')->group(function () {

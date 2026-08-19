@@ -1,0 +1,56 @@
+/* ---------------------------------------------------------------------------
+   Tema "Serena" (serena)
+
+   Solo redefine la paleta. La maquetacion es la del tema base, que se carga
+   antes desde themes/base/css/. Para crear un tema nuevo basta con copiar esta
+   hoja, cambiar los valores y anadir su theme.json.
+   --------------------------------------------------------------------------- */
+
+:root {
+    --color-primary: #6b8f71;
+    --color-gray: #cccccc;
+    --color-white: #eef2ec;
+    --color-gray2: #6c726d;
+    --color-black: #151915;
+    --color-gray3: #9a9e9a;
+    --color-orange: #4a6b52;
+    --color-gray4: #e7e8e7;
+    --color-orange2: #a8c3a0;
+    --color-gray5: #9d9d9d;
+    --color-gray6: #dfdfdf;
+    --color-white2: #ffffff;
+    --color-brown: #39563d;
+    --color-white3: #eaf0eb;
+    --color-orange3: #68996e;
+    --color-gray7: #7d7f7d;
+    --color-gray8: #626562;
+    --color-orange4: #ddf9e0;
+    --color-gray9: #818381;
+    --color-orange5: #9eb8a1;
+    --color-white4: #ebf1ec;
+    --color-white5: #e4eae5;
+    --color-gray10: #959795;
+    --color-white6: #d7d7d7;
+    --color-white7: #e2e4e2;
+    --color-white8: #e7e7e7;
+    --color-white9: #d0d1d0;
+    --color-black2: #676a68;
+    --color-orange6: #98b79c;
+    --color-white10: #f1f5f1;
+    --color-gray11: #949694;
+    --color-orange7: #5c9263;
+    --color-black3: #5d5d5d;
+    --color-black4: #0f110f;
+    --color-brown2: #395f3e;
+    --color-black5: #474747;
+    --color-black6: #272d28;
+    --color-brown3: #48754e;
+    --color-white11: #eff7f0;
+    --color-gray12: #989898;
+    --color-white12: #e3e3e3;
+    --color-white13: #8f9290;
+    --color-gray13: #c4c6c4;
+    --color-gray14: #9c9c9c;
+    --color-black7: #464746;
+    --color-gray15: #b4b6b4;
+}

@@ -1,0 +1,56 @@
+/* ---------------------------------------------------------------------------
+   Tema "Base" (base)
+
+   Solo redefine la paleta. La maquetacion es la del tema base, que se carga
+   antes desde themes/base/css/. Para crear un tema nuevo basta con copiar esta
+   hoja, cambiar los valores y anadir su theme.json.
+   --------------------------------------------------------------------------- */
+
+:root {
+    --color-primary: #976147;
+    --color-gray: #cccccc;
+    --color-white: #eee8e5;
+    --color-gray2: #736e6b;
+    --color-black: #1a1614;
+    --color-gray3: #9f9b99;
+    --color-orange: #66493d;
+    --color-gray4: #e8e7e7;
+    --color-orange2: #c0a090;
+    --color-gray5: #9d9d9d;
+    --color-gray6: #dfdfdf;
+    --color-white2: #ffffff;
+    --color-brown: #5b4234;
+    --color-white3: #f1ece9;
+    --color-orange3: #a3775e;
+    --color-gray7: #807d7c;
+    --color-gray8: #666361;
+    --color-orange4: #ffe6d7;
+    --color-gray9: #838281;
+    --color-orange5: #bda699;
+    --color-white4: #f2edea;
+    --color-white5: #ebe6e3;
+    --color-gray10: #979695;
+    --color-white6: #d7d7d7;
+    --color-white7: #e4e3e2;
+    --color-white8: #e7e7e7;
+    --color-white9: #d1d0d0;
+    --color-black2: #6a6867;
+    --color-orange6: #bda292;
+    --color-white10: #f6f2f0;
+    --color-gray11: #969594;
+    --color-orange7: #9d6d51;
+    --color-black3: #5d5d5d;
+    --color-black4: #120f0e;
+    --color-brown2: #664532;
+    --color-black5: #474747;
+    --color-black6: #2e2926;
+    --color-brown3: #7e563f;
+    --color-white11: #f8f2ee;
+    --color-gray12: #989898;
+    --color-white12: #e3e3e3;
+    --color-white13: #92908f;
+    --color-gray13: #c7c4c3;
+    --color-gray14: #9c9c9c;
+    --color-black7: #474646;
+    --color-gray15: #b7b4b3;
+}
