@@ -13,7 +13,7 @@ class SanitizadorHtml
 
     private const PERMITIDAS = [
         'p', 'br', 'hr', 'strong', 'b', 'em', 'i', 'u', 's', 'sub', 'sup', 'span', 'div',
-        'h2', 'h3', 'h4', 'h5', 'blockquote', 'pre', 'code',
+        'h1', 'h2', 'h3', 'h4', 'h5', 'blockquote', 'pre', 'code',
         'ul', 'ol', 'li', 'a', 'img', 'figure', 'figcaption',
         'table', 'thead', 'tbody', 'tfoot', 'tr', 'th', 'td',
     ];

@@ -74,7 +74,7 @@ class Articulo extends Model
 
     public function getUrlImagenAttribute(): ?string
     {
-        return $this->imagen ? Storage::url($this->imagen) : null;
+        return $this->imagen ? Storage::disk('public')->url($this->imagen) : null;
     }
 
     public function getResumenAttribute(): string

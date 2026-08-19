@@ -1,0 +1,89 @@
+/* ---------- Campos automaticos ---------- */
+
+.campos__grupo + .campos__grupo {
+    padding-top: 1.8rem;
+    margin-top: 1.8rem;
+    border-top: 0.1rem solid var(--panel-borde);
+}
+
+.campos__titulo {
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: 0.05rem;
+    text-transform: uppercase;
+    color: var(--panel-texto-tenue);
+    margin-bottom: 1.2rem;
+}
+
+/* El ancho minimo lo marca el campo mas largo ({{paciente_fecha_nacimiento}}),
+   para que todas las tarjetas queden en una sola linea y se vean iguales. */
+.campos__lista {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(38rem, 1fr));
+    gap: 1rem;
+    list-style: none;
+}
+
+.campo-auto {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.2rem 0.9rem;
+    width: 100%;
+    height: 100%;
+    padding: 1rem 1.4rem;
+    border: 0.1rem solid var(--panel-borde);
+    border-radius: var(--panel-radio-pequeno);
+    background-color: var(--panel-superficie-suave);
+    text-align: left;
+    cursor: pointer;
+    transition: border-color var(--panel-transicion), background-color var(--panel-transicion);
+}
+
+.campo-auto:hover,
+.campo-auto:focus-visible {
+    border-color: var(--panel-primario);
+    background-color: var(--panel-primario-suave);
+}
+
+.campo-auto__clave {
+    font-family: "Courier New", monospace;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--panel-primario);
+    white-space: nowrap;
+}
+
+.campo-auto__texto {
+    font-size: 1.25rem;
+    color: var(--panel-texto-suave);
+}
+
+.campo-auto__texto::before {
+    content: "\00b7";
+    margin-right: 0.9rem;
+    color: var(--panel-borde-fuerte);
+}
+
+/* El boton de restaurar vive en la cabecera, dentro de su propio formulario.
+   Son tres acciones, asi que aqui la cabecera si permite que salten de linea. */
+.pagina__acciones {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.pagina__acciones form {
+    display: flex;
+}
+
+@media (max-width: 768px) {
+    .campos__lista {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .pagina__acciones form,
+    .pagina__acciones form .boton {
+        width: 100%;
+        justify-content: center;
+    }
+}

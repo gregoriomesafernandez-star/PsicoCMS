@@ -66,6 +66,22 @@ class Paciente extends Model
         return $this->hasMany(Cita::class);
     }
 
+    public function historias(): HasMany
+    {
+        return $this->hasMany(Historia::class);
+    }
+
+    public static function paraSelector(): array
+    {
+        return static::orderBy('nombre')
+            ->orderBy('apellidos')
+            ->get()
+            ->mapWithKeys(fn (self $paciente) => [
+                $paciente->id => $paciente->nombre_completo . ' - ' . $paciente->telefono,
+            ])
+            ->all();
+    }
+
     public function scopeBuscar(Builder $query, ?string $texto): Builder
     {
         if (blank($texto)) {

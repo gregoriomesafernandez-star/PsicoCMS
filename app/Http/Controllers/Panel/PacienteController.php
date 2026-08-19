@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Panel\PacienteRequest;
 use App\Models\Cita;
 use App\Models\Paciente;
+use App\Services\HistoriaService;
 use App\Services\PacienteService;
 use App\Services\SanitizadorHtml;
 use Illuminate\Http\JsonResponse;
@@ -19,6 +20,7 @@ class PacienteController extends Controller
 {
     public function __construct(
         private PacienteService $pacientes,
+        private HistoriaService $historias,
         private SanitizadorHtml $sanitizador
     ) {
     }
@@ -41,7 +43,8 @@ class PacienteController extends Controller
             ->withCount('citas')
             ->addSelect(['historias_count' => DB::table('historias')
                 ->selectRaw('count(*)')
-                ->whereColumn('paciente_id', 'pacientes.id')])
+                ->whereColumn('paciente_id', 'pacientes.id')
+                ->whereNull('deleted_at')])
             ->orderBy('nombre')
             ->orderBy('apellidos')
             ->paginate(15)
@@ -85,11 +88,12 @@ class PacienteController extends Controller
             'paciente' => $paciente,
             'citas' => $citas,
             'proxima' => $citas->filter(fn (Cita $cita) => $cita->fecha->toDateString() >= $hoy && $cita->estado !== 'cancelada')->last(),
+            'historias' => $paciente->historias()->ordenadas()->limit(3)->get(),
             'estadisticas' => [
                 'total' => $citas->count(),
                 'completadas' => $citas->where('estado', 'completada')->count(),
                 'canceladas' => $citas->whereIn('estado', ['cancelada', 'no_asistio'])->count(),
-                'historias' => DB::table('historias')->where('paciente_id', $paciente->id)->count(),
+                'historias' => $paciente->historias()->count(),
             ],
         ]);
     }
@@ -112,7 +116,10 @@ class PacienteController extends Controller
     {
         $nombre = $paciente->nombre_completo;
         $citas = $paciente->citas()->count();
-        $historias = DB::table('historias')->where('paciente_id', $paciente->id)->count();
+        $historias = $paciente->historias()->count();
+
+        // La base de datos arrastra citas, historias y adjuntos en cascada, pero los ficheros no.
+        $this->historias->borrarArchivosDelPaciente($paciente->id);
 
         $paciente->forceDelete();
 

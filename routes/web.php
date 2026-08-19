@@ -2,12 +2,15 @@
 
 use App\Http\Controllers\Auth\AccesoController;
 use App\Http\Controllers\Instalacion\InstalacionController;
+use App\Http\Controllers\Panel\AdjuntoController;
 use App\Http\Controllers\Panel\BlogController;
 use App\Http\Controllers\Panel\CalendarioController;
 use App\Http\Controllers\Panel\CategoriaController;
 use App\Http\Controllers\Panel\CitaController;
 use App\Http\Controllers\Panel\PacienteController;
 use App\Http\Controllers\Panel\DisponibilidadController;
+use App\Http\Controllers\Panel\DocumentoController;
+use App\Http\Controllers\Panel\HistoriaController;
 use App\Http\Controllers\Panel\InicioController;
 use App\Http\Controllers\Panel\VacacionesController;
 use Illuminate\Support\Facades\Route;
@@ -71,6 +74,34 @@ Route::middleware('auth')->prefix('panel-psicologa')->name('panel.')->group(func
         Route::get('/{paciente}/editar', 'edit')->whereNumber('paciente')->name('edit');
         Route::put('/{paciente}', 'update')->whereNumber('paciente')->name('update');
         Route::delete('/{paciente}', 'destroy')->whereNumber('paciente')->name('destroy');
+    });
+
+    Route::controller(DocumentoController::class)->prefix('documentos')->group(function () {
+        Route::get('/', 'index')->name('documentos');
+        Route::put('/', 'update')->name('documentos.update');
+        Route::put('/restaurar', 'restaurar')->name('documentos.restaurar');
+        Route::get('/plantilla.pdf', 'plantillaEnBlanco')->name('documentos.plantilla');
+    });
+
+    Route::get('/pacientes/{paciente}/proteccion-datos.pdf', [DocumentoController::class, 'documentoDelPaciente'])
+        ->whereNumber('paciente')
+        ->name('pacientes.proteccion-datos');
+
+    Route::controller(AdjuntoController::class)->prefix('historias/adjuntos')->name('historias.adjuntos.')->group(function () {
+        Route::get('/{adjunto}', 'ver')->whereNumber('adjunto')->name('ver');
+        Route::get('/{adjunto}/descargar', 'descargar')->whereNumber('adjunto')->name('descargar');
+        Route::delete('/{adjunto}', 'destroy')->whereNumber('adjunto')->name('destroy');
+    });
+
+    Route::controller(HistoriaController::class)->prefix('historias')->name('historias.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/nueva', 'create')->name('create');
+        Route::get('/citas', 'citasDelPaciente')->name('citas');
+        Route::post('/', 'store')->name('store');
+        Route::get('/{historia}', 'show')->whereNumber('historia')->name('show');
+        Route::get('/{historia}/editar', 'edit')->whereNumber('historia')->name('edit');
+        Route::put('/{historia}', 'update')->whereNumber('historia')->name('update');
+        Route::delete('/{historia}', 'destroy')->whereNumber('historia')->name('destroy');
     });
 
     Route::controller(BlogController::class)->prefix('blog')->name('blog.')->group(function () {

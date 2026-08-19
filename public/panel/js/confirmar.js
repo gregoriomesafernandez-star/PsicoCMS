@@ -9,7 +9,27 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
+    const BOTON_POR_DEFECTO = "Si, eliminar";
+    const ICONO_POR_DEFECTO = "fa-trash-can";
+
     let formularioPendiente = null;
+
+    const rotular = (elemento, texto, icono) => {
+        if (!elemento) {
+            return;
+        }
+
+        const marca = elemento.querySelector("i");
+        elemento.textContent = " " + texto;
+
+        if (marca) {
+            if (icono) {
+                marca.className = "fa-solid " + icono;
+            }
+
+            elemento.insertBefore(marca, elemento.firstChild);
+        }
+    };
 
     document.querySelectorAll("[data-confirmar]").forEach((formulario) => {
         formulario.addEventListener("submit", (evento) => {
@@ -18,14 +38,13 @@ document.addEventListener("DOMContentLoaded", () => {
             formularioPendiente = formulario;
             mensaje.textContent = formulario.dataset.confirmarMensaje || "Esta accion no se puede deshacer.";
 
-            if (titulo) {
-                const icono = titulo.querySelector("i");
-                titulo.textContent = " " + (formulario.dataset.confirmarTitulo || "Confirmar");
+            rotular(titulo, formulario.dataset.confirmarTitulo || "Confirmar");
 
-                if (icono) {
-                    titulo.insertBefore(icono, titulo.firstChild);
-                }
-            }
+            rotular(
+                aceptar,
+                formulario.dataset.confirmarBoton || BOTON_POR_DEFECTO,
+                formulario.dataset.confirmarIcono || ICONO_POR_DEFECTO
+            );
 
             PsicoModal.abrir("modal-confirmar");
         });

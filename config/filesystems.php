@@ -30,10 +30,13 @@ return [
 
     'disks' => [
 
+        // Historias clinicas y otros datos privados. 'serve' => false a proposito: Laravel
+        // registraria una ruta publica /storage/{path} sin autenticacion sobre esta carpeta.
+        // Los adjuntos se sirven solo desde Panel\AdjuntoController, dentro del grupo 'auth'.
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app/private'),
-            'serve' => true,
+            'serve' => false,
             'throw' => false,
             'report' => false,
         ],

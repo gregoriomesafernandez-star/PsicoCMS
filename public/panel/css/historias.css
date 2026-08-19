@@ -1,0 +1,403 @@
+/* ---------- Linea de tiempo ---------- */
+
+.linea-tiempo {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    list-style: none;
+}
+
+.linea-tiempo__item {
+    display: grid;
+    grid-template-columns: 6.4rem minmax(0, 1fr);
+    align-items: start;
+    gap: 1.6rem;
+    position: relative;
+}
+
+.linea-tiempo__item::before {
+    content: "";
+    position: absolute;
+    top: 7.4rem;
+    bottom: -2.6rem;
+    left: 3.2rem;
+    width: 0.2rem;
+    background-color: var(--panel-borde);
+}
+
+.linea-tiempo__item:last-child::before {
+    display: none;
+}
+
+.linea-tiempo__marca {
+    display: grid;
+    place-items: center;
+    align-content: center;
+    width: 6.4rem;
+    height: 6.4rem;
+    border-radius: var(--panel-radio);
+    background-color: var(--panel-primario-suave);
+    color: var(--panel-primario);
+    position: relative;
+    z-index: 1;
+}
+
+.linea-tiempo__dia {
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.linea-tiempo__mes {
+    font-size: 1.15rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.linea-tiempo__ano {
+    font-size: 1.05rem;
+    opacity: 0.75;
+}
+
+/* ---------- Entrada de la linea de tiempo ---------- */
+
+.entrada {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.8rem 2rem;
+    border: 0.1rem solid var(--panel-borde);
+    border-radius: var(--panel-radio);
+    background-color: var(--panel-superficie);
+}
+
+.entrada__cabecera {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+}
+
+.entrada__titulo {
+    font-size: 1.6rem;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.entrada__titulo a {
+    color: var(--panel-texto);
+}
+
+.entrada__titulo a:hover {
+    color: var(--panel-primario);
+    text-decoration: underline;
+}
+
+.entrada__etiquetas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+
+.entrada__paciente a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--panel-texto-suave);
+}
+
+.entrada__paciente a:hover {
+    color: var(--panel-primario);
+}
+
+.entrada__resumen {
+    font-size: 1.45rem;
+    line-height: 1.7;
+    color: var(--panel-texto-suave);
+}
+
+.entrada__resumen--vacio {
+    font-style: italic;
+    color: var(--panel-texto-tenue);
+}
+
+.entrada__pie {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    padding-top: 1.2rem;
+    border-top: 0.1rem solid var(--panel-borde);
+}
+
+/* ---------- Formulario de entrada ---------- */
+
+.editor-entrada {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 34rem;
+    align-items: start;
+    gap: 2.4rem;
+}
+
+.editor-entrada__acciones {
+    display: flex;
+    padding-top: 1.6rem;
+    margin-top: 0.8rem;
+    border-top: 0.1rem solid var(--panel-borde);
+}
+
+.editor-entrada__acciones .boton {
+    flex: 1;
+    justify-content: center;
+}
+
+/* ---------- Detalle de la entrada ---------- */
+
+.entrada-detalle {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 34rem;
+    align-items: start;
+    gap: 2.4rem;
+}
+
+/* ---------- Adjuntos ---------- */
+
+.adjuntos-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    list-style: none;
+    margin-bottom: 1.6rem;
+}
+
+.adjuntos-lista--tras-galeria {
+    padding-top: 1.6rem;
+    margin-top: 1.6rem;
+    border-top: 0.1rem solid var(--panel-borde);
+}
+
+.adjuntos-lista--elegidos:empty {
+    display: none;
+}
+
+.adjunto-fila {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    padding: 1rem 1.2rem;
+    border: 0.1rem solid var(--panel-borde);
+    border-radius: var(--panel-radio);
+    background-color: var(--panel-superficie-suave);
+}
+
+.adjunto-fila__icono {
+    font-size: 1.8rem;
+    flex-shrink: 0;
+    color: var(--panel-texto-suave);
+}
+
+.adjunto-fila__icono--pdf {
+    color: var(--panel-error);
+}
+
+.adjunto-fila__cuerpo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    flex: 1;
+    min-width: 0;
+}
+
+.adjunto-fila__nombre {
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--panel-texto);
+    overflow-wrap: anywhere;
+}
+
+a.adjunto-fila__nombre:hover {
+    color: var(--panel-primario);
+    text-decoration: underline;
+}
+
+.adjunto-fila__meta {
+    font-size: 1.2rem;
+    color: var(--panel-texto-tenue);
+}
+
+.adjunto-fila__quitar {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-shrink: 0;
+    font-size: 1.25rem;
+    color: var(--panel-texto-suave);
+    cursor: pointer;
+}
+
+.adjunto-fila__quitar input {
+    width: 1.6rem;
+    height: 1.6rem;
+    accent-color: var(--panel-error);
+    cursor: pointer;
+}
+
+/* ---------- Galeria de imagenes ---------- */
+
+.galeria {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    gap: 1.6rem;
+}
+
+.galeria__pieza {
+    display: flex;
+    flex-direction: column;
+    border: 0.1rem solid var(--panel-borde);
+    border-radius: var(--panel-radio);
+    overflow: hidden;
+    background-color: var(--panel-superficie-suave);
+}
+
+.galeria__lupa {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: zoom-in;
+}
+
+.galeria__miniatura {
+    display: block;
+    width: 100%;
+    height: 15rem;
+    object-fit: cover;
+}
+
+.galeria__lupa:hover .galeria__miniatura {
+    opacity: 0.85;
+}
+
+.galeria__pie {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 1rem 1.2rem;
+}
+
+.galeria__nombre {
+    font-size: 1.3rem;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.galeria__meta {
+    font-size: 1.2rem;
+    color: var(--panel-texto-tenue);
+}
+
+.galeria__acciones {
+    display: flex;
+    gap: 0.6rem;
+    margin-top: 0.6rem;
+}
+
+.visor__imagen {
+    display: block;
+    width: 100%;
+    max-height: 70vh;
+    object-fit: contain;
+    border-radius: var(--panel-radio);
+}
+
+/* ---------- Historia en la ficha del paciente ---------- */
+
+.historia-resumen {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    list-style: none;
+}
+
+.historia-resumen__item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding-bottom: 1.2rem;
+    border-bottom: 0.1rem solid var(--panel-borde);
+}
+
+.historia-resumen__item:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.historia-resumen__fecha {
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+    color: var(--panel-texto-tenue);
+}
+
+.historia-resumen__titulo {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--panel-texto);
+}
+
+.historia-resumen__titulo:hover {
+    color: var(--panel-primario);
+    text-decoration: underline;
+}
+
+.historia-resumen__acciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    padding-top: 1.6rem;
+    margin-top: 1.6rem;
+    border-top: 0.1rem solid var(--panel-borde);
+}
+
+@media (max-width: 1100px) {
+    .editor-entrada,
+    .entrada-detalle {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .linea-tiempo__item {
+        grid-template-columns: 5rem minmax(0, 1fr);
+        gap: 1.2rem;
+    }
+
+    .linea-tiempo__marca {
+        width: 5rem;
+        height: 5rem;
+    }
+
+    .linea-tiempo__item::before {
+        top: 5.8rem;
+        left: 2.4rem;
+    }
+
+    .linea-tiempo__dia {
+        font-size: 1.8rem;
+    }
+
+    .linea-tiempo__ano {
+        display: none;
+    }
+
+    .entrada__pie {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}

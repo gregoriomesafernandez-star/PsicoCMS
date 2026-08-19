@@ -25,6 +25,10 @@
     <button class="boton boton--secundario" type="button" id="boton-nueva-cita">
         <i class="fa-solid fa-calendar-plus"></i> Nueva cita
     </button>
+    <a class="boton boton--secundario" href="{{ route('panel.pacientes.proteccion-datos', $paciente) }}"
+       title="Descarga el documento de proteccion de datos con sus datos ya puestos">
+        <i class="fa-solid fa-file-shield"></i> Proteccion de datos
+    </a>
     <a class="boton" href="{{ route('panel.pacientes.edit', $paciente) }}">
         <i class="fa-solid fa-pen"></i> Editar
     </a>
@@ -278,17 +282,46 @@
             @endif
         </x-panel.card>
 
-        <x-panel.card titulo="Historia clinica" icono="fa-notes-medical">
-            @if (menu_disponible('panel.historias.index'))
-                <p class="celda__secundario separado">
-                    {{ $estadisticas['historias'] }} entrada(s) de seguimiento.
-                </p>
-                <a class="boton" href="{{ route('panel.historias.index', ['paciente' => $paciente->id]) }}">
-                    <i class="fa-solid fa-notes-medical"></i> Ver su historia
-                </a>
+        <x-panel.card titulo="Historia clinica" icono="fa-notes-medical"
+                      :descripcion="$historias->isEmpty() ? null : 'Ultimas sesiones anotadas.'">
+            <x-slot:acciones>
+                <x-panel.badge tono="neutro" icono="fa-lock">Cifrada</x-panel.badge>
+            </x-slot:acciones>
+
+            @if ($historias->isEmpty())
+                <x-panel.empty-state icono="fa-notes-medical" titulo="Sin entradas todavia"
+                                     mensaje="Despues de cada sesion puedes anotar aqui como ha ido y adjuntar fotos o PDF.">
+                    <a class="boton" href="{{ route('panel.historias.create', ['paciente' => $paciente->id]) }}">
+                        <i class="fa-solid fa-plus"></i> Escribir la primera
+                    </a>
+                </x-panel.empty-state>
             @else
-                <x-panel.empty-state icono="fa-lock" titulo="Disponible proximamente"
-                                     mensaje="Aqui podras escribir el seguimiento de cada sesion y adjuntar fotos o PDF." />
+                <ul class="historia-resumen">
+                    @foreach ($historias as $entrada)
+                        <li class="historia-resumen__item">
+                            <span class="historia-resumen__fecha">
+                                {{ $entrada->fecha_sesion->locale('es')->isoFormat('D MMM YYYY') }}
+                            </span>
+
+                            <a class="historia-resumen__titulo" href="{{ route('panel.historias.show', $entrada) }}">
+                                {{ $entrada->titulo_legible }}
+                            </a>
+
+                            @if (filled($entrada->resumen))
+                                <span class="celda__secundario">{{ Str::limit($entrada->resumen, 90) }}</span>
+                            @endif
+                        </li>
+                    @endforeach
+                </ul>
+
+                <div class="historia-resumen__acciones">
+                    <a class="boton boton--secundario" href="{{ route('panel.historias.index', ['paciente' => $paciente->id]) }}">
+                        <i class="fa-solid fa-timeline"></i> Ver las {{ $estadisticas['historias'] }}
+                    </a>
+                    <a class="boton" href="{{ route('panel.historias.create', ['paciente' => $paciente->id]) }}">
+                        <i class="fa-solid fa-plus"></i> Nueva entrada
+                    </a>
+                </div>
             @endif
         </x-panel.card>
 
@@ -303,6 +336,7 @@
 @push('estilos')
     <link rel="stylesheet" href="{{ asset('panel/css/citas.css') }}">
     <link rel="stylesheet" href="{{ asset('panel/css/pacientes.css') }}">
+    <link rel="stylesheet" href="{{ asset('panel/css/historias.css') }}">
 @endpush
 
 @push('scripts')
