@@ -10,6 +10,7 @@ use App\Http\Controllers\Panel\CitaController;
 use App\Http\Controllers\Panel\PacienteController;
 use App\Http\Controllers\Panel\DisponibilidadController;
 use App\Http\Controllers\Panel\DocumentoController;
+use App\Http\Controllers\Panel\FaqController;
 use App\Http\Controllers\Panel\HistoriaController;
 use App\Http\Controllers\Panel\InicioController;
 use App\Http\Controllers\Panel\VacacionesController;
@@ -74,6 +75,18 @@ Route::middleware('auth')->prefix('panel-psicologa')->name('panel.')->group(func
         Route::get('/{paciente}/editar', 'edit')->whereNumber('paciente')->name('edit');
         Route::put('/{paciente}', 'update')->whereNumber('paciente')->name('update');
         Route::delete('/{paciente}', 'destroy')->whereNumber('paciente')->name('destroy');
+    });
+
+    Route::controller(FaqController::class)->prefix('faqs')->name('faqs.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/', 'store')->name('store');
+        Route::post('/ejemplos', 'ejemplos')->name('ejemplos');
+        Route::put('/{faq}', 'update')->name('update');
+        Route::patch('/{faq}/activa', 'activa')->name('activa');
+        Route::patch('/{faq}/mover/{direccion}', 'mover')
+            ->whereIn('direccion', ['arriba', 'abajo'])
+            ->name('mover');
+        Route::delete('/{faq}', 'destroy')->name('destroy');
     });
 
     Route::controller(DocumentoController::class)->prefix('documentos')->group(function () {

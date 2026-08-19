@@ -1,0 +1,167 @@
+/* ---------- Listado de preguntas ---------- */
+
+.faqs {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    list-style: none;
+}
+
+.faq {
+    display: grid;
+    grid-template-columns: 4.4rem minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 1.6rem;
+    padding: 1.6rem 1.8rem;
+    border: 0.1rem solid var(--panel-borde);
+    border-radius: var(--panel-radio);
+    background-color: var(--panel-superficie);
+}
+
+.faq--oculta {
+    background-color: var(--panel-superficie-suave);
+    border-style: dashed;
+}
+
+.faq--oculta .faq__pregunta,
+.faq--oculta .contenido-rico {
+    color: var(--panel-texto-tenue);
+}
+
+/* ---------- Columna de orden ---------- */
+
+.faq__orden {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+}
+
+.faq__flecha {
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 2.4rem;
+    border: none;
+    border-radius: var(--panel-radio-pequeno);
+    background: none;
+    font-size: 1.2rem;
+    color: var(--panel-texto-suave);
+    cursor: pointer;
+    transition: background-color var(--panel-transicion), color var(--panel-transicion);
+}
+
+.faq__flecha:hover:not(:disabled) {
+    background-color: var(--panel-primario-suave);
+    color: var(--panel-primario);
+}
+
+.faq__flecha:disabled {
+    color: var(--panel-borde-fuerte);
+    cursor: default;
+}
+
+.faq__posicion {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--panel-primario);
+}
+
+/* ---------- Cuerpo ---------- */
+
+.faq__cuerpo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    min-width: 0;
+}
+
+.faq__pregunta {
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.5;
+    color: var(--panel-texto);
+}
+
+.faq__acciones {
+    display: flex;
+    gap: 0.6rem;
+    flex-shrink: 0;
+}
+
+.faq__visibilidad {
+    display: flex;
+}
+
+.vacio__formulario {
+    display: inline-flex;
+}
+
+/* ---------- Vista previa en acordeon ---------- */
+
+.acordeon {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.acordeon__pieza {
+    border: 0.1rem solid var(--panel-borde);
+    border-radius: var(--panel-radio);
+    overflow: hidden;
+    background-color: var(--panel-superficie-suave);
+}
+
+.acordeon__cabecera {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.2rem;
+    width: 100%;
+    padding: 1.4rem 1.8rem;
+    border: none;
+    background: none;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color var(--panel-transicion);
+}
+
+.acordeon__cabecera:hover {
+    background-color: var(--panel-primario-suave);
+}
+
+.acordeon__pregunta {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--panel-texto);
+}
+
+.acordeon__flecha {
+    flex-shrink: 0;
+    font-size: 1.2rem;
+    color: var(--panel-primario);
+    transition: transform var(--panel-transicion);
+}
+
+.acordeon__cabecera[aria-expanded="true"] .acordeon__flecha {
+    transform: rotate(180deg);
+}
+
+.acordeon__respuesta {
+    padding: 0 1.8rem 1.6rem 1.8rem;
+    border-top: 0.1rem solid var(--panel-borde);
+}
+
+.acordeon__respuesta .contenido-rico {
+    padding-top: 1.4rem;
+}
+
+@media (max-width: 768px) {
+    .faq {
+        grid-template-columns: 4.4rem minmax(0, 1fr);
+    }
+
+    .faq__acciones {
+        grid-column: 2;
+    }
+}
