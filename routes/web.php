@@ -4,6 +4,8 @@ use App\Http\Controllers\Auth\AccesoController;
 use App\Http\Controllers\Instalacion\InstalacionController;
 use App\Http\Controllers\Panel\AdjuntoController;
 use App\Http\Controllers\Panel\AparienciaController;
+use App\Http\Controllers\Panel\AyudaController;
+use App\Http\Controllers\Panel\BuscadorController;
 use App\Http\Controllers\Panel\BlogController;
 use App\Http\Controllers\Panel\CalendarioController;
 use App\Http\Controllers\Panel\CategoriaController;
@@ -14,8 +16,12 @@ use App\Http\Controllers\Panel\DisponibilidadController;
 use App\Http\Controllers\Panel\DocumentoController;
 use App\Http\Controllers\Panel\EspecialidadController;
 use App\Http\Controllers\Panel\FaqController;
+use App\Http\Controllers\Panel\FraseController;
 use App\Http\Controllers\Panel\ImagenController;
 use App\Http\Controllers\Panel\ModuloController;
+use App\Http\Controllers\Panel\NotificacionController;
+use App\Http\Controllers\Panel\PerfilController;
+use App\Http\Controllers\Panel\RedSocialController;
 use App\Http\Controllers\Panel\PlanController;
 use App\Http\Controllers\Panel\ServicioController;
 use App\Http\Controllers\Panel\TemaController;
@@ -169,6 +175,35 @@ Route::middleware('auth')->prefix('panel-psicologa')->name('panel.')->group(func
             ->whereIn('direccion', ['arriba', 'abajo'])
             ->name('mover');
         Route::delete('/{servicio}', 'destroy')->name('destroy');
+    });
+
+    Route::get('/buscar', BuscadorController::class)->name('buscador');
+    Route::get('/ayuda', AyudaController::class)->name('ayuda');
+
+    Route::controller(FraseController::class)->prefix('frases')->group(function () {
+        Route::get('/', 'index')->name('frases');
+        Route::put('/', 'update')->name('frases.update');
+        Route::put('/restaurar', 'restaurarTodas')->name('frases.restaurar-todas');
+        Route::put('/{frase}/restaurar', 'restaurar')->whereNumber('frase')->name('frases.restaurar');
+    });
+
+    Route::controller(RedSocialController::class)->prefix('redes')->group(function () {
+        Route::get('/', 'index')->name('redes');
+        Route::put('/', 'update')->name('redes.update');
+    });
+
+    Route::controller(NotificacionController::class)->prefix('notificaciones')->group(function () {
+        Route::get('/', 'index')->name('notificaciones');
+        Route::put('/', 'update')->name('notificaciones.update');
+        Route::post('/probar', 'probar')->name('notificaciones.probar');
+        Route::delete('/', 'olvidar')->name('notificaciones.olvidar');
+    });
+
+    Route::controller(PerfilController::class)->prefix('perfil')->group(function () {
+        Route::get('/', 'index')->name('perfil');
+        Route::put('/', 'update')->name('perfil.update');
+        Route::put('/password', 'password')->name('perfil.password');
+        Route::delete('/avatar', 'borrarAvatar')->name('perfil.avatar');
     });
 
     Route::put('/apariencia', [AparienciaController::class, 'update'])->name('apariencia');

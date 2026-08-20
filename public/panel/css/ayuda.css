@@ -1,0 +1,121 @@
+.ayuda {
+    display: grid;
+    grid-template-columns: 26rem minmax(0, 1fr);
+    align-items: start;
+    gap: 2.4rem;
+}
+
+.ayuda__indice {
+    position: sticky;
+    top: calc(var(--panel-cabecera-alto) + 2rem);
+}
+
+.indice {
+    padding: 1.8rem;
+    border: 0.1rem solid var(--panel-borde);
+    border-radius: var(--panel-radio);
+    background-color: var(--panel-superficie);
+}
+
+.indice__titulo {
+    margin-bottom: 1.2rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 0.05rem;
+    text-transform: uppercase;
+    color: var(--panel-texto-suave);
+}
+
+.indice__lista {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    list-style: none;
+}
+
+.indice__enlace {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 0.9rem 1.2rem;
+    border-radius: var(--panel-radio-pequeno);
+    font-size: 1.35rem;
+    color: var(--panel-texto-suave);
+    transition: background-color var(--panel-transicion), color var(--panel-transicion);
+}
+
+.indice__enlace:hover {
+    background-color: var(--panel-primario-suave);
+    color: var(--panel-primario);
+}
+
+.indice__enlace i {
+    width: 1.6rem;
+    text-align: center;
+}
+
+/* Al saltar con un ancla, el navegador deja el bloque pegado al borde de arriba
+   y la cabecera pegajosa lo tapaba. Se reserva su alto mas un respiro. */
+.ayuda__contenido .card {
+    scroll-margin-top: calc(var(--panel-cabecera-alto) + 2rem);
+}
+
+.guia {
+    font-size: 1.5rem;
+    line-height: 1.8;
+    color: var(--panel-texto-suave);
+}
+
+.guia p {
+    margin-bottom: 1.4rem;
+}
+
+.guia p:last-child {
+    margin-bottom: 0;
+}
+
+.guia strong {
+    color: var(--panel-texto);
+}
+
+.guia a {
+    font-weight: 600;
+    color: var(--panel-primario);
+    text-decoration: underline;
+}
+
+.guia__pasos {
+    padding-left: 2rem;
+    margin-bottom: 1.4rem;
+    list-style: decimal;
+}
+
+.guia__pasos li {
+    margin-bottom: 0.6rem;
+}
+
+@media (max-width: 1100px) {
+    .ayuda {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .ayuda__indice {
+        position: static;
+    }
+
+    .indice__lista {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+}
+
+/* El salto entre apartados se hace suave, salvo que el sistema pida lo contrario. */
+html {
+    scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}

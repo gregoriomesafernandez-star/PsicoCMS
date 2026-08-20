@@ -1,6 +1,7 @@
 <?php
 
 use App\Services\AjustesService;
+use App\Services\FraseService;
 use App\Services\ImagenService;
 use App\Services\InstaladorService;
 use App\Services\ModuloService;
@@ -30,6 +31,13 @@ if (! function_exists('imagen')) {
     function imagen(string $clave): ?string
     {
         return app(ImagenService::class)->url($clave);
+    }
+}
+
+if (! function_exists('frase')) {
+    function frase(string $clave, ?string $porDefecto = null): ?string
+    {
+        return app(FraseService::class)->texto($clave) ?? $porDefecto;
     }
 }
 

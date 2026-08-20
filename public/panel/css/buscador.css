@@ -1,0 +1,171 @@
+/* ---------- Guia cuando aun no se ha buscado ---------- */
+
+.buscador-guia {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: 1.6rem;
+    margin-bottom: 2.4rem;
+}
+
+.buscador-guia__tipo {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    padding: 1.4rem 1.6rem;
+    border: 0.1rem solid var(--panel-borde);
+    border-radius: var(--panel-radio);
+}
+
+.buscador-guia__icono {
+    display: grid;
+    place-items: center;
+    width: 4rem;
+    height: 4rem;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background-color: var(--panel-primario-suave);
+    font-size: 1.5rem;
+    color: var(--panel-primario);
+}
+
+.buscador-guia__nombre {
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+/* ---------- Filtros por tipo ---------- */
+
+.filtros-tipo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+}
+
+.filtro-tipo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.9rem 1.6rem;
+    border: 0.1rem solid var(--panel-borde-fuerte);
+    border-radius: 2rem;
+    background-color: var(--panel-superficie);
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--panel-texto-suave);
+    transition: all var(--panel-transicion);
+}
+
+.filtro-tipo:hover {
+    border-color: var(--panel-primario);
+    color: var(--panel-primario);
+}
+
+.filtro-tipo--activo {
+    border-color: var(--panel-primario);
+    background-color: var(--panel-primario);
+    color: #ffffff;
+}
+
+.filtro-tipo__cuenta {
+    padding: 0.1rem 0.7rem;
+    border-radius: 2rem;
+    background-color: var(--panel-superficie-suave);
+    font-size: 1.15rem;
+    color: var(--panel-texto-suave);
+}
+
+.filtro-tipo--activo .filtro-tipo__cuenta {
+    background-color: rgba(255, 255, 255, 0.22);
+    color: #ffffff;
+}
+
+/* ---------- Resultados ---------- */
+
+.resultados {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    list-style: none;
+}
+
+/* Los resultados de cita son <button> para abrir su modal, y el resto <a>.
+   Aqui se igualan: sin los estilos propios del boton y a todo el ancho. */
+.resultado__enlace {
+    display: flex;
+    align-items: center;
+    gap: 1.4rem;
+    width: 100%;
+    padding: 1.4rem 1.6rem;
+    border: 0.1rem solid var(--panel-borde);
+    border-radius: var(--panel-radio);
+    background-color: var(--panel-superficie);
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: border-color var(--panel-transicion), background-color var(--panel-transicion);
+}
+
+.resultado__enlace:hover {
+    border-color: var(--panel-primario);
+    background-color: var(--panel-primario-suave);
+}
+
+.resultado__icono {
+    display: grid;
+    place-items: center;
+    width: 4rem;
+    height: 4rem;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background-color: var(--panel-superficie-suave);
+    font-size: 1.4rem;
+    color: var(--panel-texto-suave);
+}
+
+.resultado__enlace:hover .resultado__icono {
+    background-color: var(--panel-superficie);
+    color: var(--panel-primario);
+}
+
+.resultado__cuerpo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    flex: 1;
+    min-width: 0;
+}
+
+.resultado__titulo {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.resultado__detalle {
+    font-size: 1.3rem;
+    color: var(--panel-texto-suave);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.resultado__flecha {
+    flex-shrink: 0;
+    font-size: 1.2rem;
+    color: var(--panel-texto-tenue);
+}
+
+.resaltado {
+    padding: 0 0.2rem;
+    border-radius: 0.3rem;
+    background-color: var(--panel-atencion-suave);
+    font-weight: 700;
+    color: inherit;
+}
+
+@media (max-width: 768px) {
+    .resultado__detalle {
+        white-space: normal;
+    }
+}

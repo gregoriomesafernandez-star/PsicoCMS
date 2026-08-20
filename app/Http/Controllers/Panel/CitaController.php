@@ -123,6 +123,10 @@ class CitaController extends Controller
         $destino = match ($request->input('volver')) {
             'calendario' => redirect()->route('panel.calendario'),
             'paciente' => redirect()->route('panel.pacientes.show', $cita->paciente_id),
+            // Se vuelve a la misma busqueda, no a una URL enviada por el cliente.
+            'buscador' => redirect()->route('panel.buscador', [
+                'q' => substr((string) $request->input('busqueda'), 0, 100),
+            ]),
             default => redirect()->route('panel.citas.index'),
         };
 

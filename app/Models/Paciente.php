@@ -88,7 +88,7 @@ class Paciente extends Model
             return $query;
         }
 
-        $digitos = static::normalizarTelefono($texto);
+        $digitos = static::pareceTelefono($texto) ? static::normalizarTelefono($texto) : '';
 
         return $query->where(function (Builder $sub) use ($texto, $digitos) {
             $sub->where('nombre', 'like', "%{$texto}%")
@@ -100,6 +100,22 @@ class Paciente extends Model
                 $sub->orWhere('telefono', 'like', "%{$digitos}%");
             }
         });
+    }
+
+    /**
+     * Solo se busca por telefono cuando lo escrito **es** un telefono: digitos
+     * con la puntuacion habitual y al menos tres cifras.
+     *
+     * Sin esta comprobacion, buscar "primer articulo2" dejaba los digitos en
+     * "2" y sacaba a todos los pacientes con un 2 en su numero.
+     */
+    public static function pareceTelefono(string $texto): bool
+    {
+        $texto = trim($texto);
+
+        return $texto !== ''
+            && preg_match('/^[0-9\s+()\-\.]+$/', $texto) === 1
+            && strlen(static::normalizarTelefono($texto)) >= 3;
     }
 
     public function scopeBuscarNombre(Builder $query, ?string $texto): Builder

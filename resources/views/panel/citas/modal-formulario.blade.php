@@ -5,6 +5,11 @@
         <input type="hidden" name="_method" value="POST" id="cita-metodo">
         <input type="hidden" name="volver" value="{{ $volver ?? 'citas' }}">
 
+        {{-- Solo se usa cuando se vuelve al buscador: conserva lo que se busco. --}}
+        @isset($busqueda)
+            <input type="hidden" name="busqueda" value="{{ $busqueda }}">
+        @endisset
+
         <fieldset class="grupo-campos">
             <legend class="grupo-campos__titulo">Paciente</legend>
 
