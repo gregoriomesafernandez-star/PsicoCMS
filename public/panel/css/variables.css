@@ -1,8 +1,5 @@
 :root {
     --panel-primario: #3d5a80;
-    --panel-primario-oscuro: #2f4763;
-    --panel-primario-claro: #5b7ba5;
-    --panel-primario-suave: #e8eef5;
 
     --panel-fondo: #f4f6fa;
     --panel-superficie: #ffffff;
@@ -33,6 +30,75 @@
     --panel-cabecera-alto: 7rem;
 
     --panel-transicion: 0.2s ease;
+}
+
+/* ---------------------------------------------------------------------------
+   Color primario. Cada paleta solo declara --panel-primario; el resto de tonos
+   se derivan de el, asi que funcionan igual en tema claro y en oscuro.
+   Los valores fijos de la primera linea son el respaldo por si el navegador
+   no entiende color-mix().
+   --------------------------------------------------------------------------- */
+
+:root {
+    --panel-primario-oscuro: #2f4763;
+    --panel-primario-oscuro: color-mix(in srgb, var(--panel-primario) 78%, #000000);
+
+    --panel-primario-claro: #5b7ba5;
+    --panel-primario-claro: color-mix(in srgb, var(--panel-primario) 62%, #ffffff);
+
+    --panel-primario-suave: #e8eef5;
+    --panel-primario-suave: color-mix(in srgb, var(--panel-primario) 13%, var(--panel-superficie));
+
+    --panel-info: var(--panel-primario);
+    --panel-info-suave: var(--panel-primario-suave);
+
+    /* Texto y iconos que van encima de --panel-primario-suave. */
+    --panel-primario-texto: var(--panel-primario-oscuro);
+}
+
+:root[data-color="salvia"] { --panel-primario: #5f8d6e; }
+:root[data-color="lavanda"] { --panel-primario: #7b6a9e; }
+:root[data-color="terracota"] { --panel-primario: #b06a4f; }
+:root[data-color="oceano"] { --panel-primario: #2f7d8c; }
+:root[data-color="ciruela"] { --panel-primario: #8a5068; }
+:root[data-color="ambar"] { --panel-primario: #a1793a; }
+:root[data-color="grafito"] { --panel-primario: #4a5568; }
+
+/* ---------------------------------------------------------------------------
+   Tema oscuro. Solo redefine superficies, texto y bordes: el color primario y
+   sus derivados siguen siendo los mismos.
+   --------------------------------------------------------------------------- */
+
+:root[data-tema="oscuro"] {
+    --panel-fondo: #151a21;
+    --panel-superficie: #1e252e;
+    --panel-superficie-suave: #262e39;
+    --panel-sidebar: #1a212a;
+
+    --panel-texto: #e6ebf2;
+    --panel-texto-suave: #a3aebd;
+    --panel-texto-tenue: #78849a;
+    --panel-borde: #303a47;
+    --panel-borde-fuerte: #414d5c;
+
+    --panel-exito: #6fb389;
+    --panel-exito-suave: #1f2f28;
+    --panel-error: #e08078;
+    --panel-error-suave: #33211f;
+    --panel-atencion: #d6a45f;
+    --panel-atencion-suave: #332a1c;
+
+    --panel-primario-claro: color-mix(in srgb, var(--panel-primario) 72%, #ffffff);
+    --panel-primario-suave: color-mix(in srgb, var(--panel-primario) 26%, var(--panel-superficie));
+
+    /* El primario a secas es demasiado oscuro para texto sobre fondo oscuro. */
+    --panel-info: var(--panel-primario-claro);
+    --panel-primario-texto: var(--panel-primario-claro);
+
+    --panel-sombra: 0 0.1rem 0.3rem rgba(0, 0, 0, 0.35), 0 0.2rem 1.2rem rgba(0, 0, 0, 0.25);
+    --panel-sombra-alta: 0 0.8rem 3.2rem rgba(0, 0, 0, 0.5);
+
+    color-scheme: dark;
 }
 
 html {

@@ -74,3 +74,39 @@
 .modal .jodit-container:not(.jodit_inline) {
     max-height: 34rem;
 }
+
+/* ---------------------------------------------------------------------------
+   Tema oscuro.
+
+   Jodit trae su propio tema oscuro (clase .jodit_theme_dark, que editor.js
+   activa con la opcion theme: "dark"). Aqui solo se ajustan sus variables a
+   los tokens del panel, para que combine con el resto del dashboard y los
+   iconos destaquen de verdad sobre el fondo.
+   --------------------------------------------------------------------------- */
+
+:root[data-tema="oscuro"] .jodit-container,
+:root[data-tema="oscuro"] .jodit-dialog {
+    --jd-dark-background-color: var(--panel-superficie);
+    --jd-dark-background-darknes: var(--panel-superficie-suave);
+    --jd-dark-background-ligher: var(--panel-borde-fuerte);
+    --jd-dark-toolbar-color: var(--panel-superficie-suave);
+    --jd-dark-border-color: var(--panel-borde);
+    --jd-dark-color-border-selected: var(--panel-primario);
+
+    /* Los dos que pedia el usuario: iconos y texto bien claros. */
+    --jd-dark-icon-color: #ffffff;
+    --jd-dark-text-color: var(--panel-texto);
+}
+
+:root[data-tema="oscuro"] .jodit-container:not(.jodit_inline) {
+    border-color: var(--panel-borde-fuerte);
+}
+
+:root[data-tema="oscuro"] .jodit-container:not(.jodit_inline) .jodit-wysiwyg {
+    color: var(--panel-texto);
+}
+
+:root[data-tema="oscuro"] .jodit-toolbar-button__button:hover:not([disabled]) .jodit-icon,
+:root[data-tema="oscuro"] .jodit-toolbar-button__button:hover:not([disabled]) svg {
+    fill: var(--panel-primario-claro);
+}

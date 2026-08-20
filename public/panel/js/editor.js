@@ -45,6 +45,12 @@ const PsicoEditor = (() => {
         const compacto = campo.dataset.editor === "compacto";
         const opciones = compacto ? { ...OPCIONES, ...opcionesCompactas } : { ...OPCIONES };
 
+        // Jodit trae su propio tema oscuro; sus colores se ajustan a los del
+        // panel desde editor.css.
+        if (document.documentElement.dataset.tema === "oscuro") {
+            opciones.theme = "dark";
+        }
+
         if (campo.placeholder) {
             opciones.placeholder = campo.placeholder;
         }

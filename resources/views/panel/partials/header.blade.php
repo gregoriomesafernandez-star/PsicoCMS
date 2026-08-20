@@ -36,6 +36,12 @@
             </div>
         </div>
 
+        <button class="cabecera__boton" type="button" data-abrir-apariencia
+                title="Cambiar el aspecto del panel">
+            <i class="fa-solid fa-palette"></i>
+            <span class="cabecera__boton-texto">Apariencia</span>
+        </button>
+
         <a class="cabecera__boton {{ menu_disponible('panel.ayuda') ? '' : 'cabecera__boton--inactivo' }}"
            href="{{ menu_url('panel.ayuda') }}"
            title="{{ menu_disponible('panel.ayuda') ? 'Ayuda y tutorial' : 'Ayuda (disponible proximamente)' }}">

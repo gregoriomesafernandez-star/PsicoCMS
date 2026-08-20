@@ -183,7 +183,7 @@
     border-radius: var(--panel-radio-pequeno);
     background-color: var(--panel-primario-suave);
     font-size: 1.4rem;
-    color: var(--panel-primario-oscuro);
+    color: var(--panel-primario-texto);
 }
 
 .rejilla-horaria__contenedor {

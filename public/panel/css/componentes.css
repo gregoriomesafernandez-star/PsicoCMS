@@ -144,6 +144,204 @@
     color: var(--panel-texto-suave);
 }
 
+/* El azul de enlace de Google, en su version para fondo oscuro. */
+:root[data-tema="oscuro"] .resultado-google__titulo {
+    color: #8ab4f8;
+}
+
+/* ---------- Modal de apariencia (vive en el layout) ---------- */
+
+.apariencia__intro {
+    margin-bottom: 2rem;
+    font-size: 1.4rem;
+    line-height: 1.6;
+    color: var(--panel-texto-suave);
+}
+
+.apariencia__bloque {
+    padding: 0;
+    margin: 0 0 2.4rem;
+    border: none;
+}
+
+.apariencia__titulo {
+    padding: 0;
+    margin-bottom: 1.2rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: 0.05rem;
+    text-transform: uppercase;
+    color: var(--panel-texto-suave);
+}
+
+.temas-panel {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    gap: 1.2rem;
+}
+
+.tema-panel {
+    cursor: pointer;
+}
+
+.tema-panel__entrada {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.tema-panel__cara {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    height: 100%;
+    padding: 1.2rem;
+    border: 0.1rem solid var(--panel-borde-fuerte);
+    border-radius: var(--panel-radio);
+    transition: border-color var(--panel-transicion), background-color var(--panel-transicion);
+}
+
+.tema-panel__cara:hover {
+    border-color: var(--panel-primario);
+}
+
+.tema-panel__entrada:checked + .tema-panel__cara {
+    border-color: var(--panel-primario);
+    background-color: var(--panel-primario-suave);
+}
+
+.tema-panel__entrada:focus-visible + .tema-panel__cara {
+    outline: 0.3rem solid var(--panel-primario-claro);
+    outline-offset: 0.2rem;
+}
+
+/* Maqueta en miniatura con los colores fijos de cada tema, para que se vea
+   la diferencia sin tener que aplicarlo. */
+.tema-panel__muestra {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.4rem;
+    width: 5.6rem;
+    height: 4.4rem;
+    flex-shrink: 0;
+    padding: 0.8rem 0.6rem 0.6rem;
+    border: 0.1rem solid var(--panel-borde);
+    border-radius: var(--panel-radio-pequeno);
+    overflow: hidden;
+    position: relative;
+}
+
+.tema-panel__muestra--claro {
+    background-color: #f4f6fa;
+}
+
+.tema-panel__muestra--oscuro {
+    background-color: #151a21;
+}
+
+.tema-panel__barra {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 0.9rem;
+    background-color: var(--panel-primario);
+}
+
+.tema-panel__linea {
+    height: 0.5rem;
+    border-radius: 0.3rem;
+}
+
+.tema-panel__muestra--claro .tema-panel__linea {
+    background-color: #cbd4e1;
+}
+
+.tema-panel__muestra--oscuro .tema-panel__linea {
+    background-color: #414d5c;
+}
+
+.tema-panel__linea--corta {
+    width: 60%;
+}
+
+.tema-panel__texto {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    min-width: 0;
+}
+
+.tema-panel__nombre {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 1.45rem;
+    font-weight: 600;
+}
+
+.tema-panel__explicacion {
+    font-size: 1.25rem;
+    line-height: 1.5;
+    color: var(--panel-texto-suave);
+}
+
+.colores {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    gap: 1rem;
+}
+
+.color-opcion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    cursor: pointer;
+}
+
+.color-opcion__entrada {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.color-opcion__muestra {
+    display: grid;
+    place-items: center;
+    width: 4.4rem;
+    height: 4.4rem;
+    border-radius: 50%;
+    box-shadow: 0 0 0 0.2rem var(--panel-superficie), 0 0 0 0.3rem transparent;
+    font-size: 1.5rem;
+    color: #ffffff;
+    transition: box-shadow var(--panel-transicion);
+}
+
+.color-opcion__muestra i {
+    opacity: 0;
+    transition: opacity var(--panel-transicion);
+}
+
+.color-opcion__entrada:checked + .color-opcion__muestra {
+    box-shadow: 0 0 0 0.2rem var(--panel-superficie), 0 0 0 0.4rem var(--panel-texto);
+}
+
+.color-opcion__entrada:checked + .color-opcion__muestra i {
+    opacity: 1;
+}
+
+.color-opcion__entrada:focus-visible + .color-opcion__muestra {
+    box-shadow: 0 0 0 0.2rem var(--panel-superficie), 0 0 0 0.5rem var(--panel-primario-claro);
+}
+
+.color-opcion__nombre {
+    font-size: 1.2rem;
+    text-align: center;
+    color: var(--panel-texto-suave);
+}
+
 /* ---------- Pestanas de seccion ---------- */
 
 .pestanas {
@@ -456,7 +654,7 @@ textarea.campo__control {
 
 .aviso--info {
     background-color: var(--panel-info-suave);
-    color: var(--panel-primario-oscuro);
+    color: var(--panel-primario-texto);
 }
 
 .aviso--exito {
@@ -471,6 +669,32 @@ textarea.campo__control {
 
 .aviso--atencion {
     background-color: var(--panel-atencion-suave);
+    color: var(--panel-atencion);
+}
+
+/* En oscuro, el color del tono se reserva para el icono y el titulo: el texto
+   va en el claro del panel, que es el que se lee de verdad sobre el fondo. */
+:root[data-tema="oscuro"] .aviso {
+    color: var(--panel-texto);
+}
+
+:root[data-tema="oscuro"] .aviso--info > i,
+:root[data-tema="oscuro"] .aviso--info .aviso__titulo {
+    color: var(--panel-primario-claro);
+}
+
+:root[data-tema="oscuro"] .aviso--exito > i,
+:root[data-tema="oscuro"] .aviso--exito .aviso__titulo {
+    color: var(--panel-exito);
+}
+
+:root[data-tema="oscuro"] .aviso--error > i,
+:root[data-tema="oscuro"] .aviso--error .aviso__titulo {
+    color: var(--panel-error);
+}
+
+:root[data-tema="oscuro"] .aviso--atencion > i,
+:root[data-tema="oscuro"] .aviso--atencion .aviso__titulo {
     color: var(--panel-atencion);
 }
 

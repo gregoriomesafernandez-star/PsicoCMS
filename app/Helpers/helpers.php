@@ -3,6 +3,7 @@
 use App\Services\AjustesService;
 use App\Services\ImagenService;
 use App\Services\InstaladorService;
+use App\Services\ModuloService;
 use Illuminate\Support\Facades\Route;
 
 if (! function_exists('ajuste')) {
@@ -39,10 +40,28 @@ if (! function_exists('imagen_alt')) {
     }
 }
 
+if (! function_exists('modulo_activo')) {
+    function modulo_activo(string $clave): bool
+    {
+        return app(ModuloService::class)->activo($clave);
+    }
+}
+
 if (! function_exists('menu_disponible')) {
     function menu_disponible(string $ruta): bool
     {
         return Route::has($ruta);
+    }
+}
+
+if (! function_exists('menu_oculto')) {
+    /**
+     * Distinto de menu_disponible(): la ruta existe, pero su modulo esta
+     * apagado, asi que el elemento no se pinta en vez de salir con candado.
+     */
+    function menu_oculto(string $ruta): bool
+    {
+        return in_array($ruta, app(ModuloService::class)->rutasOcultas(), true);
     }
 }
 

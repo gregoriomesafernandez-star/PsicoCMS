@@ -15,6 +15,10 @@ return Application::configure(basePath: dirname(__DIR__))
             \App\Http\Middleware\VerificarInstalacion::class,
         ]);
 
+        $middleware->alias([
+            'modulo' => \App\Http\Middleware\ModuloActivo::class,
+        ]);
+
         $middleware->redirectGuestsTo('/acceso-psicologa');
         $middleware->redirectUsersTo('/panel-psicologa');
     })

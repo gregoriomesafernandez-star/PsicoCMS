@@ -1,5 +1,8 @@
+@php
+    $apariencia = app(\App\Services\AparienciaService::class)->actual();
+@endphp
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-tema="{{ $apariencia['tema'] }}" data-color="{{ $apariencia['color'] }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -63,6 +66,8 @@
         </x-slot:pie>
     </x-panel.modal>
 
+    @include('panel.partials.modal-apariencia')
+
     @if (session('exito'))
         <script type="application/json" id="mensaje-flash">@json(['tono' => 'exito', 'texto' => session('exito')])</script>
     @elseif (session('error'))
@@ -74,6 +79,7 @@
     <script src="{{ recurso('panel/js/toast.js') }}"></script>
     <script src="{{ recurso('panel/js/confirmar.js') }}"></script>
     <script src="{{ recurso('panel/js/contador.js') }}"></script>
+    <script src="{{ recurso('panel/js/apariencia.js') }}"></script>
     @stack('scripts')
 
 </body>
