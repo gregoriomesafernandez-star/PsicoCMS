@@ -2,7 +2,8 @@
     $seo = $sitio->seo($pagina ?? 'inicio', $tituloSeo ?? null, $descripcionSeo ?? null);
     $perfil = $sitio->perfil();
     $canonica = $canonica ?? url()->current();
-    $imagenSocial = $perfil->url_foto ?: imagen('hero_principal');
+    // Cada pagina puede aportar la suya; si no, el retrato de la psicologa.
+    $imagenSocial = $imagenSocial ?? ($perfil->url_foto ?: imagen('hero_principal'));
 @endphp
 <!DOCTYPE html>
 <html lang="es">

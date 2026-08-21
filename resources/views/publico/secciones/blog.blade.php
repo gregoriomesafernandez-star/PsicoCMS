@@ -30,7 +30,9 @@
                         </div>
 
                         <div class="article__cuerpo">
-                            <h3 class="article__title">{{ $articulo->titulo }}</h3>
+                            <h3 class="article__title">
+                                <a href="{{ route('publico.blog.articulo', $articulo->slug) }}">{{ $articulo->titulo }}</a>
+                            </h3>
 
                             @php $resumen = $articulo->extracto ?: strip_tags((string) $articulo->contenido); @endphp
 
@@ -40,14 +42,15 @@
 
                             <div class="article__bottom-content">
                                 @if ($articulo->categoria)
-                                    <div class="article__comments">
+                                    <a class="article__comments"
+                                       href="{{ route('publico.blog.categoria', $articulo->categoria->slug) }}">
                                         <i class="fa-solid fa-bookmark comments__ico" aria-hidden="true"></i>
                                         <span class="comments__text">{{ $articulo->categoria->nombre }}</span>
-                                    </div>
+                                    </a>
                                 @endif
 
                                 <div class="article__container-btn">
-                                    <a class="article__btn-more" href="{{ route('publico.blog') }}">
+                                    <a class="article__btn-more" href="{{ route('publico.blog.articulo', $articulo->slug) }}">
                                         <span class="btn-more__text">Leer</span>
                                         <i class="fa-solid fa-arrow-right btn-more__arrow" aria-hidden="true"></i>
                                     </a>
@@ -58,7 +61,7 @@
                 @endforeach
             </div>
 
-            @if (! $sitio->esLanding() && ($pagina ?? '') !== 'blog')
+            @if (($pagina ?? '') !== 'blog')
                 <div class="seccion__mas">
                     <a class="appointment__btn" href="{{ route('publico.blog') }}">Ver todo el blog</a>
                 </div>

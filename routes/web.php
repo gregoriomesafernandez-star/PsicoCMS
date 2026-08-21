@@ -28,6 +28,7 @@ use App\Http\Controllers\Panel\TemaController;
 use App\Http\Controllers\Panel\HistoriaController;
 use App\Http\Controllers\Panel\InicioController;
 use App\Http\Controllers\Panel\VacacionesController;
+use App\Http\Controllers\Publico\BlogController as BlogPublicoController;
 use App\Http\Controllers\Publico\PaginaController;
 use App\Http\Controllers\Publico\ReservaController;
 use App\Http\Controllers\Publico\SitemapController;
@@ -48,9 +49,17 @@ Route::controller(PaginaController::class)->group(function () {
     Route::get('/', 'home')->name('home');
     Route::get('/sobre-mi', 'sobreMi')->name('publico.sobre-mi');
     Route::get('/servicios', 'servicios')->name('publico.servicios');
-    Route::get('/blog', 'blog')->middleware('modulo:blog')->name('publico.blog');
     Route::get('/preguntas-frecuentes', 'faq')->middleware('modulo:faq')->name('publico.faq');
     Route::get('/pide-cita', 'pideCita')->middleware('modulo:reservas')->name('publico.pide-cita');
+});
+
+// Blog publico. Es pagina propia tambien en modo landing: un listado paginado
+// con filtro por categoria no cabe dentro de una sola pagina. La portada en
+// landing conserva su bloque de ultimos articulos con el ancla #blog.
+Route::controller(BlogPublicoController::class)->middleware('modulo:blog')->group(function () {
+    Route::get('/blog', 'index')->name('publico.blog');
+    Route::get('/blog/categoria/{categoria:slug}', 'categoria')->name('publico.blog.categoria');
+    Route::get('/blog/{articulo:slug}', 'articulo')->name('publico.blog.articulo');
 });
 
 // Reserva publica. Cuelga de modulo:reservas igual que /pide-cita, para que al

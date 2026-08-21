@@ -976,10 +976,14 @@ html {
 
 /* Los articulos van uno debajo de otro, en tarjetas anchas con la foto a un
    lado: se leen mucho mejor que en tres columnas estrechas. */
+/* El width es necesario: su contenedor es un flex en columna y el margin auto
+   anula el estirado, con lo que la caja pasaria a medir lo que mida su
+   contenido. Apiladas en movil, las tarjetas se quedaban estrechisimas. */
 .blog__articles {
     display: flex;
     flex-direction: column;
     gap: 2.6rem;
+    width: 100%;
     max-width: 94rem;
     margin: 0 auto;
 }
@@ -2056,7 +2060,380 @@ html {
 }
 
 /* ===========================================================================
-   16. BARRA DE ACCIONES EN MOVIL
+   16. BLOG PUBLICO: LISTADO, CATEGORIAS Y ARTICULO
+   =========================================================================== */
+
+.layout__blog--listado {
+    padding-top: var(--web-seccion-corta);
+}
+
+.blog__descripcion {
+    max-width: 62rem;
+    margin: 1.4rem auto 0;
+    font-size: 1.6rem;
+    line-height: 1.75;
+    color: var(--color-gray2);
+}
+
+/* ---------- Filtro por categorias ---------- */
+
+.blog__categorias {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 4.5rem;
+}
+
+.blog__categoria {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.9rem 1.8rem;
+    border: 0.2rem solid rgba(26, 20, 20, 0.08);
+    border-radius: 3rem;
+    font-size: 1.45rem;
+    font-weight: 500;
+    color: var(--color-gray2);
+    transition: border-color var(--web-transicion), background-color var(--web-transicion),
+                color var(--web-transicion);
+}
+
+.blog__categoria:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+.blog__categoria.es-activa {
+    border-color: var(--color-primary);
+    background-color: var(--color-primary);
+    color: #ffffff;
+}
+
+.blog__cuenta {
+    padding: 0.1rem 0.7rem;
+    border-radius: 2rem;
+    background-color: var(--color-white3);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--color-gray3);
+}
+
+.blog__categoria.es-activa .blog__cuenta {
+    background-color: rgba(255, 255, 255, 0.22);
+    color: #ffffff;
+}
+
+/* ---------- Rejilla de tarjetas ---------- */
+
+.blog__rejilla {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(30rem, 1fr));
+    gap: 3rem;
+}
+
+.tarjeta-articulo {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border: 0.1rem solid rgba(26, 20, 20, 0.06);
+    border-radius: var(--web-radio);
+    background-color: var(--color-white2);
+    box-shadow: var(--web-sombra);
+    overflow: hidden;
+    transition: transform var(--web-transicion), box-shadow var(--web-transicion);
+}
+
+.tarjeta-articulo:hover {
+    transform: translateY(-0.4rem);
+    box-shadow: var(--web-sombra-alta);
+}
+
+.tarjeta-articulo__foto {
+    position: relative;
+    display: block;
+    height: 21rem;
+    overflow: hidden;
+}
+
+.tarjeta-articulo__foto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.tarjeta-articulo:hover .tarjeta-articulo__foto img {
+    transform: scale(1.05);
+}
+
+.tarjeta-articulo__fecha {
+    position: absolute;
+    top: 1.4rem;
+    left: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.8rem 1.2rem;
+    border-radius: var(--web-radio-pequeno);
+    background-color: var(--color-primary);
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1.1;
+    color: #ffffff;
+}
+
+.tarjeta-articulo__fecha small {
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.tarjeta-articulo__cuerpo {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 2.6rem 2.4rem;
+}
+
+.tarjeta-articulo__categoria {
+    align-self: flex-start;
+    margin-bottom: 1.2rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.08rem;
+    text-transform: uppercase;
+    color: var(--color-primary);
+}
+
+.tarjeta-articulo__titulo {
+    margin-bottom: 1rem;
+    font-family: 'castoro', serif;
+    font-size: 2.1rem;
+    font-weight: 500;
+    line-height: 1.35;
+}
+
+.tarjeta-articulo__titulo a {
+    color: var(--color-black);
+    transition: color var(--web-transicion);
+}
+
+.tarjeta-articulo__titulo a:hover {
+    color: var(--color-primary);
+}
+
+.tarjeta-articulo__extracto {
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+    line-height: 1.7;
+    color: var(--color-gray2);
+}
+
+.tarjeta-articulo__leer {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-top: auto;
+    font-size: 1.45rem;
+    font-weight: 600;
+    color: var(--color-primary);
+}
+
+.tarjeta-articulo__leer i {
+    transition: transform var(--web-transicion);
+}
+
+.tarjeta-articulo__leer:hover i {
+    transform: translateX(0.4rem);
+}
+
+/* ---------- Paginacion ---------- */
+
+.paginacion-web {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    margin-top: 5rem;
+}
+
+.paginacion-web__numero,
+.paginacion-web__paso {
+    display: grid;
+    place-items: center;
+    min-width: 4.2rem;
+    height: 4.2rem;
+    padding: 0 1.2rem;
+    border-radius: var(--web-radio-pequeno);
+    background-color: var(--color-white3);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-gray2);
+    transition: background-color var(--web-transicion), color var(--web-transicion);
+}
+
+.paginacion-web__numero:hover,
+.paginacion-web__paso:hover {
+    background-color: var(--color-primary);
+    color: #ffffff;
+}
+
+.paginacion-web__numero.es-actual {
+    background-color: var(--color-primary);
+    color: #ffffff;
+}
+
+.paginacion-web__paso.es-inactivo {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.paginacion-web__paso.es-inactivo:hover {
+    background-color: var(--color-white3);
+    color: var(--color-gray2);
+}
+
+.paginacion-web__salto {
+    padding: 0 0.4rem;
+    color: var(--color-gray3);
+}
+
+/* ---------- Articulo ---------- */
+
+.layout__articulo {
+    padding: var(--web-seccion-corta) 2rem var(--web-seccion);
+}
+
+.articulo__container {
+    width: 100%;
+    max-width: 82rem;
+    margin: 0 auto;
+}
+
+.articulo__migas {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2.4rem;
+    font-size: 1.35rem;
+    color: var(--color-gray3);
+}
+
+.articulo__migas a {
+    color: var(--color-primary);
+}
+
+.articulo__migas i {
+    font-size: 0.9rem;
+}
+
+.articulo__cabecera {
+    margin-bottom: 3rem;
+}
+
+.articulo__titulo {
+    margin-bottom: 1.8rem;
+    font-family: 'castoro', serif;
+    font-size: clamp(2.8rem, 3.6vw, 4.2rem);
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--color-black);
+}
+
+.articulo__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 2.4rem;
+    font-size: 1.4rem;
+    color: var(--color-gray3);
+}
+
+.articulo__meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+.articulo__meta i {
+    color: var(--color-primary);
+}
+
+.articulo__portada {
+    display: block;
+    width: 100%;
+    height: 42rem;
+    margin-bottom: 3.4rem;
+    border-radius: var(--web-radio);
+    object-fit: cover;
+}
+
+/* La entradilla destaca sobre el cuerpo sin llegar a ser un titulo. */
+.articulo__entradilla {
+    padding-left: 2rem;
+    margin-bottom: 3rem;
+    border-left: 0.3rem solid var(--color-primary);
+    font-size: 1.8rem;
+    line-height: 1.75;
+    font-weight: 500;
+    color: var(--color-gray2);
+}
+
+.articulo__cuerpo {
+    font-size: 1.7rem;
+    line-height: 1.9;
+}
+
+.articulo__pie {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.6rem;
+    padding-top: 3rem;
+    margin-top: 4rem;
+    border-top: 0.1rem solid rgba(26, 20, 20, 0.1);
+}
+
+.articulo__compartir-texto {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-black);
+}
+
+.articulo__compartir {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+    list-style: none;
+}
+
+.articulo__compartir-enlace {
+    display: grid;
+    place-items: center;
+    width: 4.2rem;
+    height: 4.2rem;
+    border-radius: 50%;
+    background-color: var(--color-white3);
+    font-size: 1.6rem;
+    color: var(--color-primary);
+    transition: background-color var(--web-transicion), color var(--web-transicion),
+                transform var(--web-transicion);
+}
+
+.articulo__compartir-enlace:hover {
+    background-color: var(--color-primary);
+    color: #ffffff;
+    transform: translateY(-0.3rem);
+}
+
+.layout__blog--relacionados {
+    background-color: var(--color-white3);
+}
+
+/* ===========================================================================
+   17. BARRA DE ACCIONES EN MOVIL
    =========================================================================== */
 
 .acciones-movil {
@@ -2064,7 +2441,7 @@ html {
 }
 
 /* ===========================================================================
-   17. RESPONSIVE
+   18. RESPONSIVE
    =========================================================================== */
 
 @media (max-width: 1100px) {
@@ -2187,6 +2564,21 @@ html {
 
     .article__title {
         font-size: 2.1rem;
+    }
+
+    /* Sin el minmax de 30rem la rejilla se saldria en pantallas estrechas. */
+    .blog__rejilla {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 2.4rem;
+    }
+
+    .articulo__portada {
+        height: 26rem;
+    }
+
+    .articulo__pie {
+        justify-content: center;
+        text-align: center;
     }
 
     .acciones-movil {

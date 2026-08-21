@@ -12,7 +12,10 @@ class SitemapController extends Controller
     {
     }
 
-    /** En modo landing solo hay una direccion que indexar. */
+    /**
+     * En modo landing la portada es la unica direccion de contenido, pero el
+     * blog es pagina propia en los dos modos y sus articulos si se indexan.
+     */
     public function sitemap(): Response
     {
         $urls = [['url' => route('home'), 'prioridad' => '1.0']];
@@ -23,6 +26,13 @@ class SitemapController extends Controller
                     $urls[] = ['url' => $enlace['url'], 'prioridad' => '0.8'];
                 }
             }
+        }
+
+        foreach ($this->sitio->articulosParaSitemap() as $articulo) {
+            $urls[] = [
+                'url' => route('publico.blog.articulo', $articulo->slug),
+                'prioridad' => '0.6',
+            ];
         }
 
         return response()

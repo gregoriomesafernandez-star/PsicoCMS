@@ -34,11 +34,6 @@ class PaginaController extends Controller
         return $this->seccion('faq', 'preguntas-frecuentes');
     }
 
-    public function blog(): View|RedirectResponse
-    {
-        return $this->seccion('blog');
-    }
-
     public function pideCita(): View|RedirectResponse
     {
         if ($this->sitio->esLanding()) {

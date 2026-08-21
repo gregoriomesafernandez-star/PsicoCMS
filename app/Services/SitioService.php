@@ -206,6 +206,14 @@ class SitioService
             : collect();
     }
 
+    /** Todos los publicados, para el sitemap. Vacio si el blog esta apagado. */
+    public function articulosParaSitemap(): Collection
+    {
+        return $this->modulos->activo('blog')
+            ? Articulo::visibles()->orderByDesc('publicado_at')->get(['slug', 'publicado_at'])
+            : collect();
+    }
+
     public function redesVisibles(): Collection
     {
         return $this->modulos->activo('redes') ? $this->redes->visibles() : collect();
