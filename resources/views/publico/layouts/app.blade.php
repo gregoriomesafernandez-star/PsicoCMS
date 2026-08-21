@@ -93,6 +93,10 @@
     <script src="{{ asset('themes/base/js/navFixed.js') }}"></script>
     <script src="{{ asset('themes/base/js/scroll-top.js') }}"></script>
     <script src="{{ recurso('publico/js/publico.js') }}"></script>
+
+    @if (modulo_activo('reservas'))
+        <script src="{{ recurso('publico/js/reservas.js') }}"></script>
+    @endif
     @stack('scripts')
 
 </body>

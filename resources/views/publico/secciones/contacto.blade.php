@@ -1,8 +1,12 @@
-@php $perfil = $sitio->perfil(); @endphp
+@php
+    $perfil = $sitio->perfil();
+    // Cuando va al lado de la reserva, el ancla "pide-cita" ya la pone esa
+    // seccion y aqui sobran los botones que llevan a ella.
+    $comoLateral = $comoLateral ?? false;
+@endphp
 
-{{-- El ancla se llama "pide-cita" porque es a donde apuntan el menu y todos
-     los botones de reservar, y donde ira el formulario de la FASE 17. --}}
-<section class="layout__contacto" id="pide-cita" aria-labelledby="titulo-contacto">
+<section class="layout__contacto" id="{{ $comoLateral ? 'contacto' : 'pide-cita' }}"
+         aria-labelledby="titulo-contacto">
     <div class="contacto__container">
 
         <header class="contacto__header">
@@ -57,7 +61,7 @@
                         </a>
                     @endif
 
-                    @if (modulo_activo('reservas'))
+                    @if (modulo_activo('reservas') && ! $comoLateral)
                         <a class="appointment__btn appointment__btn--claro"
                            href="{{ $sitio->esLanding() ? '#pide-cita' : route('publico.pide-cita') }}">
                             {{ frase('hero_boton_cita', 'Pedir cita') }}

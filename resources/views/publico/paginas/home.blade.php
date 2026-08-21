@@ -15,7 +15,13 @@
         @include('publico.secciones.como-empezar')
         @include('publico.secciones.blog')
         @include('publico.secciones.faq')
-        @include('publico.secciones.contacto')
+
+        {{-- La reserva ya trae dentro el bloque de "donde estamos". --}}
+        @if (modulo_activo('reservas'))
+            @include('publico.secciones.reservas')
+        @else
+            @include('publico.secciones.contacto')
+        @endif
     @else
         @include('publico.secciones.sobre-mi')
         @include('publico.secciones.servicios', ['limite' => 4])

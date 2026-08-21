@@ -29,6 +29,7 @@ use App\Http\Controllers\Panel\HistoriaController;
 use App\Http\Controllers\Panel\InicioController;
 use App\Http\Controllers\Panel\VacacionesController;
 use App\Http\Controllers\Publico\PaginaController;
+use App\Http\Controllers\Publico\ReservaController;
 use App\Http\Controllers\Publico\SitemapController;
 use Illuminate\Support\Facades\Route;
 
@@ -50,6 +51,19 @@ Route::controller(PaginaController::class)->group(function () {
     Route::get('/blog', 'blog')->middleware('modulo:blog')->name('publico.blog');
     Route::get('/preguntas-frecuentes', 'faq')->middleware('modulo:faq')->name('publico.faq');
     Route::get('/pide-cita', 'pideCita')->middleware('modulo:reservas')->name('publico.pide-cita');
+});
+
+// Reserva publica. Cuelga de modulo:reservas igual que /pide-cita, para que al
+// apagar el modulo no quede una puerta trasera abierta.
+Route::controller(ReservaController::class)->middleware('modulo:reservas')->group(function () {
+    Route::get('/api/disponibilidad', 'disponibilidad')
+        ->middleware('throttle:60,1')->name('publico.reservas.disponibilidad');
+
+    Route::get('/api/huecos', 'huecos')
+        ->middleware('throttle:60,1')->name('publico.reservas.huecos');
+
+    Route::post('/pide-cita', 'store')
+        ->middleware('throttle:10,1')->name('publico.reservas.store');
 });
 
 Route::controller(SitemapController::class)->group(function () {
