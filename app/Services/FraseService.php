@@ -29,10 +29,32 @@ class FraseService
         return $this->cacheadas()[$clave] ?? null;
     }
 
+    /**
+     * Peso de cada frase dentro de su seccion, para listarlas **en el mismo
+     * orden en que se leen en la web**: primero el titulo pequeno de arriba,
+     * despues el titular grande y al final el resto.
+     *
+     * Por clave alfabetica salia al reves, porque "subtitulo" va antes que
+     * "titulo".
+     */
+    private function peso(string $clave): int
+    {
+        return match (true) {
+            str_ends_with($clave, '_titulo') => 1,
+            str_ends_with($clave, '_subtitulo') => 2,
+            default => 3,
+        };
+    }
+
     /** Frases agrupadas por seccion, en el orden del catalogo. */
     public function agrupadas(): array
     {
-        $frases = FrasePublica::orderBy('clave')->get()->groupBy('seccion');
+        $frases = FrasePublica::orderBy('clave')->get()
+            ->sortBy([
+                fn (FrasePublica $a, FrasePublica $b) => $this->peso($a->clave) <=> $this->peso($b->clave),
+                fn (FrasePublica $a, FrasePublica $b) => $a->clave <=> $b->clave,
+            ])
+            ->groupBy('seccion');
         $grupos = [];
 
         foreach (self::SECCIONES as $clave => [$nombre, $icono, $descripcion]) {

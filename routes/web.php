@@ -28,6 +28,8 @@ use App\Http\Controllers\Panel\TemaController;
 use App\Http\Controllers\Panel\HistoriaController;
 use App\Http\Controllers\Panel\InicioController;
 use App\Http\Controllers\Panel\VacacionesController;
+use App\Http\Controllers\Publico\PaginaController;
+use App\Http\Controllers\Publico\SitemapController;
 use Illuminate\Support\Facades\Route;
 
 Route::controller(InstalacionController::class)->prefix('instalacion')->name('instalacion.')->group(function () {
@@ -41,7 +43,19 @@ Route::controller(InstalacionController::class)->prefix('instalacion')->name('in
     Route::post('/paso/5', 'finalizar')->name('finalizar');
 });
 
-Route::view('/', 'publico.pendiente')->name('home');
+Route::controller(PaginaController::class)->group(function () {
+    Route::get('/', 'home')->name('home');
+    Route::get('/sobre-mi', 'sobreMi')->name('publico.sobre-mi');
+    Route::get('/servicios', 'servicios')->name('publico.servicios');
+    Route::get('/blog', 'blog')->middleware('modulo:blog')->name('publico.blog');
+    Route::get('/preguntas-frecuentes', 'faq')->middleware('modulo:faq')->name('publico.faq');
+    Route::get('/pide-cita', 'pideCita')->middleware('modulo:reservas')->name('publico.pide-cita');
+});
+
+Route::controller(SitemapController::class)->group(function () {
+    Route::get('/sitemap.xml', 'sitemap')->name('publico.sitemap');
+    Route::get('/robots.txt', 'robots')->name('publico.robots');
+});
 
 Route::controller(AccesoController::class)->middleware('guest')->group(function () {
     Route::get('/acceso-psicologa', 'mostrar')->name('acceso');

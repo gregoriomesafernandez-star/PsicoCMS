@@ -4,11 +4,7 @@ namespace App\Http\Controllers\Panel;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Panel\ModoWebRequest;
-use App\Models\Especialidad;
-use App\Models\Faq;
-use App\Models\PerfilPublico;
-use App\Models\Plan;
-use App\Models\Servicio;
+use App\Services\SitioService;
 use App\Services\TemaService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -17,8 +13,10 @@ class TemaController extends Controller
 {
     public const URL_DISENO_PERSONALIZADO = 'https://victorroblesweb.es/contacto';
 
-    public function __construct(private TemaService $temas)
-    {
+    public function __construct(
+        private TemaService $temas,
+        private SitioService $sitio
+    ) {
     }
 
     public function index(): View
@@ -53,8 +51,8 @@ class TemaController extends Controller
     }
 
     /**
-     * Previsualizacion en pestana nueva. No cambia el tema activo: solo pinta
-     * los datos reales con las hojas del tema que se pide.
+     * Previsualizacion en pestana nueva. Renderiza **la portada real** de la
+     * web con el tema y el modo pedidos, sin cambiar el tema activo.
      */
     public function previsualizar(string $slug, ?string $modo = null): View
     {
@@ -64,16 +62,15 @@ class TemaController extends Controller
             ? $modo
             : $this->temas->modoActivo();
 
-        return view('panel.temas.previsualizar', [
-            'tema' => $this->temas->tema($slug),
-            'hojas' => $this->temas->hojas($slug),
-            'modo' => $modo,
-            'esActivo' => $slug === $this->temas->slugActivo(),
-            'perfil' => PerfilPublico::actual(),
-            'servicios' => Servicio::activos()->ordenados()->get(),
-            'especialidades' => Especialidad::activas()->ordenados()->get(),
-            'planes' => Plan::ordenados()->get(),
-            'faqs' => Faq::activas()->ordenadas()->get(),
+        return view('publico.paginas.home', [
+            'sitio' => $this->sitio->previsualizar($slug, $modo),
+            'pagina' => 'inicio',
+            'activo' => 'inicio',
+            'previsualizacion' => [
+                'tema' => $this->temas->tema($slug),
+                'modo' => $modo,
+                'esActivo' => $slug === $this->temas->slugActivo(),
+            ],
         ]);
     }
 }

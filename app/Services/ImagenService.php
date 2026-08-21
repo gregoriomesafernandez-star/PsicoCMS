@@ -152,6 +152,14 @@ class ImagenService
         return $slot ? $this->urlDeStock($slot[1]) : null;
     }
 
+    /** Si la psicologa ha subido su propia imagen para ese hueco. */
+    public function personalizada(string $clave): bool
+    {
+        $subida = $this->rutasSubidas()[$clave] ?? null;
+
+        return (bool) $subida && Storage::disk(self::DISCO)->exists($subida);
+    }
+
     public function alt(string $clave): string
     {
         return (string) ($this->alts()[$clave] ?? self::ALT_POR_DEFECTO[$clave] ?? '');

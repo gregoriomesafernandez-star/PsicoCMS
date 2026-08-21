@@ -142,6 +142,33 @@ class ConfiguracionTest extends TestCase
         $this->assertSame('Portada', $grupos['hero']['nombre']);
     }
 
+    /**
+     * En la web se lee antes el titulo pequeno que el titular grande. Por clave
+     * alfabetica salia al reves, porque "subtitulo" va antes que "titulo".
+     */
+    public function test_las_frases_se_listan_en_el_orden_en_que_se_leen_en_la_web(): void
+    {
+        // Se crean al reves a proposito, para que el orden no venga del insert.
+        FrasePublica::create([
+            'clave' => 'sobre_mi_subtitulo',
+            'seccion' => 'sobre_mi',
+            'texto_defecto' => 'Un acompanamiento cercano',
+        ]);
+
+        FrasePublica::create([
+            'clave' => 'sobre_mi_titulo',
+            'seccion' => 'sobre_mi',
+            'texto_defecto' => 'Sobre mi',
+        ]);
+
+        $grupos = $this->get('/panel-psicologa/frases')->assertOk()->viewData('grupos');
+
+        $this->assertSame(
+            ['sobre_mi_titulo', 'sobre_mi_subtitulo'],
+            $grupos['sobre_mi']['frases']->pluck('clave')->all()
+        );
+    }
+
     /* ---------- Redes sociales ---------- */
 
     public function test_las_redes_se_crean_solas_del_catalogo(): void

@@ -1,0 +1,1817 @@
+/* ---------------------------------------------------------------------------
+   PsicoCMS — capa publica sobre el tema activo.
+
+   El tema (themes/{slug}/css) pone la paleta y la maquetacion heredada del
+   diseno original. Aqui se hacen tres cosas:
+
+     1. Corregir lo que el tema traia pensado para otro HTML (alturas fijas,
+        posicionamientos absolutos y elementos que dependian de un JS de
+        animacion que no cargamos).
+     2. Afinar el aspecto: espaciado, tarjetas, sombras y transiciones.
+     3. Anadir los bloques que el tema no tenia: contacto, acordeon, reservas
+        y la barra de acciones de movil.
+
+   Todo con las variables --color-* del tema, para que los cinco lo pinten con
+   su propia paleta.
+   --------------------------------------------------------------------------- */
+
+:root {
+    --web-seccion: 9rem;
+    --web-seccion-corta: 6rem;
+    --web-ancho: 120rem;
+    --web-radio: 1.6rem;
+    --web-radio-pequeno: 1rem;
+    --web-sombra: 0 0.2rem 1rem rgba(26, 20, 20, 0.05);
+    --web-sombra-alta: 0 1.2rem 3.2rem rgba(26, 20, 20, 0.1);
+    --web-transicion: 0.25s ease;
+    --web-cabecera: 10rem;
+    /* Logotipo de X: el glifo no existe en Font Awesome 6.1.2. */
+    --icono-x: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z'/%3E%3C/svg%3E");
+}
+
+/*
+ * Ninguna seccion puede provocar scroll lateral.
+ *
+ * Va en <html>, no en <body>: en el body se crearia un contenedor de scroll
+ * propio con toda la pagina dentro, del que los elementos position:fixed
+ * quedan fuera. En <html> se propaga al viewport y no se crea nada intermedio.
+ */
+html {
+    overflow-x: hidden;
+}
+
+.visualmente-oculto {
+    position: absolute;
+    width: 0.1rem;
+    height: 0.1rem;
+    padding: 0;
+    margin: -0.1rem;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.salto-contenido {
+    position: absolute;
+    left: -999rem;
+    z-index: 100;
+    padding: 1.2rem 2rem;
+    background-color: var(--color-primary);
+    color: #ffffff;
+}
+
+.salto-contenido:focus {
+    left: 0;
+    top: 0;
+}
+
+/* ===========================================================================
+   1. CABECERA
+   =========================================================================== */
+
+/* El tema la deja en absolute sin z-index, asi que la foto de la portada
+   (z-index 3) le pasaba por encima y tapaba el telefono. */
+.layout__nav {
+    z-index: 50;
+    gap: 3rem;
+    padding: 1.6rem 4rem;
+    box-shadow: 0 0.1rem 0 rgba(26, 20, 20, 0.06);
+    transition: box-shadow var(--web-transicion), padding var(--web-transicion),
+                background-color var(--web-transicion);
+}
+
+/* Al bajar, la cabecera se despega con un deslizamiento corto. Fondo opaco: se
+   probo translucida con desenfoque y no compensaba. */
+.layout__nav.fixed {
+    top: 0;
+    z-index: 50;
+    padding: 1rem 4rem;
+    background-color: var(--color-white);
+    box-shadow: var(--web-sombra-alta);
+    animation: entrada-cabecera 0.35s ease-out;
+}
+
+@keyframes entrada-cabecera {
+    from {
+        top: -12rem;
+    }
+    to {
+        top: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .layout__nav.fixed {
+        animation: none;
+    }
+}
+
+.nav__left {
+    gap: 3.5rem;
+}
+
+.nav__header {
+    gap: 1.2rem;
+}
+
+.header__title {
+    font-size: 1.9rem;
+    line-height: 1.25;
+}
+
+.header__subtitle {
+    font-size: 1.25rem;
+    font-weight: 500;
+    letter-spacing: 0.02rem;
+    color: var(--color-gray2);
+}
+
+.nav__list-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+/*
+ * El tema cambia a menu de hamburguesa en 1400px, pero nuestros enlaces caben
+ * de sobra hasta 1100. Como una media query no anade especificidad, la regla
+ * de arriba ya mantenia los enlaces visibles a 1300px mientras el boton del
+ * tema tambien aparecia: se veian los dos a la vez. Aqui el boton pasa a
+ * seguir el mismo corte que los enlaces.
+ */
+.nav__btn-menu-mobile {
+    display: none;
+    position: relative;
+    place-items: center;
+    width: 4.4rem;
+    height: 4.4rem;
+    padding: 0;
+    border: none;
+    border-radius: 1.2rem;
+    background-color: var(--color-white3);
+    color: var(--color-primary);
+    cursor: pointer;
+    transition: background-color var(--web-transicion), color var(--web-transicion);
+}
+
+.nav__btn-menu-mobile:hover {
+    background-color: var(--color-primary);
+    color: #ffffff;
+}
+
+/*
+ * Las tres barras se dibujan en CSS. El glifo de la fuente se ve grueso y
+ * apretado a este tamano: el <i> pasa a ser la barra del medio (font-size 0
+ * anula el glifo) y sus pseudoelementos, las de arriba y abajo.
+ */
+.nav__btn-menu-mobile .fa-bars {
+    width: 1.8rem;
+    height: 0.2rem;
+    border-radius: 0.2rem;
+    background-color: currentColor;
+    font-size: 0;
+}
+
+.nav__btn-menu-mobile .fa-bars::before,
+.nav__btn-menu-mobile .fa-bars::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    width: 1.8rem;
+    height: 0.2rem;
+    border-radius: 0.2rem;
+    background-color: currentColor;
+    transform: translateX(-50%);
+}
+
+.nav__btn-menu-mobile .fa-bars::before {
+    top: 1.5rem;
+}
+
+.nav__btn-menu-mobile .fa-bars::after {
+    bottom: 1.5rem;
+}
+
+/* Pills: superficie discreta en reposo, tenida al pasar o al estar activa. */
+.list-nav__link {
+    display: inline-block;
+    padding: 0.9rem 1.6rem;
+    border-radius: 2.4rem;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--color-gray2);
+    white-space: nowrap;
+    transition: background-color var(--web-transicion), color var(--web-transicion);
+}
+
+.list-nav__link:hover {
+    background-color: var(--color-white3);
+    color: var(--color-primary);
+}
+
+.list-nav__link.active {
+    background-color: var(--color-primary);
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.nav__contact {
+    gap: 1.4rem;
+}
+
+.contact__phone .phone__title {
+    font-size: 1.2rem;
+    color: var(--color-gray3);
+}
+
+.contact__phone .phone__number {
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.contact__container-ico {
+    display: grid;
+    place-items: center;
+    width: 4.2rem;
+    height: 4.2rem;
+    border-radius: 50%;
+    background-color: var(--color-white3);
+    color: var(--color-primary);
+    transition: background-color var(--web-transicion), color var(--web-transicion),
+                transform var(--web-transicion);
+}
+
+.contact__container-ico:hover {
+    background-color: var(--color-primary);
+    color: #ffffff;
+    transform: translateY(-0.2rem);
+}
+
+.contact__extra {
+    display: flex;
+    gap: 0.8rem;
+}
+
+/* ===========================================================================
+   2. PORTADA
+
+   El tema dejaba **todo** el banner invisible (titulo, boton y foto con
+   opacity 0 y desplazados), porque contaba con un banner.js de animacion que
+   aqui no se carga. De ahi el hueco enorme. Se recupera en CSS.
+
+   La portada ocupa el ancho completo de la pantalla: el texto se alinea con
+   el contenedor del resto de la web y la foto llena su mitad hasta el borde,
+   sin margenes en blanco a los lados.
+   =========================================================================== */
+
+.layout__banner {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    align-items: stretch;
+    gap: 0;
+    width: 100%;
+    max-width: none;
+    height: min(62rem, calc(100vh - var(--web-cabecera)));
+    min-height: 46rem;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+/* La cabecera del tema va en absolute y flota sobre la portada: el texto
+   arranca por debajo de ella. */
+.banner__content {
+    align-self: center;
+    justify-self: end;
+    width: 100%;
+    max-width: calc(var(--web-ancho) / 2);
+    padding: var(--web-cabecera) 5rem 4rem max(4rem, calc((100vw - var(--web-ancho)) / 2));
+    animation: entrada-texto 0.6s ease both;
+}
+
+/* El tema lo saca del flujo con position:absolute; aqui va sobre el titulo. */
+.banner__sandwich {
+    position: static;
+    display: inline-flex;
+    margin-bottom: 1.8rem;
+}
+
+.banner__title {
+    position: static;
+    top: auto;
+    opacity: 1;
+    font-size: clamp(3.2rem, 3.6vw, 5.4rem);
+    line-height: 1.14;
+}
+
+.banner__appointment {
+    position: static;
+    top: auto;
+    opacity: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 2.4rem;
+    margin-top: 3.4rem;
+}
+
+.appointment__psico-name {
+    width: auto;
+    margin-top: 2.4rem;
+    font-size: 1.6rem;
+}
+
+.banner__puntos {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    margin-top: 2rem;
+}
+
+.banner__punto {
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+    font-size: 1.5rem;
+    color: var(--color-gray2);
+}
+
+/* Font Awesome Free Solid solo existe en peso 900: sin fijarlo, cualquier
+   regla del tema que baje el font-weight deja el icono sin dibujar. */
+.banner__punto-ico {
+    flex-shrink: 0;
+    font-weight: 900;
+    font-size: 1.3rem;
+    color: #3fa66a;
+}
+
+.banner__container-img {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    right: 0;
+    opacity: 1;
+    overflow: hidden;
+    animation: entrada-foto 0.7s ease both;
+}
+
+/* Recorta la foto para llenar su mitad: asi no quedan franjas en blanco
+   aunque la psicologa suba una imagen con otra proporcion. */
+.banner__img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    max-width: none;
+    object-fit: cover;
+    object-position: center top;
+}
+
+/* Las formas decorativas venian con posiciones en pixeles fijos: se salian de
+   la pantalla y ensuciaban la foto. Se quedan solo en el lado del texto. */
+.banner__shapes {
+    inset: 0 50% 0 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.shapes__shape2 {
+    display: none;
+}
+
+@keyframes entrada-foto {
+    from {
+        opacity: 0;
+        transform: scale(1.04);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes entrada-texto {
+    from {
+        opacity: 0;
+        transform: translateY(1.6rem);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .banner__container-img,
+    .banner__content {
+        animation: none;
+    }
+}
+
+/* Hueco para la cabecera en las paginas que no tienen portada. */
+.contenido--sin-portada {
+    display: block;
+    padding-top: var(--web-cabecera);
+}
+
+/* ===========================================================================
+   3. RITMO DE LAS SECCIONES
+
+   El tema traia alturas fijas y desplazamientos absolutos pensados para su
+   HTML original; con nuestras secciones provocaban solapamientos. Se pasa a
+   alto automatico y a un espaciado uniforme.
+   =========================================================================== */
+
+.layout__services,
+.layout__prices,
+.layout__blog,
+.layout__how-start,
+.layout__experience,
+.layout__therapies,
+.layout__contacto,
+.layout__reservas {
+    position: relative;
+    /* El tema las hacia flex para centrar su unico hijo. Con mas de un bloque
+       dentro (la cabecera de especialidades) se colocaban en fila, uno al lado
+       del otro; los contenedores ya se centran solos con margin auto. */
+    display: block;
+    height: auto;
+    min-height: 0;
+    padding: var(--web-seccion) 2rem;
+    margin: 0;
+    overflow: hidden;
+}
+
+.services__container,
+.prices__container,
+.blog__container,
+.how-start__container,
+.experience__container,
+.therapies__container,
+.contacto__container,
+.reservas__container {
+    position: relative;
+    top: 0;
+    width: 100%;
+    max-width: var(--web-ancho);
+    /* El espaciado vertical lo pone ya la seccion; el del tema se sumaba. */
+    padding-top: 0;
+    padding-bottom: 0;
+    margin: 0 auto;
+}
+
+/* El tema daba a cada tarjeta un ancho en porcentaje (23.5%, 31%, 32%) porque
+   sus contenedores eran flex. Al pasarlas a grid ese porcentaje se calcula
+   contra la columna y no contra el contenedor: las tarjetas salian finisimas y
+   el texto se partia palabra a palabra. Con ancho automatico llenan su celda. */
+.therapies__therapy,
+.services__service,
+.how-start__step,
+.articles__article,
+.prices__price {
+    width: auto;
+    max-width: none;
+}
+
+/* Encabezados de seccion, con el mismo ritmo en todas. */
+.services__header,
+.prices__header,
+.blog__header,
+.how-start__header,
+.contacto__header,
+.reservas__header {
+    margin-bottom: 5rem;
+}
+
+/*
+ * El adorno del tema es un ::before del titulo y venia con "right: 120px",
+ * pensado para un titulo de una linea alineado a la izquierda: con los
+ * nuestros, centrados y a dos lineas, caia justo encima de una palabra.
+ *
+ * Con el titulo en inline-block su caja se ajusta al texto, asi que la esquina
+ * queda pegada al final de la linea mas larga sea cual sea el texto que
+ * escriba la psicologa, y el adorno flota fuera sin tapar nada.
+ */
+.services__title,
+.prices__title,
+.blog__title {
+    display: inline-block;
+    max-width: 100%;
+}
+
+.services__title::before,
+.prices__title::before,
+.blog__title::before {
+    top: auto;
+    right: -3.4rem;
+    bottom: -0.2rem;
+}
+
+.services__title,
+.prices__title,
+.blog__title,
+.how-start__title,
+.contacto__title,
+.reservas__title,
+.experience__title {
+    font-size: clamp(2.6rem, 3.2vw, 3.8rem);
+    line-height: 1.25;
+}
+
+.services__subtitle,
+.prices__subtitle,
+.blog__subtitle,
+.contacto__subtitle,
+.reservas__subtitle,
+.experience__subtitle {
+    margin-bottom: 0.8rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.08rem;
+    text-transform: uppercase;
+    color: var(--color-primary);
+}
+
+.services__title-box {
+    width: 100%;
+    max-width: 62rem;
+}
+
+/* ===========================================================================
+   4. ESPECIALIDADES
+   =========================================================================== */
+
+.layout__therapies {
+    padding-top: var(--web-seccion-corta);
+}
+
+.therapies__cabecera {
+    max-width: 62rem;
+    margin: 0 auto 4rem;
+    text-align: center;
+}
+
+.therapies__container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr));
+    gap: 2.4rem;
+}
+
+/* El tema pintaba cada especialidad como una foto de stock con una etiqueta de
+   color encima, recortada a 70px de alto: se leia "Ansie...", "Mind...". Aqui
+   pasa a ser una tarjeta limpia con el icono que elige la psicologa. */
+.therapies__therapy {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100%;
+    padding: 4rem 3rem;
+    background-image: none;
+    border: 0.1rem solid rgba(26, 20, 20, 0.07);
+    border-radius: var(--web-radio);
+    background-color: var(--color-white2);
+    box-shadow: var(--web-sombra);
+    text-align: center;
+    transition: transform var(--web-transicion), box-shadow var(--web-transicion),
+        border-color var(--web-transicion);
+}
+
+.therapies__therapy:hover {
+    transform: translateY(-0.5rem);
+    border-color: var(--color-primary);
+    box-shadow: var(--web-sombra-alta);
+}
+
+.therapy__container-ico {
+    display: grid;
+    place-items: center;
+    width: 7rem;
+    height: 7rem;
+    flex-shrink: 0;
+    padding: 0;
+    margin-bottom: 2.4rem;
+    border-radius: 50%;
+    background-color: var(--color-white3);
+    transition: background-color var(--web-transicion);
+}
+
+.therapies__therapy:hover .therapy__container-ico {
+    background-color: var(--color-primary);
+}
+
+.therapy__ico-person {
+    font-size: 2.8rem;
+    color: var(--color-primary);
+    transition: color var(--web-transicion);
+}
+
+.therapies__therapy:hover .therapy__ico-person {
+    color: #ffffff;
+}
+
+/* Sin la etiqueta de color ni el recorte a 70px del tema. */
+.therapy__content {
+    position: static;
+    width: 100%;
+    max-height: none;
+    padding: 0;
+    background-color: transparent;
+    border-radius: 0;
+    overflow: visible;
+}
+
+.therapies__therapy:hover .therapy__content {
+    max-height: none;
+}
+
+.therapy__title {
+    margin-bottom: 1rem;
+    font-family: 'castoro', serif;
+    font-size: 2.1rem;
+    font-weight: 500;
+    line-height: 1.3;
+    color: var(--color-black);
+}
+
+.therapy__description {
+    font-size: 1.5rem;
+    line-height: 1.7;
+    color: var(--color-gray2);
+}
+
+/* ===========================================================================
+   5. SOBRE MI
+   =========================================================================== */
+
+.experience__container {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    align-items: center;
+    gap: 4rem;
+}
+
+/* La foto llena el marco a ras, sin franja alrededor: el recorte lo da el
+   propio contenedor, que tiene alto fijo. */
+.experience__container-img {
+    position: relative;
+    width: 100%;
+    height: 46rem;
+    padding: 0;
+    border-radius: var(--web-radio);
+    overflow: hidden;
+}
+
+.experience__img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    border-radius: 0;
+    object-fit: cover;
+    object-position: center top;
+}
+
+.experience__data {
+    padding: 4.5rem;
+    border: 0.1rem solid rgba(26, 20, 20, 0.06);
+    border-radius: var(--web-radio);
+    background-color: var(--color-white2);
+    box-shadow: var(--web-sombra-alta);
+}
+
+.experience__header {
+    margin-bottom: 2rem;
+}
+
+.experience__description {
+    font-size: 1.6rem;
+    line-height: 1.85;
+    color: var(--color-gray2);
+}
+
+.experience__data .appointment__btn {
+    display: inline-block;
+    margin-top: 3rem;
+}
+
+/* ===========================================================================
+   6. SERVICIOS
+   =========================================================================== */
+
+/* El tema centraba el titulo a la izquierda y dejaba el hueco de la derecha
+   para un boton que aqui no existe. */
+.services__header {
+    display: block;
+    text-align: center;
+}
+
+.services__title-box {
+    max-width: 62rem;
+    margin: 0 auto;
+}
+
+.services__container-services {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(26rem, 1fr));
+    gap: 2.6rem;
+}
+
+/* El tema reservaba 16rem de hueco arriba para colocar la foto en absoluto.
+   Aqui la foto va en el flujo, asi que ese hueco sobra. */
+.services__service {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding-top: 0;
+    border-radius: var(--web-radio);
+    background-color: var(--color-white2);
+    box-shadow: var(--web-sombra);
+    overflow: hidden;
+    transition: transform var(--web-transicion), box-shadow var(--web-transicion);
+}
+
+.services__service:hover {
+    transform: translateY(-0.5rem);
+    box-shadow: var(--web-sombra-alta);
+}
+
+.service__container-img {
+    position: relative;
+    top: auto;
+    z-index: 1;
+    height: auto;
+}
+
+.service__overflow-img {
+    height: 20rem;
+    border-radius: 0;
+    overflow: hidden;
+}
+
+.service__img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.services__service:hover .service__img {
+    transform: scale(1.06);
+}
+
+.service__ico {
+    position: absolute;
+    top: auto;
+    right: 2rem;
+    bottom: -2.2rem;
+    display: grid;
+    place-items: center;
+    width: 4.6rem;
+    height: 4.6rem;
+    padding: 0;
+    border-radius: 50%;
+    background-color: var(--color-primary);
+    font-size: 1.7rem;
+    color: #ffffff;
+    box-shadow: var(--web-sombra-alta);
+}
+
+.service__body {
+    flex: 1;
+    padding: 3.2rem 2.2rem 2.4rem;
+}
+
+.body__title {
+    margin-bottom: 0.8rem;
+    font-size: 1.9rem;
+    line-height: 1.35;
+}
+
+.body__description {
+    font-size: 1.5rem;
+    line-height: 1.65;
+    color: var(--color-gray2);
+}
+
+/* ===========================================================================
+   7. PLANES Y PRECIOS
+   =========================================================================== */
+
+.layout__prices {
+    background-color: var(--color-white3);
+}
+
+.prices__header {
+    text-align: center;
+}
+
+.prices__list-prices {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr));
+    align-items: stretch;
+    gap: 2.6rem;
+    margin-top: 0;
+}
+
+/* El borde ya mide en reposo lo mismo que al pasar por encima, solo que en un
+   gris casi invisible: si engordase con el hover, la tarjeta daria un salto. */
+.list-prices__price {
+    display: flex;
+    height: 100%;
+    border: 0.2rem solid rgba(26, 20, 20, 0.06);
+    border-radius: var(--web-radio);
+    background-color: var(--color-white2);
+    box-shadow: var(--web-sombra);
+    transition: transform var(--web-transicion), box-shadow var(--web-transicion),
+                border-color var(--web-transicion);
+}
+
+/* Borde y sombra toman --color-primary, que lo define el tema activo: cada
+   plantilla resalta la tarjeta con su propio color. */
+.list-prices__price:hover {
+    transform: translateY(-0.4rem);
+    border-color: var(--color-primary);
+    box-shadow: var(--web-sombra-alta);
+    box-shadow: 0 1.2rem 3.2rem color-mix(in srgb, var(--color-primary) 30%, transparent);
+}
+
+.price--destacado {
+    border-color: var(--color-primary);
+}
+
+.price__content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 3.4rem 2.8rem;
+    text-align: center;
+}
+
+.price__container-ico {
+    display: grid;
+    place-items: center;
+    width: 5.4rem;
+    height: 5.4rem;
+    margin: 0 auto 1.8rem;
+    border-radius: 50%;
+    background-color: var(--color-white3);
+    font-size: 2rem;
+    color: var(--color-primary);
+}
+
+.price__online {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.6rem;
+    font-size: 3.6rem;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--color-primary);
+}
+
+.price__duracion {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--color-gray2);
+}
+
+.price__text {
+    margin-top: 0.6rem;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--color-gray2);
+}
+
+.price__list-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 2.4rem 0;
+    text-align: left;
+}
+
+.list-details__item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    font-size: 1.45rem;
+    line-height: 1.5;
+    color: var(--color-gray2);
+}
+
+.list-details__item i {
+    margin-top: 0.7rem;
+    font-size: 0.6rem;
+    color: var(--color-primary);
+}
+
+.price__content .appointment__btn {
+    align-self: center;
+    margin-top: auto;
+}
+
+/* ===========================================================================
+   8. COMO EMPEZAR
+   =========================================================================== */
+
+.how-start__header {
+    text-align: center;
+}
+
+.how-start__steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(26rem, 1fr));
+    gap: 2.6rem;
+}
+
+/* El tema separaba los pasos con un borde vertical; con tarjetas sobra. */
+.how-start__step {
+    height: 100%;
+    padding: 4rem 3rem;
+    border: none;
+    border-radius: var(--web-radio);
+    background-color: var(--color-white2);
+    box-shadow: var(--web-sombra);
+    text-align: center;
+}
+
+.step__container-ico {
+    display: grid;
+    place-items: center;
+    width: 6.4rem;
+    height: 6.4rem;
+    margin: 0 auto 2.2rem;
+    border-radius: 50%;
+    background-color: var(--color-white3);
+    font-size: 2.4rem;
+    color: var(--color-primary);
+}
+
+.step__title {
+    margin-bottom: 1rem;
+    font-size: 2.1rem;
+    color: var(--color-black);
+}
+
+.step__description {
+    font-size: 1.5rem;
+    line-height: 1.7;
+    color: var(--color-gray2);
+}
+
+/* ===========================================================================
+   9. BLOG
+   =========================================================================== */
+
+.blog__header {
+    text-align: center;
+}
+
+/* Los articulos van uno debajo de otro, en tarjetas anchas con la foto a un
+   lado: se leen mucho mejor que en tres columnas estrechas. */
+.blog__articles {
+    display: flex;
+    flex-direction: column;
+    gap: 2.6rem;
+    max-width: 94rem;
+    margin: 0 auto;
+}
+
+/* Alto fijo: todas las tarjetas miden lo mismo aunque las fotos tengan
+   proporciones distintas y los textos longitudes distintas. */
+.articles__article {
+    display: grid;
+    grid-template-columns: minmax(0, 34rem) minmax(0, 1fr);
+    align-items: stretch;
+    height: 27rem;
+    border: 0.1rem solid rgba(26, 20, 20, 0.06);
+    border-radius: var(--web-radio);
+    background-color: var(--color-white2);
+    box-shadow: var(--web-sombra);
+    overflow: hidden;
+    transition: transform var(--web-transicion), box-shadow var(--web-transicion);
+}
+
+/* El tema tapaba la tarjeta entera con un degradado oscuro para poder poner el
+   titulo encima de la foto. Aqui el titulo va fuera. */
+.articles__article::before {
+    display: none;
+}
+
+.articles__article:hover {
+    transform: translateY(-0.4rem);
+    box-shadow: var(--web-sombra-alta);
+}
+
+.article__container-img {
+    position: relative;
+    margin-bottom: 0;
+    overflow: hidden;
+}
+
+/* En absoluto a proposito: un <img> es un elemento reemplazado y, dejandolo en
+   el flujo, imponia su proporcion intrinseca al alto de la fila. Las tarjetas
+   dejaban de medir lo mismo y acababan solapandose entre ellas. */
+.article__img {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    border-radius: 0;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.article__cuerpo {
+    display: flex;
+    flex-direction: column;
+    padding: 3.2rem 3.4rem;
+}
+
+/* Titulo y extracto se recortan a un numero fijo de lineas, para que ninguna
+   tarjeta desborde su alto por mucho texto que traiga el articulo. */
+.article__extracto {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    margin-top: 1.2rem;
+    font-size: 1.5rem;
+    line-height: 1.75;
+    color: var(--color-gray2);
+    overflow: hidden;
+}
+
+.articles__article:hover .article__img {
+    transform: scale(1.05);
+}
+
+.article__container-date {
+    position: absolute;
+    top: 1.6rem;
+    left: 1.6rem;
+    z-index: 2;
+    padding: 0.9rem 1.3rem;
+    border-radius: var(--web-radio-pequeno);
+    background-color: var(--color-primary);
+    box-shadow: var(--web-sombra-alta);
+}
+
+.article__date {
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 1.15;
+    text-align: center;
+    color: #ffffff;
+}
+
+/* El tema lo ponia en absoluto y en blanco, sobre el degradado. */
+.article__title {
+    position: static;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    padding: 0;
+    font-size: 2.4rem;
+    line-height: 1.35;
+    color: var(--color-black);
+    overflow: hidden;
+}
+
+.article__bottom-content {
+    position: static;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.6rem;
+    width: 100%;
+    padding: 2.4rem 0 0;
+    margin-top: auto;
+    border-radius: 0;
+    background-color: transparent;
+}
+
+.article__comments {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 1.35rem;
+    color: var(--color-gray3);
+}
+
+/* El tema le ponia font-weight 500 y Font Awesome Free Solid solo existe en
+   900: al no encontrar esa variante el navegador pintaba el cuadro de glifo
+   ausente en vez del icono. */
+.comments__ico {
+    font-weight: 900;
+    font-size: 1.3rem;
+    color: var(--color-primary);
+}
+
+.article__btn-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0;
+    border: none;
+    background: none;
+    font-family: inherit;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    cursor: pointer;
+}
+
+.article__btn-more:hover .btn-more__arrow {
+    transform: translateX(0.4rem);
+}
+
+.btn-more__arrow {
+    transition: transform var(--web-transicion);
+}
+
+/* ===========================================================================
+   10. BOTONES
+   =========================================================================== */
+
+/* El tema le daba un 45% de ancho fijo: dentro de una columna flex el boton
+   no se centraba y quedaba pegado a la izquierda. Se ajusta a su contenido. */
+.appointment__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.9rem;
+    width: auto;
+    padding: 1.4rem 3rem;
+    border: 0.2rem solid var(--color-primary);
+    border-radius: 3rem;
+    background-color: var(--color-primary);
+    font-size: 1.55rem;
+    font-weight: 600;
+    color: #ffffff;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color var(--web-transicion), color var(--web-transicion),
+                transform var(--web-transicion), box-shadow var(--web-transicion);
+}
+
+.appointment__btn:hover {
+    transform: translateY(-0.2rem);
+    box-shadow: var(--web-sombra-alta);
+}
+
+.appointment__btn--claro {
+    background-color: transparent;
+    color: var(--color-primary);
+}
+
+.appointment__btn--claro:hover {
+    background-color: var(--color-primary);
+    color: #ffffff;
+}
+
+/* ===========================================================================
+   11. CONTENIDO CON FORMATO
+   =========================================================================== */
+
+.contenido-web {
+    font-size: 1.6rem;
+    line-height: 1.8;
+}
+
+.contenido-web p {
+    margin-bottom: 1.6rem;
+}
+
+.contenido-web p:last-child {
+    margin-bottom: 0;
+}
+
+.contenido-web h2,
+.contenido-web h3 {
+    margin-bottom: 1.2rem;
+    color: var(--color-black);
+}
+
+.contenido-web ul,
+.contenido-web ol {
+    padding-left: 2.2rem;
+    margin-bottom: 1.6rem;
+    list-style: disc;
+}
+
+.contenido-web a {
+    color: var(--color-primary);
+    text-decoration: underline;
+}
+
+.seccion__mas,
+.services__mas,
+.blog__mas {
+    display: flex;
+    justify-content: center;
+    margin-top: 4.5rem;
+}
+
+/* ===========================================================================
+   12. PREGUNTAS FRECUENTES
+   =========================================================================== */
+
+/* El ancho es fijo abriendo y cerrando: sin el width, el margin auto anula el
+   estirado del item flex y la caja pasaba a medir lo que midiese su contenido,
+   que cambia al desplegar una respuesta. */
+.acordeon-web {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    width: 100%;
+    max-width: 88rem;
+    margin: 0 auto;
+}
+
+.acordeon-web__pieza {
+    border: 0.1rem solid rgba(26, 20, 20, 0.07);
+    border-radius: var(--web-radio-pequeno);
+    background-color: var(--color-white2);
+    overflow: hidden;
+    transition: box-shadow var(--web-transicion);
+}
+
+.acordeon-web__pieza:hover {
+    box-shadow: var(--web-sombra);
+}
+
+.acordeon-web__cabecera {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.6rem;
+    width: 100%;
+    padding: 2rem 2.4rem;
+    border: none;
+    background: none;
+    font-family: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.acordeon-web__pregunta {
+    font-size: 1.7rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--color-black);
+}
+
+.acordeon-web__flecha {
+    flex-shrink: 0;
+    font-size: 1.3rem;
+    color: var(--color-primary);
+    transition: transform 0.3s ease;
+}
+
+.acordeon-web__cabecera[aria-expanded="true"] .acordeon-web__flecha {
+    transform: rotate(180deg);
+}
+
+/* Despliegue suave: se anima la fraccion de la fila (0fr -> 1fr), que es la
+   forma de transicionar una altura automatica sin medirla en JS. La
+   visibilidad se conmuta al final para que lo cerrado no lo lea un lector de
+   pantalla ni reciba el foco. */
+.acordeon-web__respuesta {
+    display: grid;
+    grid-template-rows: 0fr;
+    visibility: hidden;
+    font-size: 1.5rem;
+    color: var(--color-gray2);
+    transition: grid-template-rows 0.35s ease, visibility 0s linear 0.35s;
+}
+
+.acordeon-web__pieza--abierta .acordeon-web__respuesta {
+    grid-template-rows: 1fr;
+    visibility: visible;
+    transition: grid-template-rows 0.35s ease, visibility 0s;
+}
+
+/* El relleno vive aqui dentro: en el elemento de la fila sumaria altura y
+   dejaria un hueco visible con el acordeon cerrado. */
+.acordeon-web__cuerpo {
+    min-height: 0;
+    overflow: hidden;
+}
+
+.acordeon-web__cuerpo .contenido-web {
+    padding: 0 2.4rem 2.2rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .acordeon-web__respuesta,
+    .acordeon-web__pieza--abierta .acordeon-web__respuesta {
+        transition: none;
+    }
+}
+
+/* ===========================================================================
+   13. DONDE ESTAMOS
+   =========================================================================== */
+
+.layout__contacto {
+    background-color: var(--color-white3);
+}
+
+.contacto__header {
+    text-align: center;
+}
+
+.contacto__cuerpo {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    align-items: stretch;
+    gap: 3.5rem;
+}
+
+.contacto__datos {
+    display: flex;
+    flex-direction: column;
+    padding: 3.4rem 3rem;
+    border-radius: var(--web-radio);
+    background-color: var(--color-white2);
+    box-shadow: var(--web-sombra);
+}
+
+.contacto__dato {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.4rem;
+    margin-bottom: 1.8rem;
+    font-size: 1.55rem;
+    line-height: 1.55;
+    color: var(--color-gray2);
+}
+
+.contacto__dato i {
+    display: grid;
+    place-items: center;
+    width: 3.6rem;
+    height: 3.6rem;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background-color: var(--color-white3);
+    font-size: 1.5rem;
+    color: var(--color-primary);
+}
+
+.contacto__dato a:hover {
+    text-decoration: underline;
+}
+
+.contacto__botones {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.2rem;
+    margin-top: auto;
+    padding-top: 2.4rem;
+}
+
+.contacto__mapa {
+    min-height: 34rem;
+    border-radius: var(--web-radio);
+    overflow: hidden;
+    box-shadow: var(--web-sombra);
+}
+
+.contacto__mapa iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 34rem;
+    border: none;
+}
+
+/* ===========================================================================
+   14. PIDE CITA
+   =========================================================================== */
+
+.reservas__header {
+    text-align: center;
+}
+
+.reservas__cuerpo {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    align-items: start;
+    gap: 3.5rem;
+}
+
+.reservas__formulario {
+    padding: 3.4rem 3rem;
+    border-radius: var(--web-radio);
+    background-color: var(--color-white2);
+    box-shadow: var(--web-sombra);
+}
+
+.reservas__contacto-directo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    margin-top: 2.4rem;
+}
+
+/* En el lateral, "donde estamos" pesa menos que la reserva. */
+.reservas__lateral .layout__contacto {
+    padding: 0;
+    background-color: transparent;
+}
+
+.reservas__lateral .contacto__header {
+    margin-bottom: 2.4rem;
+    text-align: left;
+}
+
+.reservas__lateral .contacto__title {
+    font-size: 2.4rem;
+}
+
+.reservas__lateral .contacto__cuerpo {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+}
+
+.reservas__lateral .contacto__datos {
+    padding: 2.6rem 2.2rem;
+}
+
+.reservas__lateral .contacto__mapa,
+.reservas__lateral .contacto__mapa iframe {
+    min-height: 24rem;
+}
+
+/* ---------- Avisos ---------- */
+
+.aviso-web {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.6rem;
+    padding: 2.4rem;
+    border-radius: var(--web-radio-pequeno);
+    background-color: var(--color-white3);
+    font-size: 1.55rem;
+    line-height: 1.7;
+    color: var(--color-gray2);
+}
+
+.aviso-web > i {
+    margin-top: 0.3rem;
+    font-size: 2rem;
+    color: var(--color-primary);
+}
+
+.aviso-web__titulo {
+    margin-bottom: 0.6rem;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--color-black);
+}
+
+.aviso-web--atencion {
+    background-color: var(--color-orange4);
+}
+
+/* ===========================================================================
+   15. PIE
+   =========================================================================== */
+
+.layout__footer {
+    margin-top: 0;
+}
+
+.footer__footer-top {
+    padding: 0;
+}
+
+/* El tema anadia otros 3rem de padding aqui, encima de los del bloque: el pie
+   quedaba desproporcionado. */
+.footer__container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.6rem;
+    width: 100%;
+    max-width: var(--web-ancho);
+    padding: 2.2rem 2rem;
+    margin: 0 auto;
+}
+
+.footer-top__social {
+    display: flex;
+    align-items: center;
+    gap: 1.4rem;
+}
+
+.social__label {
+    font-size: 1.4rem;
+    opacity: 0.8;
+}
+
+.social__list-social {
+    display: flex;
+    gap: 0.8rem;
+}
+
+/* El tema dibujaba el circulo en el <li> y lo invertia al pasar por encima
+   (fondo blanco y color primario). Con el circulo tambien en el enlace salian
+   dos, uno dentro de otro, y el icono heredaba ese color primario sobre un
+   fondo primario: se volvia invisible. El <li> pasa a ser un envoltorio. */
+.list-social__item {
+    width: auto;
+    height: auto;
+    background-color: transparent;
+    border-radius: 0;
+}
+
+.list-social__item:hover {
+    background-color: transparent;
+    color: inherit;
+}
+
+.list-social__link {
+    display: grid;
+    place-items: center;
+    width: 3.6rem;
+    height: 3.6rem;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.12);
+    font-size: 1.4rem;
+    color: #ffffff;
+    transition: background-color var(--web-transicion), color var(--web-transicion),
+                transform var(--web-transicion);
+}
+
+.list-social__link:hover {
+    background-color: var(--color-primary);
+    color: #ffffff;
+    transform: translateY(-0.3rem);
+}
+
+.footer__footer-bottom .footer__container {
+    padding: 1.6rem 2rem;
+    border-top: 0.1rem solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-bottom__copyright {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.2rem;
+    width: 100%;
+    font-size: 1.3rem;
+    font-weight: 400;
+    text-align: center;
+    opacity: 0.7;
+}
+
+.footer-bottom__colegiada {
+    font-size: 1.3rem;
+}
+
+/* ===========================================================================
+   16. BARRA DE ACCIONES EN MOVIL
+   =========================================================================== */
+
+.acciones-movil {
+    display: none;
+}
+
+/* ===========================================================================
+   17. RESPONSIVE
+   =========================================================================== */
+
+@media (max-width: 1100px) {
+    /* Portada a una columna, solo texto. La cabecera flota en absolute sobre
+       ella, asi que el hueco se reserva en el padding del contenido. */
+    .layout__banner {
+        grid-template-columns: minmax(0, 1fr);
+        height: auto;
+        min-height: 0;
+        text-align: center;
+    }
+
+    .banner__content {
+        justify-self: center;
+        max-width: 64rem;
+        padding: calc(var(--web-cabecera) + 3rem) 2.4rem 5rem;
+    }
+
+    .banner__appointment {
+        justify-content: center;
+    }
+
+    .banner__puntos {
+        align-items: center;
+    }
+
+    /* Sin la foto: apilada ocupa toda la pantalla y se ve un primer plano
+       recortado de la cara, que queda peor que no ponerla. */
+    .banner__container-img,
+    .banner__shapes {
+        display: none;
+    }
+
+    .experience__container,
+    .contacto__cuerpo,
+    .reservas__cuerpo,
+    .articles__article {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    /* Apilado, todo centrado. El tema lo hacia con align-items sobre un flex
+       en columna; al pasarlo a grid, quien centra en horizontal es
+       justify-items. */
+    .experience__container {
+        justify-items: center;
+    }
+
+    .experience__container-img {
+        max-width: 44rem;
+        margin: 0 auto;
+    }
+
+    /* El tema le pone aqui un ancho fijo de 600px, que se sale en pantallas
+       estrechas. */
+    .experience__data {
+        width: 100%;
+        max-width: 60rem;
+        padding: 3.2rem 2.6rem;
+        margin: 0 auto;
+    }
+
+    /* Apiladas: la foto vuelve al flujo con un alto fijo y la tarjeta crece
+       con su contenido. */
+    .articles__article {
+        height: auto;
+    }
+
+    .article__container-img {
+        height: 24rem;
+    }
+
+    .article__cuerpo {
+        padding: 2.6rem;
+    }
+
+    .layout__nav {
+        padding: 1.4rem 2.4rem;
+    }
+
+    .nav__list-nav,
+    .contact__phone {
+        display: none;
+    }
+
+    /* Al principio de la cabecera, antes del nombre. */
+    .nav__btn-menu-mobile {
+        display: grid;
+        order: -1;
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --web-seccion: 6rem;
+        --web-seccion-corta: 4.5rem;
+    }
+
+    .services__header,
+    .prices__header,
+    .blog__header,
+    .how-start__header,
+    .contacto__header,
+    .reservas__header {
+        margin-bottom: 3.5rem;
+        text-align: center;
+    }
+
+    .contacto__datos,
+    .reservas__formulario {
+        padding: 2.4rem 1.8rem;
+    }
+
+    .therapies__therapy,
+    .how-start__step {
+        padding: 3rem 2.2rem;
+    }
+
+    .experience__container-img {
+        height: 34rem;
+    }
+
+    .article__title {
+        font-size: 2.1rem;
+    }
+
+    .acciones-movil {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 90;
+        display: flex;
+        border-top: 0.1rem solid rgba(26, 20, 20, 0.08);
+        background-color: var(--color-white2);
+        box-shadow: 0 -0.2rem 1.2rem rgba(26, 20, 20, 0.08);
+    }
+
+    .acciones-movil__accion {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.4rem;
+        flex: 1;
+        padding: 1rem 0.4rem;
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: var(--color-gray2);
+    }
+
+    .acciones-movil__accion i {
+        font-size: 1.8rem;
+        color: var(--color-primary);
+    }
+
+    .acciones-movil__accion--principal {
+        background-color: var(--color-primary);
+        color: #ffffff;
+    }
+
+    .acciones-movil__accion--principal i {
+        color: #ffffff;
+    }
+
+    /* Hueco para que la barra no tape el final de la pagina. */
+    body {
+        padding-bottom: 6.6rem;
+    }
+
+    .layout__container-go-top {
+        bottom: 8.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .layout__nav {
+        padding: 1.2rem 1.6rem;
+    }
+
+    .header__title {
+        font-size: 1.6rem;
+    }
+
+    .banner__title {
+        font-size: 2.8rem;
+    }
+
+    .appointment__btn {
+        width: 100%;
+        padding: 1.3rem 2rem;
+    }
+
+    .article__cuerpo {
+        padding: 2.2rem 1.8rem;
+    }
+
+    .footer__container {
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
+}
+
+/* ===========================================================================
+   18. ICONO DE X (TWITTER)
+
+   Font Awesome 6.1.2 no trae el glifo fa-x-twitter (llego en la 6.4.2), asi
+   que el enlace de X salia sin icono. Se dibuja recortando el logotipo sobre
+   currentColor, para que tome el color de cada tema.
+   =========================================================================== */
+
+.fa-x-twitter::before {
+    content: "";
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.125em;
+    background-color: currentColor;
+    -webkit-mask: var(--icono-x) center / contain no-repeat;
+    mask: var(--icono-x) center / contain no-repeat;
+}

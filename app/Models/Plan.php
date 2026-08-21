@@ -49,6 +49,27 @@ class Plan extends Model
         return number_format((float) $this->precio, 2, ',', '.') . ' €';
     }
 
+    /** Sin decimales cuando el precio es redondo: "55 €" en vez de "55,00 €". */
+    public function getPrecioCortoAttribute(): string
+    {
+        $precio = (float) $this->precio;
+        $decimales = fmod($precio, 1) === 0.0 ? 0 : 2;
+
+        return number_format($precio, $decimales, ',', '.') . ' €';
+    }
+
+    /** Duracion de la sesion que corresponde a la modalidad del plan. */
+    public function getDuracionAttribute(): ?int
+    {
+        $configuracion = ConfiguracionDisponibilidad::actual();
+
+        $minutos = $this->modalidad === 'online'
+            ? $configuracion->duracion_online
+            : $configuracion->duracion_presencial;
+
+        return $minutos > 0 ? (int) $minutos : null;
+    }
+
     public function getCaracteristicasTextoAttribute(): string
     {
         return implode("\n", $this->caracteristicas ?? []);

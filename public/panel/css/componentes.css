@@ -1117,3 +1117,23 @@ textarea.campo__control {
     background-color: var(--panel-superficie-suave);
     font-size: 1.35rem;
 }
+
+/* ---------------------------------------------------------------------------
+   Icono de X (Twitter)
+
+   La fuente que usa el proyecto es Font Awesome 6.1.2 y el glifo fa-x-twitter
+   no llego hasta la 6.4.2: por eso el hueco salia vacio. Se dibuja con el
+   logotipo en SVG recortado sobre currentColor, asi hereda el color del tema
+   claro y del oscuro igual que el resto de iconos.
+   --------------------------------------------------------------------------- */
+
+.fa-x-twitter::before {
+    content: "";
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.125em;
+    background-color: currentColor;
+    -webkit-mask: var(--icono-x) center / contain no-repeat;
+    mask: var(--icono-x) center / contain no-repeat;
+}

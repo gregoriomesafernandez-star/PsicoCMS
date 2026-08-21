@@ -13,6 +13,10 @@ class FrasePublicaSeeder extends Seeder
             'hero' => [
                 'hero_boton_cita' => 'Pedir cita',
                 'hero_boton_contacto' => 'Hablamos',
+                'hero_boton_conoceme' => 'Conoceme',
+                'hero_punto_1' => 'Sesiones presenciales y online',
+                'hero_punto_2' => 'Confidencialidad total',
+                'hero_punto_3' => 'Enfoque basado en evidencia',
             ],
             'sobre_mi' => [
                 'sobre_mi_titulo' => 'Sobre mi',
@@ -28,7 +32,7 @@ class FrasePublicaSeeder extends Seeder
             ],
             'planes' => [
                 'planes_titulo' => 'Planes y precios',
-                'planes_subtitulo' => 'Sesiones online y presenciales',
+                'planes_subtitulo' => 'Sesiones presenciales y online',
             ],
             'como_empezar' => [
                 'como_empezar_titulo' => 'Como empezamos',

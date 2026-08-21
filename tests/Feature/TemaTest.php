@@ -250,14 +250,18 @@ class TemaTest extends TestCase
 
     public function test_la_previsualizacion_distingue_los_dos_formatos(): void
     {
+        // El menu solo enlaza secciones con contenido, asi que hace falta uno.
+        Servicio::create(['titulo' => 'Terapia individual', 'orden' => 1, 'activo' => true]);
+
+        // En multipagina el menu lleva a direcciones propias...
         $this->get(route('panel.temas.previsualizar', ['slug' => 'nube', 'modo' => 'multipagina']))
             ->assertOk()
-            ->assertSee('Cada seccion en su propia direccion')
-            ->assertSee('/preguntas-frecuentes');
+            ->assertSee(route('publico.servicios'), false);
 
+        // ...y en landing, a anclas de la portada.
         $this->get(route('panel.temas.previsualizar', ['slug' => 'nube', 'modo' => 'landing']))
             ->assertOk()
-            ->assertDontSee('Cada seccion en su propia direccion');
+            ->assertSee(route('home') . '#servicios', false);
     }
 
     public function test_sin_modo_la_previsualizacion_usa_el_configurado(): void
@@ -266,7 +270,8 @@ class TemaTest extends TestCase
 
         $this->assertSame(
             'multipagina',
-            $this->get(route('panel.temas.previsualizar', 'aurora'))->assertOk()->viewData('modo')
+            $this->get(route('panel.temas.previsualizar', 'aurora'))
+                ->assertOk()->viewData('previsualizacion')['modo']
         );
     }
 
@@ -277,8 +282,10 @@ class TemaTest extends TestCase
 
     public function test_la_previsualizacion_aguanta_una_web_vacia(): void
     {
+        // Sin perfil relleno, la portada se pinta igual con los textos por defecto.
         $this->get(route('panel.temas.previsualizar', 'base'))
             ->assertOk()
-            ->assertSee('Tu nombre');
+            ->assertSee('aviso-previa', false)
+            ->assertSee('themes/base/css/theme.css', false);
     }
 }
