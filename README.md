@@ -91,11 +91,13 @@ Follow the web installer to configure the MySQL database and complete the instal
 
 ## Configuration
 
-The application uses MySQL as its database system.
+PsicoCMS uses MySQL as its database system.
 
-Database connection settings are configured through the web installer.
+- **Automatic database creation:** The web installer automatically creates the database during the installation process. No manual database creation through phpMyAdmin is required.
+- **Database configuration:** Configure the MySQL connection through the web installer.
+- **Requirements:** Make sure PHP, Composer, and MySQL are installed and running before starting the installation.
 
-Make sure PHP, Composer, and MySQL are installed and running before starting the installation.
+The MySQL user must have the necessary permissions to create databases.
 
 ---
 
