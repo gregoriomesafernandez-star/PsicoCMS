@@ -65,13 +65,21 @@ cp .env.example .env
 php artisan key:generate
 ```
 
-### 5. Start the development server
+### 5. Create the storage link
+
+Create the symbolic link required to serve uploaded files and images:
+
+```bash
+php artisan storage:link
+```
+
+### 6. Start the development server
 
 ```bash
 php artisan serve
 ```
 
-### 6. Complete the installation
+### 7. Complete the installation
 
 Open the application in your browser:
 
