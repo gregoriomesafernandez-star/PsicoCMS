@@ -1,6 +1,6 @@
 # PsicoCMS (Laravel)
 
-A content management system for psychology practices built with Laravel. PsicoCMS provides a web-based installation wizard to configure the database and set up the application.
+PsicoCMS is a content management system for psychology practices built with Laravel 12. It features a web-based installation wizard that automatically creates and configures the MySQL database. Developed with assistance from Claude AI, following the Spec-Driven Development (SSD) methodology.
 
 ---
 
